@@ -1,8 +1,10 @@
 import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import logo from "../../Assets/logo.svg";
 import imgHome from "../../Assets/undraw_Dev_focus_re_6iwt 1.svg";
+import { useHistory } from "react-router-dom";
 
 export const Home = () => {
+  const history = useHistory();
   return (
     <Flex
       h="100vh"
@@ -37,6 +39,7 @@ export const Home = () => {
           _hover={{
             background: "purple.400",
           }}
+          onClick={() => history.push("/login")}
         >
           Logar
         </Button>
@@ -54,6 +57,7 @@ export const Home = () => {
           _hover={{
             background: "purple.400",
           }}
+          onClick={() => history.push("/register")}
         >
           Registrar
         </Button>

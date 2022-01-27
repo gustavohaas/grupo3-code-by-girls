@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import logo from "../../Assets/logo.svg";
 import logoMobile from "../../Assets/logoMobile.svg";
 import imgHome from "../../Assets/undraw_Dev_focus_re_6iwt 1.svg";
@@ -19,11 +19,9 @@ export const Home = () => {
       <Heading display={["none", "none", "block"]}>
         <Image src={logo} alt="code-by-girls" />
       </Heading>
-
       <Heading mb="20px" display={["block", "block", "none"]}>
         <Image src={logoMobile} alt="code-by-girls" />
       </Heading>
-
       <Flex justifyContent={["center"]} alignItems={["center"]}>
         <Button
           w={["200px", "200px", "100px", "150px"]}

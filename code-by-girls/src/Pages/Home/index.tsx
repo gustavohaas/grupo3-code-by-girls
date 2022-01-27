@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Image } from "@chakra-ui/react";
 import logo from "../../Assets/logo.svg";
 import logoMobile from "../../Assets/logoMobile.svg";
 import imgHome from "../../Assets/undraw_Dev_focus_re_6iwt 1.svg";

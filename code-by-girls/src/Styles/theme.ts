@@ -9,9 +9,12 @@ export const theme = extendTheme({
       250: "#bdbdbd",
       300: "#9e9ea7",
       400: "#666665",
+      600: "#282c34",
       900: "#111",
     },
     purple: {
+      100: "#79579B",
+      300: "#7f81b8",
       400: "#701c7a",
       500: "#570861",
     },
@@ -24,4 +27,8 @@ export const theme = extendTheme({
       600: "#168821",
     },
   },
+  fonts: {
+    heading: "PT Serif, serif",
+    body: "Roboto Mono,  monospace"
+  }
 });

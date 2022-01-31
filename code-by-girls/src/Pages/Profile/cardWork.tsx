@@ -1,12 +1,18 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
-interface CardWorkProps {
-  img: string;
+interface CardWorks {
+  img?: string;
+  userId: string;
   title: string;
   description: string;
+  id: string;
 }
 
-export const CardWork = (work: CardWorkProps) => {
+interface CardWorkProps {
+  work: CardWorks
+}
+
+export const CardWork = ({work}: CardWorkProps) => {
   return (
     <Flex w="250px" h="100px" boxShadow="md" p="6" rounded="md" bg="white">
       <Box>

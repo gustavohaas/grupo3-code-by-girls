@@ -17,7 +17,7 @@ export const Routes = () => {
 
       <Route path="/dashboard/" component={Dashboard} />
 
-      <Route path="/perfil" component={Profile} />
+      <Route path="/profile" component={Profile} />
     </Switch>
   );
 };

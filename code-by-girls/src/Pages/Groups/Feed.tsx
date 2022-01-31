@@ -1,8 +1,9 @@
 import { Flex, Image, Heading, Input, Box } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 import { api } from "../../Services/api";
+import { useLogin } from "../../Providers/Login/index";
 
 interface CommentData {
   userId: number;
@@ -11,15 +12,16 @@ interface CommentData {
   groupId: number;
 }
 
-//interface usada para fazer o POSTno endpoint comment
+//groupId tem que vir do Criar Grupo
 
 export const Feed = () => {
   const [newComment, setNewComment] = useState("");
+  const { data } = useLogin();
+  const { id, userName } = data.user;
 
   const handleComment = ({ userId, name, comment, groupId }: CommentData) => {
-    comment = newComment;
     api
-      .post("/comments", { userId, name, comment, groupId })
+      .post("/comments", { id, userName, newComment, groupId })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };

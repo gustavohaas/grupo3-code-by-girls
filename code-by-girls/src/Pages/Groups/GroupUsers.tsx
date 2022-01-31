@@ -1,9 +1,9 @@
 import { Flex, Grid, Heading, Image } from "@chakra-ui/react";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
+import { useLogin } from "../../Providers/Login";
 
 export const GroupUsers = () => {
-  //fazer um get com os usuariosinsritos no grupo e renderizar o card com map
-  //GET /groups/{ GroupId }?_embed=subscribe&_embed=comments - subscribe
+  const { data } = useLogin();
 
   return (
     <Flex
@@ -37,60 +37,6 @@ export const GroupUsers = () => {
         direction={["row", "column"]}
         wrap={["nowrap", "wrap"]}
       >
-        <Flex
-          w="250px"
-          h="80px"
-          backgroundColor={"#DCDCDC"}
-          m="20px"
-          alignItems={["center"]}
-          justifyContent={["center"]}
-        >
-          <Image
-            src={group}
-            alt="groups"
-            w="40px"
-            h="36.81px"
-            margin={"10px"}
-          ></Image>
-          <p>UserName</p>
-        </Flex>
-
-        <Flex
-          w="250px"
-          h="80px"
-          backgroundColor={"#DCDCDC"}
-          m="20px"
-          alignItems={["center"]}
-          justifyContent={["center"]}
-        >
-          <Image
-            src={group}
-            alt="groups"
-            w="40px"
-            h="36.81px"
-            margin={"10px"}
-          ></Image>
-          <p>UserName</p>
-        </Flex>
-
-        <Flex
-          w="250px"
-          h="80px"
-          backgroundColor={"#DCDCDC"}
-          m="20px"
-          alignItems={["center"]}
-          justifyContent={["center"]}
-        >
-          <Image
-            src={group}
-            alt="groups"
-            w="40px"
-            h="36.81px"
-            margin={"10px"}
-          ></Image>
-          <p>UserName</p>
-        </Flex>
-
         <Flex
           w="250px"
           h="80px"

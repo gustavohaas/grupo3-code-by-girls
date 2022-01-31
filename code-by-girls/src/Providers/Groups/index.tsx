@@ -7,8 +7,6 @@ import {
   useEffect,
 } from "react";
 
-import { api } from "../../Services/api";
-
 interface Group {
   userId: number;
   groupName: string;
@@ -31,11 +29,6 @@ const useGroupList = () => {
 };
 
 const GroupsProvider = ({ children }: GroupsChildren) => {
-  // useEffect(() => {
-  //   fetch(`api${"/works"}`)
-  //     .then((response) => response.json())
-  //     .then((response) => console.log(response));
-  // }, []);
   return <GroupsContext.Provider value={{}}>{children}</GroupsContext.Provider>;
 };
 

@@ -1,10 +1,10 @@
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { useEffect } from "react";
-import { CardSkill } from "./cardTesk";
 import { useProfile } from "../../Providers/Profile";
 import { useLogin } from "../../Providers/Login";
-import { CardWork } from "./cardWork";
+import { CardSkills } from "../../Components/CardSkills";
+import { CardWorks } from "../../Components/CardWorks";
 
 export const Profile = () => {
 
@@ -47,7 +47,7 @@ export const Profile = () => {
             borderColor="purple.400"
             h="298px"
           >
-            {skills?.map((skill) => <CardSkill skill={skill} />)}
+            {skills?.map((skill) => <CardSkills skill={skill} />)}
             
           </Flex>
         </Box>
@@ -81,7 +81,7 @@ export const Profile = () => {
             borderColor="purple.400"
             h="298px"
           >
-            {works?.map((work) => <CardWork work={work} />)}
+            {works?.map((work) => <CardWorks work={work} />)}
           </Flex>
         </Box>
       </Flex>

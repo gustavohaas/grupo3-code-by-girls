@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { Feed } from "./Feed";
+import { GroupUsers } from "./GroupUsers";
 
 export const Groups = () => {
   return (
@@ -11,6 +12,7 @@ export const Groups = () => {
       w="100vw"
       h="100vh"
     >
+      <GroupUsers />
       <Feed />
     </Flex>
   );

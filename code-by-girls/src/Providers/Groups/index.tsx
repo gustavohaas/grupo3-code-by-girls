@@ -4,34 +4,39 @@ import {
   useCallback,
   useContext,
   useState,
+  useEffect,
 } from "react";
 
 import { api } from "../../Services/api";
 
-interface GroupsProviderProps {
-  addComment: (userPost: string) => void;
+interface Group {
+  userId: number;
+  groupName: string;
+  description: string;
 }
-
-interface Comment {
-  id: number;
-  user: string;
-  comment: string;
-}
-const GroupsContext = createContext<GroupsProviderProps>(
-  {} as GroupsProviderProps
-);
+interface GroupsProviderProps {}
 
 interface GroupsChildren {
   children: ReactNode;
 }
 
-// export const GroupsProvider = ({ children }: GroupsChildren) => {
-//   const [feed, setFeed] = useState<Comment[]>([]);
+const GroupsContext = createContext<GroupsProviderProps>(
+  {} as GroupsProviderProps
+);
 
-//   const addComment = (userPost: string) => {
-//     const { userPost } = Comment;
-//     setFeed([...feed, newComment]);
-//   };
+const useGroupList = () => {
+  const context = useContext(GroupsContext);
 
-  return <GroupsContext.Provider value={}>{children}</GroupsContext.Provider>;
+  return context;
 };
+
+const GroupsProvider = ({ children }: GroupsChildren) => {
+  // useEffect(() => {
+  //   fetch(`api${"/works"}`)
+  //     .then((response) => response.json())
+  //     .then((response) => console.log(response));
+  // }, []);
+  return <GroupsContext.Provider value={{}}>{children}</GroupsContext.Provider>;
+};
+
+export { GroupsProvider, useGroupList };

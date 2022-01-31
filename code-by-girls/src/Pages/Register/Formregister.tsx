@@ -1,5 +1,13 @@
-import { Grid, Heading, VStack, Box, Button, Text } from "@chakra-ui/react";
-
+import {
+  Grid,
+  Heading,
+  VStack,
+  Box,
+  Button,
+  Text,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, useForm } from "react-hook-form";
@@ -7,6 +15,7 @@ import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Input } from "../../Components/Form/input";
+import { useRegister } from "../../Providers/Register/index";
 
 interface RegisterData extends FieldValues {
   password: string;
@@ -15,6 +24,10 @@ interface RegisterData extends FieldValues {
 
 export const RegisterForm = () => {
   const [isRegister, setIsRegister] = useState(false);
+
+  const { handleRegister } = useRegister();
+  const toast = useToast();
+  const history = useHistory();
 
   const schema = yup.object().shape({
     userName: yup.string().required("Campo obrigatório"),
@@ -35,12 +48,40 @@ export const RegisterForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleRegisterSubmit = (data: any) => {
-    console.log(data);
-    // setIsRegister(true);
-  };
+  const {
+    isOpen: isModalSuccessOpen,
+    onOpen: onModalSuccessOpen,
+    onClose: onModalSuccessClose,
+  } = useDisclosure();
 
-  const history = useHistory();
+  const {
+    isOpen: isModalErrorOpen,
+    onOpen: onModalErrorOpen,
+    onClose: onModalErrorClose,
+  } = useDisclosure();
+
+  const handleRegisterSubmit = ({ email, password, userName }: any) => {
+    const newData = { email, password, userName };
+    setIsRegister(true);
+    handleRegister(newData)
+      .then((_) => {
+        setIsRegister(false);
+        toast({
+          title: `Deu tudo certo com seu registro!`,
+          status: "success",
+          isClosable: true,
+        });
+        history.push("/login");
+      })
+      .catch((_) => {
+        setIsRegister(false);
+        toast({
+          title: `Opss.. esse email já existe!`,
+          status: "error",
+          isClosable: true,
+        });
+      });
+  };
 
   return (
     <>
@@ -73,7 +114,7 @@ export const RegisterForm = () => {
             <Input
               placeholder="Digite seu melhor email"
               icon={FaEnvelope}
-              label="Login"
+              label="Email"
               type="email"
               {...register("email")}
               error={errors.email}

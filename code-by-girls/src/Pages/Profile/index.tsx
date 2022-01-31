@@ -3,18 +3,34 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 
 export const Profile = () => {
   return (
-    <Flex w="100vw" h="100vh" bg="gray.50" justifyContent="center">
-      <Flex flexDir="column" w="65%" marginY="5">
-        <Box h="100%" w="90%">
+    <Flex
+      w="100vw"
+      bg="gray.50"
+      justifyContent={["flex-start", "center", "center", "center"]}
+      flexDir={["column", "column", "row", "row"]}
+      alignItems="center"
+    >
+      <Flex
+        flexDir="column"
+        w={["90%", "80%", "50%", "40%", "50%"]}
+        mt={["10px", "", "20px", "25px"]}
+        alignItems="center"
+      >
+        <Box h="100%" w={["100%", "90%"]} mb={["5"]}>
           <Box
             bg="purple.100"
             display="flex"
-            h="100px"
+            h={["50px", "60px", "80px", "100px"]}
             flexDir="row"
             justifyContent="space-between"
             alignItems="center"
           >
-            <Heading as="h3" fontSize="2xl" color="gray.50" p="5">
+            <Heading
+              as="h3"
+              fontSize={["md", "lg", "lg", "xl"]}
+              color="gray.50"
+              p="5"
+            >
               Minhas Habilidades
             </Heading>
             <Box
@@ -32,20 +48,25 @@ export const Profile = () => {
             bg="white"
             border="2px solid"
             borderColor="purple.400"
-            h="298px"
+            h={["130", "130", "260", "260", "298px"]}
           ></Flex>
         </Box>
 
-        <Box w="90%">
+        <Box h="100%" w={["100%", "90%"]}>
           <Box
             bg="purple.100"
             display="flex"
-            h="100px"
+            h={["50px", "60px", "80px", "100px"]}
             flexDir="row"
             justifyContent="space-between"
             alignItems="center"
           >
-            <Heading as="h3" fontSize="2xl" color="gray.50" p="5">
+            <Heading
+              as="h3"
+              fontSize={["md", "lg", "lg", "xl"]}
+              color="gray.50"
+              p="10"
+            >
               Meus trabalhos
             </Heading>
             <Box
@@ -63,26 +84,41 @@ export const Profile = () => {
             bg="white"
             border="2px solid"
             borderColor="purple.400"
-            h="298px"
+            h={["130", "130", "260", "260", "298px"]}
           ></Flex>
         </Box>
       </Flex>
-      <Flex w="20vw">
-        <Box m="5" h="100vh" w="90%">
+
+      <Flex
+        w={["100vw", "90vw", "50vw", "50vw", "30vw"]}
+        flexDir="column"
+        alignItems="center"
+        mt={["5", "5", "9", "0", "0"]}
+        pt={[0, 0, "10", "auto", "0"]}
+      >
+        <Box
+          h="98vh"
+          w={["90%", "80%", "90%", "90%", "90%"]}
+          alignItems="center"
+          marginX={["none", "5", "5", "5"]}
+        >
           <Box
             bg="purple.100"
             display="flex"
-            h="100px"
+            h={["50px", "60px", "80px", "100px"]}
             flexDir="row"
-            justifyContent="space-between"
-            alignItems="center"
           >
-            <Heading as="h3" fontSize="2xl" color="gray.50" p="5">
+            <Heading
+              as="h3"
+              fontSize={["md", "lg", "xl", "2xl"]}
+              color="gray.50"
+              p="5"
+            >
               Grupos inscritos
             </Heading>
           </Box>
           <Flex
-            h="84.1%"
+            h={["130", "130", "82%", "84%", "84%", "90%"]}
             bg="white"
             border="2px solid"
             borderColor="purple.400"

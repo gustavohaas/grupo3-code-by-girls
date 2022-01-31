@@ -5,6 +5,7 @@ import {
   Heading,
   Image,
   Text,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 
@@ -18,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import { Input } from "../../Components/Form/input";
 
 import logo from "../../Assets/logo.svg";
+import { useLogin } from "../../Providers/Login";
 
 interface SignInData {
   email: string;
@@ -27,6 +29,10 @@ interface SignInData {
 export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState("");
+
+  const toast = useToast();
+
+  const { handleLogin } = useLogin();
 
   const schema = yup.object().shape({
     email: yup.string().required("Email obrigatório").email("Email inválido"),
@@ -41,8 +47,24 @@ export const LoginForm = () => {
   });
 
   const handleSignIn = (data: any) => {
-    // setIsLoading(true);
-    console.log(data);
+    setIsLoading(true);
+    handleLogin(data)
+      .then((_) => {
+        setIsLoading(false);
+        toast({
+          title: `Deu tudo certo com seu Login!`,
+          status: "success",
+          isClosable: true,
+        });
+      })
+      .catch((_) => {
+        setIsLoading(false);
+        toast({
+          title: `Opss.. esse login nao existe!`,
+          status: "error",
+          isClosable: true,
+        });
+      });
   };
 
   const history = useHistory();
@@ -80,7 +102,7 @@ export const LoginForm = () => {
               placeholder="Digite seu login"
               icon={FaEnvelope}
               {...register("email")}
-              label="Login"
+              label="Email"
               type="email"
               error={errors.email}
             />

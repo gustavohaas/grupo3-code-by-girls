@@ -3,6 +3,9 @@ import { Login } from "../Pages/Login";
 import { Home } from "../Pages/Home";
 import { Register } from "../Pages/Register";
 import { Route } from "./Route";
+
+import Dashboard from "../Pages/Dashboard";
+
 import { Profile } from "../Pages/Profile";
 
 export const Routes = () => {
@@ -11,7 +14,10 @@ export const Routes = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
-      <Route path="/perfil" component={Profile} />
+
+      <Route path="/dashboard/" component={Dashboard} />
+
+      <Route path="/profile" component={Profile} />
     </Switch>
   );
 };

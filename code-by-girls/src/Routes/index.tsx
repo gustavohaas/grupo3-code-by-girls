@@ -15,14 +15,11 @@ export const Routes = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
-<<<<<<< HEAD
       <Route exact path="/groups" component={Groups} />
-=======
 
       <Route path="/dashboard/" component={Dashboard} />
 
       <Route path="/perfil" component={Profile} />
->>>>>>> 35961b2cb9532a6176efadb966e88d0544ea8011
     </Switch>
   );
 };

@@ -11,19 +11,13 @@ interface AppProviderProps {
 }
 
 export const AppProvider = ({ children }: AppProviderProps) => (
-<<<<<<< HEAD
-  <GroupsProvider>
-=======
   <ProfileProvider>
->>>>>>> 35961b2cb9532a6176efadb966e88d0544ea8011
-    <RegisterProvider>
-      <LoginProvider>
-        <ChakraProvider theme={theme}>{children}</ChakraProvider>
-      </LoginProvider>
-    </RegisterProvider>
-<<<<<<< HEAD
-  </GroupsProvider>
-=======
+    <GroupsProvider>
+      <RegisterProvider>
+        <LoginProvider>
+          <ChakraProvider theme={theme}>{children}</ChakraProvider>
+        </LoginProvider>
+      </RegisterProvider>
+    </GroupsProvider>
   </ProfileProvider>
->>>>>>> 35961b2cb9532a6176efadb966e88d0544ea8011
 );

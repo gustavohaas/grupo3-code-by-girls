@@ -2,11 +2,9 @@ import { Flex, Image, Heading, Input, Box } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 import { useState } from "react";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
-import { userInfo } from "os";
 import { api } from "../../Services/api";
-import { wrap } from "module";
 
-interface comment {
+interface CommentData {
   userId: number;
   name: string;
   comment: string;
@@ -17,14 +15,13 @@ interface comment {
 
 export const Feed = () => {
   const [newComment, setNewComment] = useState("");
-  const testMock = {
-    userId: 1,
-    name: "Kenzie",
-    comment: "",
-    groupId: 2,
-  };
-  const handleComment = () => {
-    testMock.comment = newComment;
+
+  const handleComment = ({ userId, name, comment, groupId }: CommentData) => {
+    comment = newComment;
+    api
+      .post("/comments", { userId, name, comment, groupId })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -43,7 +40,6 @@ export const Feed = () => {
       <Flex
         backgroundColor="#D4C1E6"
         padding={"5px"}
-        minW="304px"
         w="100%"
         h="161px"
         mb="50px"
@@ -86,7 +82,7 @@ export const Feed = () => {
         ></Input>
 
         <MdSend
-          onClick={() => handleComment()}
+          onClick={() => handleComment}
           cursor={"pointer"}
           size={"21px"}
           color="#106cdc

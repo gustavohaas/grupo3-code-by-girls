@@ -1,7 +1,10 @@
-import { Box, Flex, Heading, Image } from "@chakra-ui/react";
+import { Flex, Grid, Heading, Image } from "@chakra-ui/react";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 
 export const GroupUsers = () => {
+  //fazer um get com os usuariosinsritos no grupo e renderizar o card com map
+  //GET /groups/{ GroupId }?_embed=subscribe&_embed=comments - subscribe
+
   return (
     <Flex
       justifyContent={["center"]}
@@ -10,7 +13,7 @@ export const GroupUsers = () => {
       border="3px solid"
       borderColor="gray.100"
       w="296px"
-      maxHeight="896px"
+      maxH={["300px", "896px"]}
       //   padding={"10px"}
       m="20px"
     >
@@ -19,30 +22,93 @@ export const GroupUsers = () => {
         backgroundColor={"purple.400"}
         w="295px"
         h="80px"
-        position={"relative"}
-        top={"0px"}
-      ></Heading>
-      <Box w="250px" h="80px" backgroundColor={"#DCDCDC"} m="20px">
-        <Image
-          src={group}
-          alt="groups"
-          w="40px"
-          h="36.81px"
-          margin={"10px"}
-        ></Image>
-        <p>USERS</p>
-      </Box>
+        color="white"
+        fontSize={"16px"}
+        textAlign={"center"}
+        padding={"10px"}
+      >
+        <h1>Usuários Cadastrados</h1>
+      </Heading>
 
-      <Box w="250px" h="80px" backgroundColor={"#DCDCDC"} m="20px">
-        <Image
-          src={group}
-          alt="groups"
-          w="40px"
-          h="36.81px"
-          margin={"10px"}
-        ></Image>
-        <p>USERS</p>
-      </Box>
+      <Flex
+        w="300px"
+        alignItems={["center"]}
+        justifyContent={["center"]}
+        direction={["row", "column"]}
+        wrap={["nowrap", "wrap"]}
+      >
+        <Flex
+          w="250px"
+          h="80px"
+          backgroundColor={"#DCDCDC"}
+          m="20px"
+          alignItems={["center"]}
+          justifyContent={["center"]}
+        >
+          <Image
+            src={group}
+            alt="groups"
+            w="40px"
+            h="36.81px"
+            margin={"10px"}
+          ></Image>
+          <p>UserName</p>
+        </Flex>
+
+        <Flex
+          w="250px"
+          h="80px"
+          backgroundColor={"#DCDCDC"}
+          m="20px"
+          alignItems={["center"]}
+          justifyContent={["center"]}
+        >
+          <Image
+            src={group}
+            alt="groups"
+            w="40px"
+            h="36.81px"
+            margin={"10px"}
+          ></Image>
+          <p>UserName</p>
+        </Flex>
+
+        <Flex
+          w="250px"
+          h="80px"
+          backgroundColor={"#DCDCDC"}
+          m="20px"
+          alignItems={["center"]}
+          justifyContent={["center"]}
+        >
+          <Image
+            src={group}
+            alt="groups"
+            w="40px"
+            h="36.81px"
+            margin={"10px"}
+          ></Image>
+          <p>UserName</p>
+        </Flex>
+
+        <Flex
+          w="250px"
+          h="80px"
+          backgroundColor={"#DCDCDC"}
+          m="20px"
+          alignItems={["center"]}
+          justifyContent={["center"]}
+        >
+          <Image
+            src={group}
+            alt="groups"
+            w="40px"
+            h="36.81px"
+            margin={"10px"}
+          ></Image>
+          <p>UserName</p>
+        </Flex>
+      </Flex>
     </Flex>
   );
 };

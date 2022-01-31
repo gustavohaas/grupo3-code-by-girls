@@ -5,7 +5,7 @@ import {
   useContext,
   useState,
 } from "react";
-
+import { useHistory } from "react-router-dom";
 import { api } from "../../Services/api";
 
 interface LoginProviderProps {
@@ -44,6 +44,7 @@ const useLogin = () => {
 };
 
 const LoginProvider = ({ children }: LoginChildren) => {
+  let history = useHistory();
   const [data, setData] = useState<AuthState>(() => {
     const accessToken = localStorage.getItem("@token-code-like-girls");
     const user = localStorage.getItem("@token-code-like-girls-user");
@@ -71,6 +72,7 @@ const LoginProvider = ({ children }: LoginChildren) => {
     localStorage.removeItem("@token-code-like-girls-user");
 
     setData({} as AuthState);
+    history.push("/");
   };
 
   return (

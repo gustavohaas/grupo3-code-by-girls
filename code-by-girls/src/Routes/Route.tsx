@@ -1,13 +1,28 @@
 import { ComponentType } from "react";
-import { Route as ReactRoute, RouteProps } from "react-router-dom";
+import { Redirect, Route as ReactRoute, RouteProps } from "react-router-dom";
+import { useLogin } from "../Providers/Login";
 
 interface Props extends RouteProps {
-    component: ComponentType;
+  component: ComponentType;
+  isPrivate?: boolean;
 }
 
-export const Route = ({component: Component}: Props) => {
-    return(
-        <ReactRoute 
-        render={() => <Component />} />
-    )
-}
+export const Route = ({
+  isPrivate = false,
+  component: Conponent,
+  ...rest
+}: Props) => {
+  const { data } = useLogin();
+  return (
+    <ReactRoute
+      {...rest}
+      render={() =>
+        isPrivate === !!data.accessToken ? (
+          <Conponent />
+        ) : (
+          <Redirect to={isPrivate ? "/" : "/dashboard"} />
+        )
+      }
+    />
+  );
+};

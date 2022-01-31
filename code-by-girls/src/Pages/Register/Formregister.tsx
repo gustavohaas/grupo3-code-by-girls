@@ -1,12 +1,5 @@
-import {
-  Grid,
-  Heading,
-  VStack,
-  Box,
-  Button,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Grid, Heading, VStack, Box, Button, Text } from "@chakra-ui/react";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, useForm } from "react-hook-form";
@@ -42,18 +35,6 @@ export const RegisterForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const {
-    isOpen: isModalSuccessOpen,
-    onOpen: onModalSuccessOpen,
-    onClose: onModalSuccessClose,
-  } = useDisclosure();
-
-  const {
-    isOpen: isModalErrorOpen,
-    onOpen: onModalErrorOpen,
-    onClose: onModalErrorClose,
-  } = useDisclosure();
-
   const handleRegisterSubmit = (data: any) => {
     console.log(data);
     // setIsRegister(true);
@@ -63,12 +44,6 @@ export const RegisterForm = () => {
 
   return (
     <>
-      {/* <ModalLoginSuccess
-        isOpen={isModalSuccessOpen}
-        onClose={onModalSuccessClose}
-      />
-      <ModalLoginError isOpen={isModalErrorOpen} onClose={onModalErrorClose} /> */}
-
       <Grid
         onSubmit={handleSubmit(handleRegisterSubmit)}
         as="form"

@@ -22,6 +22,8 @@ import { useLogin } from "../../Providers/Login";
 import InputModal from "../Header/input";
 import { useState } from "react";
 import { useDashboard } from "../../Providers/Dashboard";
+import { theme } from "../../Styles/theme";
+import { GroupModal } from "../Modal/GroupModal";
 interface HeaderProps {
   input: boolean;
   profile: boolean;
@@ -32,6 +34,13 @@ const Header = ({ input, profile }: HeaderProps) => {
   const { SearchBoxDashboard } = useDashboard();
   const { isOpen, onOpen, onClose } = useDisclosure();
   let history = useHistory();
+
+  const {
+    isOpen: isGroupModalOpen,
+    onOpen: onGroupModalOpen,
+    onClose: onGroupModalClose,
+  } = useDisclosure();
+
   function handleClick(destiny: string) {
     history.push(destiny);
   }
@@ -45,10 +54,10 @@ const Header = ({ input, profile }: HeaderProps) => {
       display={"flex"}
       justifyContent={"space-between"}
       alignItems={"center"}
-      padding={"0px 50px"}
+      padding={"0px 30px"}
     >
-      <HStack>
-        <Grid color={"gray.200"} mr="50px">
+      <HStack spacing={"0px"}>
+        <Grid color={"gray.200"} mr="10px">
           <FaUserCircle fontSize={"5rem"} />
         </Grid>
         <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
@@ -89,32 +98,34 @@ const Header = ({ input, profile }: HeaderProps) => {
               fontSize={"30px"}
               onClick={() => SearchBoxDashboard(text)}
             >
-              {<AiOutlineSearch />}
+              <AiOutlineSearch />
             </Button>
 
             <Button
               display={["flex", "none", "none", "none"]}
-              onClick={onOpen}
               h={"100%"}
-              margin={"2px"}
+              margin="2px"
               bgColor={"purple.500"}
               color={"gray.900"}
               _hover={{ bgColor: "purple.500", color: "gray.50" }}
               fontSize={"28px"}
+              onClick={onOpen}
             >
-              {<AiOutlineSearch />}
+              <AiOutlineSearch />
             </Button>
           </HStack>
         )}
         <Menu>
           <MenuButton
-            fontSize={"30px"}
+            fontSize={["20px", "30px"]}
             as={Button}
             bgColor={"purple.500"}
-            color={"gray.900"}
-            _hover={{ bgColor: "purple.500", color: "gray.50" }}
+            border="1px solid"
+            color="white"
+            _hover={{ bgColor: "gray.50", color: "purple.500" }}
+            fontFamily={theme.fonts.body}
           >
-            {<AiOutlineMenu />}
+            <AiOutlineMenu />
           </MenuButton>
 
           <MenuList
@@ -173,6 +184,7 @@ const Header = ({ input, profile }: HeaderProps) => {
               justifyContent={"space-between"}
             >
               <Button
+                onClick={onGroupModalOpen}
                 _hover={{
                   bgColor: "gray.50",
                   color: "gray.900",
@@ -212,6 +224,7 @@ const Header = ({ input, profile }: HeaderProps) => {
           active={SearchBoxDashboard}
         />
       </Modal>
+      <GroupModal isOpen={isGroupModalOpen} onClose={onGroupModalClose} />
     </Heading>
   );
 };

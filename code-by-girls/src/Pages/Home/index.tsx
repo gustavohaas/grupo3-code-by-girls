@@ -1,11 +1,35 @@
-import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Image, useDisclosure } from "@chakra-ui/react";
 import logo from "../../Assets/logo.svg";
 import logoMobile from "../../Assets/logoMobile.svg";
 import imgHome from "../../Assets/undraw_Dev_focus_re_6iwt 1.svg";
 import { useHistory } from "react-router-dom";
+import { ProfileModal } from "../../Components/Modal/ProfileModal";
+import { GroupModal } from "../../Components/Modal/GroupModal";
+import { TechModal } from "../../Components/Modal/TechModal";
 
 export const Home = () => {
   const history = useHistory();
+
+  // ----------
+  const {
+    isOpen: isProfileModalOpen,
+    onOpen: onProfileModalOpen,
+    onClose: onProfileModalClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isGroupModalOpen,
+    onOpen: onGroupModalOpen,
+    onClose: onGroupModalClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isCreateTechModalOpen,
+    onOpen: onCreateTechModalOpen,
+    onClose: onCreateTechModalClose,
+  } = useDisclosure();
+
+  // ----------
   return (
     <Flex
       h="100vh"

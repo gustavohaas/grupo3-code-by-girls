@@ -7,7 +7,6 @@ interface Groups {
   description: string;
   id: number;
 }
-
 interface PropsGroup {
   group: Groups;
 }
@@ -15,12 +14,14 @@ interface PropsGroup {
 export const CardGroup = ({ group }: PropsGroup) => {
   return (
     <Flex
-      w={["250px"]}
-      shadow={["lg"]}
+      w={["446px"]}
+      h="121px"
+      shadow={["xl"]}
       padding={["5px"]}
       margin={"10px"}
       _hover={{
-        transform: "translatey(-10px)",
+        bg: "purple.50",
+        transform: "translatey(-5px)",
         transition: "0.51s",
       }}
       transition={["0.51s"]}
@@ -58,8 +59,8 @@ export const CardGroup = ({ group }: PropsGroup) => {
       </Box>
 
       <Flex flexDir={["column"]}>
-        <Heading wordBreak={"break-word"} fontSize={["18px"]}>
-          {group.groupName}
+        <Heading wordBreak={"break-word"} fontSize={["20px"]}>
+          {group.groupName.toLocaleUpperCase()}
         </Heading>
         <Text fontSize={["14px"]} wordBreak={"break-word"}>
           {group.description}

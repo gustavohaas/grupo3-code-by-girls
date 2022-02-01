@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { createContext, ReactNode, useContext, useCallback, useState } from "react";
 import { api } from "../../Services/api";
 import { useLogin } from "../Login";
@@ -35,6 +36,10 @@ interface ProfileProviderProps {
   getUserData: (userId: string, accessToken: string) => Promise<void>;
   deleteSkill: (skillId: string, accessToken: string) => void;
   deleteWork: (workId: string, accessToken: string) => void;
+  createSkill: (userId: string, skill: string, level: string, accessToken: string) => void;
+  createWork: (userId: string, title: string, description: string, accessToken: string) => void;
+  editSkill: (skillId: string, skill: string, level: string,accessToken: string) => void;
+  editWork: (workId: string, title: string, description: string,accessToken: string) => void;
 }
 
 const ProfileContext = createContext<ProfileProviderProps>(
@@ -86,8 +91,55 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
       .catch((err) => console.log(err))
   },[])
 
+  const createSkill = useCallback((userId: string, skill: string, level: string, accessToken: string) => {
+    api
+      .post("/skills", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res: AxiosResponse<SkillsProps>) => setSkills([...skills, res.data]))
+      .catch((err) => console.log(err))
+  },[])
+
+  const createWork = useCallback((userId: string, title: string, description: string, accessToken: string) => {
+    api
+      .post("/works", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res: AxiosResponse<WorksProps>) => setWorks([...works, res.data]))
+      .catch((err) => console.log(err))
+  },[])
+
+  const editSkill = useCallback((skillId: string, skill: string, level: string,accessToken: string) => {
+    api
+      .patch(`/skills/${skillId}` , {skill, level} ,{
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => getUserData(data.user.id, data.accessToken))
+      .catch((err) => console.log(err))
+
+  }, [])
+
+  const editWork = useCallback((workId: string, title: string, description: string,accessToken: string) => {
+    api
+      .patch(`/works/${workId}` , {title, description} ,{
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => getUserData(data.user.id, data.accessToken))
+      .catch((err) => console.log(err))
+
+  }, [])
+
   return (
-    <ProfileContext.Provider value={{ getUserData, perfil, skills, works, deleteSkill, deleteWork }}>{children}</ProfileContext.Provider>
+    <ProfileContext.Provider value={{ getUserData, perfil, skills, works, deleteSkill, deleteWork, 
+                                      createSkill, createWork, editSkill, editWork }}>{children}</ProfileContext.Provider>
   );
 };
 

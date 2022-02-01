@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 
 interface Groups {
-  url: string;
+  url?: string;
   groupName: string;
   description: string;
   id: number;

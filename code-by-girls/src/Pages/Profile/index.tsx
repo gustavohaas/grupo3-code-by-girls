@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { useEffect } from "react";
 import { useProfile } from "../../Providers/Profile";
@@ -9,7 +9,7 @@ import Header from "../../Components/Header/header";
 
 export const Profile = () => {
 
-  const { getUserData, skills, works } = useProfile()
+  const { getUserData, skills, works, createSkill, createWork } = useProfile()
   const { data } = useLogin()
 
   useEffect(() => {
@@ -49,17 +49,6 @@ export const Profile = () => {
               >
                 Minhas Habilidades
               </Heading>
-              <Box
-                bg="purple.100"
-                display="flex"
-                h="100px"
-                flexDir="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Heading as="h3" fontSize="2xl" color="gray.50" p="5">
-                  Minhas Habilidades
-                </Heading>
                 <Box
                   as="button"
                   bg="none"
@@ -71,22 +60,14 @@ export const Profile = () => {
                   <BsFillPlusSquareFill />
                 </Box>
               </Box>
-              <Flex
-                bg="white"
-                border="2px solid"
-                borderColor="purple.400"
-                h="298px"
-              >
-                {skills?.map((skill) => <CardSkills skill={skill} />)}
-                
-              </Flex>
-            </Box>
             <Flex
               bg="white"
               border="2px solid"
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
-            ></Flex>
+            >
+              {skills?.map((skill) => <CardSkills skill={skill} />)}
+            </Flex>
           </Box>
 
           <Box h="100%" w={["100%", "90%"]}>
@@ -106,17 +87,6 @@ export const Profile = () => {
               >
                 Meus trabalhos
               </Heading>
-              <Box
-                bg="purple.100"
-                display="flex"
-                h="100px"
-                flexDir="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Heading as="h3" fontSize="2xl" color="gray.50" p="5">
-                  Meus trabalhos
-                </Heading>
                 <Box
                   as="button"
                   w="15"
@@ -128,21 +98,14 @@ export const Profile = () => {
                   <BsFillPlusSquareFill />
                 </Box>
               </Box>
-              <Flex
-                bg="white"
-                border="2px solid"
-                borderColor="purple.400"
-                h="298px"
-              >
-                {works?.map((work) => <CardWorks work={work} />)}
-              </Flex>
-            </Box>
             <Flex
               bg="white"
               border="2px solid"
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
-            ></Flex>
+            >
+              {works?.map((work) => <CardWorks work={work} />)}
+            </Flex>
           </Box>
         </Flex>
 
@@ -151,7 +114,7 @@ export const Profile = () => {
           flexDir="column"
           alignItems="center"
           mt={["5", "5", "9", "0", "0"]}
-          pt={[0, 0, "10", "auto", "0"]}
+          pt={[0, 0, "10", "auto", "10"]}
         >
           <Box
             h="98vh"

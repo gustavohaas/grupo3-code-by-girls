@@ -1,4 +1,10 @@
-import { Button, Flex, Heading, Image, useDisclosure } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Heading,
+  Image,
+  useDisclosure,
+} from "@chakra-ui/react";
 import logo from "../../Assets/logo.svg";
 import logoMobile from "../../Assets/logoMobile.svg";
 import imgHome from "../../Assets/undraw_Dev_focus_re_6iwt 1.svg";
@@ -86,6 +92,60 @@ export const Home = () => {
           Registrar
         </Button>
       </Flex>
+
+
+
+      {/* Botões provisoriamente alocados aqui só para visualizar os modais */}
+      <Button
+        color="gray.50"
+        ml={["", "", "50px"]}
+        mb="20px"
+        bg="purple.500"
+        _hover={{
+          background: "purple.400",
+        }}
+        onClick={onProfileModalOpen}
+        position="relative"
+        right="65px"
+        top="60px"
+      >
+        ProfileModal
+      </Button>
+      <ProfileModal isOpen={isProfileModalOpen} onClose={onProfileModalClose} />
+
+      <Button
+        color="gray.50"
+        bg="purple.500"
+        _hover={{
+          background: "purple.400",
+        }}
+        onClick={onGroupModalOpen}
+        position="relative"
+        right="65px"
+        top="60px"
+        mb="20px"
+      >
+        GroupModal
+      </Button>
+      <GroupModal isOpen={isGroupModalOpen} onClose={onGroupModalClose} />
+
+      <Button
+        color="gray.50"
+        ml={["", "", "50px"]}
+        bg="purple.500"
+        _hover={{
+          background: "purple.400",
+        }}
+        onClick={onCreateTechModalOpen}
+        position="relative"
+        right="65px"
+        top="60px"
+      >
+        TechModal
+      </Button>
+      <TechModal isOpen={isCreateTechModalOpen} onClose={onCreateTechModalClose} />
+      
+      {/*  */}
     </Flex>
   );
 };

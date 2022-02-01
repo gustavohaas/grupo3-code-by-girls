@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   FormControl,
@@ -24,6 +24,12 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
   const initialRef = React.useRef<any>();
   const finalRef = React.useRef<any>();
 
+  const [tech, setTech] = useState("");
+  const [techsLevel, setTechsLevel] = useState("");
+
+  console.log(tech);
+  console.log(techsLevel);
+
   return (
     <>
       <Modal
@@ -45,8 +51,11 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
           <ModalCloseButton color="gray.50" />
           <ModalBody>
             <FormControl>
-              <FormLabel fontWeight="700">Nome da tech</FormLabel>
+              <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
+                Nome da tech
+              </FormLabel>
               <Input
+                onChangeCapture={(e) => setTech(e.currentTarget.value)}
                 ref={initialRef}
                 placeholder="Inserir o nome da tecnologia"
                 _hover={{ borderColor: "purple.500" }}
@@ -54,8 +63,13 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel fontWeight="700">Descrição</FormLabel>
+              <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
+                Descrição
+              </FormLabel>
               <Textarea
+                onChangeCapture={(e) =>
+                  setTechsLevel(e.currentTarget.value)
+                }
                 h="120px"
                 placeholder="Descrição da tech..."
                 maxLength={132}
@@ -63,8 +77,10 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
               />
             </FormControl>
 
-            <FormControl>
-              <FormLabel fontWeight="700">Imagem da tecnologia </FormLabel>
+            <FormControl mt={4}>
+              <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
+                Imagem da tecnologia{" "}
+              </FormLabel>
               <Input
                 ref={initialRef}
                 placeholder="Inserir uma url"
@@ -81,6 +97,7 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
               justifyContent="space-between"
             >
               <Button
+                disabled={!tech}
                 w="95%"
                 _hover={{ bgColor: "purple.400" }}
                 bgColor="purple.300"

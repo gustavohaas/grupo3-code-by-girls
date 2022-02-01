@@ -3,6 +3,7 @@ import { MdSend } from "react-icons/md";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 import { api } from "../../Services/api";
 import { useLogin } from "../../Providers/Login/index";
+import { useGroup } from "../../Providers/Groups/index";
 import { useState } from "react";
 
 interface CommentData {
@@ -12,21 +13,30 @@ interface CommentData {
   groupId: number;
 }
 
-//groupId tem que vir do Criar Grupo
-
 export const Feed = () => {
   const [newComment, setNewComment] = useState("");
-  // PUXAR TOKEN DO USE LOGIN
   const { data } = useLogin();
-  const { id, userName } = data.user;
+  const { name } = data.user;
+  const { dataGroup, createGroup } = useGroup();
+  const { id } = dataGroup;
+  const userId = Number(data.user.id);
+
+  const newData = {
+    userId: userId,
+    name: name,
+    comment: newComment,
+    groupId: id,
+  };
+
+  console.log(newData);
+  console.log(data.accessToken);
 
   const handleComment = ({ userId, name, comment, groupId }: CommentData) => {
-    groupId = 2;
     api
       .post("/comments", {
-        id,
-        userName,
-        newComment,
+        userId,
+        name,
+        comment,
         groupId,
         headers: {
           Authorization: `Bearer ${data.accessToken}`,
@@ -49,6 +59,7 @@ export const Feed = () => {
       m="20px"
     >
       {/* FEED */}
+
       <Flex
         backgroundColor="#D4C1E6"
         padding={"5px"}
@@ -67,15 +78,13 @@ export const Feed = () => {
             h="36.81px"
             margin={"10px"}
           ></Image>
-          {/* username */}
+          {name}
           <Heading fontSize={"1rem"}>USER</Heading>
         </Flex>
 
-        <Box padding={"10px"}>
-          {/* comment */}
-          {/* <p>{newComment}</p> */}
-        </Box>
+        <Box padding={"10px"}>{/* comments */}</Box>
       </Flex>
+
       <Flex
         justifyContent={["space-between"]}
         alignItems={["center"]}
@@ -97,11 +106,10 @@ export const Feed = () => {
         ></Input>
 
         <MdSend
-          onClick={() => handleComment}
+          onClick={() => handleComment(newData)}
           cursor={"pointer"}
           size={"21px"}
-          color="#106cdc
-"
+          color="#106cdc"
         />
       </Flex>
     </Flex>

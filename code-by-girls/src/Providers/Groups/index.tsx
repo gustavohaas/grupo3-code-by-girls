@@ -1,4 +1,5 @@
 import { cookieStorageManager, useStyleConfig } from "@chakra-ui/react";
+import { group } from "console";
 import {
   createContext,
   ReactNode,
@@ -16,6 +17,8 @@ interface Group {
   userId: number;
   groupName: string;
   description: string;
+  comments: string;
+  id: number;
 }
 
 interface GroupsProviderProps {
@@ -46,6 +49,8 @@ const GroupsProvider = ({ children }: GroupChildren) => {
   const { id } = data.user;
   const [dataGroup, setDataGroup] = useState({} as Group);
 
+  console.log(dataGroup);
+
   useEffect(() => {
     api
       .get("/groups/2?_embed=subscribe&_embed=comments", {
@@ -59,7 +64,7 @@ const GroupsProvider = ({ children }: GroupChildren) => {
   const createGroup = ({ userId, groupName, description }: Group) => {
     api
       .post("/works", {
-        id,
+        userId,
         groupName,
         description,
         headers: {

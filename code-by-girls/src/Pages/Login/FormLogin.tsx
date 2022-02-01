@@ -103,7 +103,7 @@ export const LoginForm = () => {
               placeholder="Digite seu login"
               icon={FaEnvelope}
               {...register("email")}
-              label="Login"
+              label="Email"
               type="email"
               error={errors.email}
             />

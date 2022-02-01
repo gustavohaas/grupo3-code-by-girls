@@ -1,5 +1,6 @@
 import {
   Button,
+  Text,
   Heading,
   HStack,
   Image,
@@ -10,33 +11,32 @@ import {
   Grid,
   Modal,
   ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { AiOutlineMenu, AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout, GrGroup } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
-import { HiUserCircle } from "react-icons/hi";
 import { FaUserCircle } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useLogin } from "../../Providers/Login";
-
+import InputModal from "../Header/input";
+import { useState } from "react";
+import { useDashboard } from "../../Providers/Dashboard";
 interface HeaderProps {
   input: boolean;
   profile: boolean;
 }
 
 const Header = ({ input, profile }: HeaderProps) => {
-  const { handleSignOut } = useLogin();
+  const { handleSignOut, data } = useLogin();
+  const { SearchBoxDashboard } = useDashboard();
   const { isOpen, onOpen, onClose } = useDisclosure();
   let history = useHistory();
   function handleClick(destiny: string) {
     history.push(destiny);
   }
+  const [text, setText] = useState("");
+
   return (
     <Heading
       w={"100vw"}
@@ -47,9 +47,15 @@ const Header = ({ input, profile }: HeaderProps) => {
       alignItems={"center"}
       padding={"0px 50px"}
     >
-      <Grid color={"gray.200"} mr="50px">
-        <FaUserCircle fontSize={"5rem"} />
-      </Grid>
+      <HStack>
+        <Grid color={"gray.200"} mr="50px">
+          <FaUserCircle fontSize={"5rem"} />
+        </Grid>
+        <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
+          {data.user?.name}
+        </Text>
+      </HStack>
+
       <HStack spacing={["0px", "50px", "50px", "50px"]}>
         {input && (
           <HStack
@@ -71,6 +77,7 @@ const Header = ({ input, profile }: HeaderProps) => {
               bgColor={"gray.50"}
               h={"100%"}
               placeholder="Pesquise por grupos"
+              onChangeCapture={(e) => setText(e.currentTarget.value)}
             />
             <Button
               display={["none", "flex", "flex", "flex"]}
@@ -80,6 +87,7 @@ const Header = ({ input, profile }: HeaderProps) => {
               color={"gray.900"}
               _hover={{ bgColor: "purple.500", color: "gray.50" }}
               fontSize={"30px"}
+              onClick={() => SearchBoxDashboard(text)}
             >
               {<AiOutlineSearch />}
             </Button>
@@ -198,33 +206,11 @@ const Header = ({ input, profile }: HeaderProps) => {
       </HStack>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <HStack
-            spacing={"0px"}
-            padding={"0px"}
-            border="2px white solid"
-            borderRadius={"8px"}
-            bgColor={"gray.50"}
-            h={"40px"}
-          >
-            <Input
-              border="none"
-              bgColor={"gray.50"}
-              h={"100%"}
-              placeholder="Pesquise por grupos"
-            />
-            <Button
-              h={"100%"}
-              margin={"2px"}
-              bgColor={"purple.500"}
-              color={"gray.900"}
-              _hover={{ bgColor: "purple.500", color: "gray.50" }}
-              fontSize={"30px"}
-            >
-              {<AiOutlineSearch />}
-            </Button>
-          </HStack>
-        </ModalContent>
+        <InputModal
+          close={onClose}
+          Icon={AiOutlineSearch}
+          active={SearchBoxDashboard}
+        />
       </Modal>
     </Heading>
   );

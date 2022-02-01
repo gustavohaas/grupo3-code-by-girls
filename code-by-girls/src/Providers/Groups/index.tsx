@@ -1,5 +1,3 @@
-import { group } from "console";
-import { setgroups } from "process";
 import {
   createContext,
   ReactNode,
@@ -8,7 +6,6 @@ import {
   useState,
   useEffect,
 } from "react";
-import { GrInsecure } from "react-icons/gr";
 
 import { api } from "../../Services/api";
 import { useLogin } from "../Login/index";
@@ -19,13 +16,10 @@ interface Group {
   description: string;
 }
 
-interface GroupContextData {
-  group: Group[];
-  createGroup: (data: Group, accessToken: string) => Promise<void>;
-}
-interface GroupsProviderProps {
+interface GroupsProviderProps {}
+
+interface GroupChildren {
   children: ReactNode;
-  // createGroup: (accessToken: string) => Promise<void>;
 }
 
 const GroupsContext = createContext<GroupsProviderProps>(
@@ -35,10 +29,15 @@ const GroupsContext = createContext<GroupsProviderProps>(
 const useGroup = () => {
   const context = useContext(GroupsContext);
 
+  if (!context) {
+    throw new Error("useGroup must be used within an GroupProvider");
+  }
+
   return context;
 };
 
-const GroupsProvider = ({ children }: GroupsProviderProps) => {
+const GroupsProvider = ({ children }: GroupChildren) => {
+  const [groupData, setGroupData] = useState<Group[]>([]);
   const { data } = useLogin();
   const { id } = data.user;
 
@@ -58,7 +57,7 @@ const GroupsProvider = ({ children }: GroupsProviderProps) => {
           Authorization: `Bearer ${data.accessToken}`,
         },
       })
-      .then((response) => setGroupData(response.data))
+      .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
   };
 

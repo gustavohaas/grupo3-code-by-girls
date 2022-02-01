@@ -120,7 +120,7 @@ export const RegisterForm = () => {
             <Input
               placeholder="Digite seu melhor email"
               icon={FaEnvelope}
-              label="Login"
+              label="Email"
               type="email"
               {...register("email")}
               error={errors.email}

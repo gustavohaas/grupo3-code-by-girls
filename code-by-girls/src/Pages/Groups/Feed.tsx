@@ -5,8 +5,6 @@ import { api } from "../../Services/api";
 import { useLogin } from "../../Providers/Login/index";
 import { useState } from "react";
 
-import { useGroup } from "../../Providers/Groups";
-
 interface CommentData {
   userId: number;
   name: string;
@@ -18,13 +16,22 @@ interface CommentData {
 
 export const Feed = () => {
   const [newComment, setNewComment] = useState("");
+  // PUXAR TOKEN DO USE LOGIN
   const { data } = useLogin();
   const { id, userName } = data.user;
 
   const handleComment = ({ userId, name, comment, groupId }: CommentData) => {
     groupId = 2;
     api
-      .post("/comments", { id, userName, newComment, groupId })
+      .post("/comments", {
+        id,
+        userName,
+        newComment,
+        groupId,
+        headers: {
+          Authorization: `Bearer ${data.accessToken}`,
+        },
+      })
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
@@ -66,7 +73,7 @@ export const Feed = () => {
 
         <Box padding={"10px"}>
           {/* comment */}
-          <p>{newComment}</p>
+          {/* <p>{newComment}</p> */}
         </Box>
       </Flex>
       <Flex

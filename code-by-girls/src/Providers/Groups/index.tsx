@@ -1,3 +1,4 @@
+import { cookieStorageManager, useStyleConfig } from "@chakra-ui/react";
 import {
   createContext,
   ReactNode,
@@ -6,6 +7,7 @@ import {
   useState,
   useEffect,
 } from "react";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 import { api } from "../../Services/api";
 import { useLogin } from "../Login/index";
@@ -16,7 +18,10 @@ interface Group {
   description: string;
 }
 
-interface GroupsProviderProps {}
+interface GroupsProviderProps {
+  createGroup: ({ userId, groupName, description }: Group) => void;
+  dataGroup: Group;
+}
 
 interface GroupChildren {
   children: ReactNode;
@@ -37,14 +42,18 @@ const useGroup = () => {
 };
 
 const GroupsProvider = ({ children }: GroupChildren) => {
-  const [groupData, setGroupData] = useState<Group[]>([]);
   const { data } = useLogin();
   const { id } = data.user;
+  const [dataGroup, setDataGroup] = useState({} as Group);
 
   useEffect(() => {
     api
-      .get("/groups/2?_embed=subscribe&_embed=comments")
-      .then((response) => console.log(response));
+      .get("/groups/2?_embed=subscribe&_embed=comments", {
+        headers: {
+          Authorization: `Bearer ${data.accessToken}`,
+        },
+      })
+      .then((response) => setDataGroup(response.data));
   }, []);
 
   const createGroup = ({ userId, groupName, description }: Group) => {
@@ -61,7 +70,11 @@ const GroupsProvider = ({ children }: GroupChildren) => {
       .catch((err) => console.log(err));
   };
 
-  return <GroupsContext.Provider value={{}}>{children}</GroupsContext.Provider>;
+  return (
+    <GroupsContext.Provider value={{ createGroup, dataGroup }}>
+      {children}
+    </GroupsContext.Provider>
+  );
 };
 
 export { GroupsProvider, useGroup };

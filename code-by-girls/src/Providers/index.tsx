@@ -15,11 +15,11 @@ export const AppProvider = ({ children }: AppProviderProps) => (
   <DashboardProvider>
     <ProfileProvider>
       <RegisterProvider>
-        <GroupsProvider>
-          <LoginProvider>
+        <LoginProvider>
+          <GroupsProvider>
             <ChakraProvider theme={theme}>{children}</ChakraProvider>
-          </LoginProvider>
-        </GroupsProvider>
+          </GroupsProvider>
+        </LoginProvider>
       </RegisterProvider>
     </ProfileProvider>
   </DashboardProvider>

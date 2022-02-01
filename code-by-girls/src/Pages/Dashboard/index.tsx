@@ -10,7 +10,7 @@ const Dashboard = () => {
   const { data } = useLogin();
 
   useEffect(() => {
-    loadGroups(data.user.id, data.accessToken).catch((err) => console.log(err));
+    loadGroups(data.user.id).catch((err) => console.log(err));
   });
 
   return (

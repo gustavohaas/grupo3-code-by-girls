@@ -8,9 +8,7 @@ export const Groups = () => {
   return (
     <>
       <Header input={false} profile={false} />
-      <Heading as="h1" m="20px">
-        {}
-      </Heading>
+      <Heading as="h1" m="20px"></Heading>
 
       <Flex
         justifyContent={["center"]}

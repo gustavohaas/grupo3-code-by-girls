@@ -8,9 +8,15 @@ import {
 
 import { api } from "../../Services/api";
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
 interface LoginProviderProps {
+  data: any;
   handleLogin: (data: any) => Promise<void>;
-  data: AuthState;
   handleSignOut: () => void;
 }
 
@@ -20,12 +26,6 @@ const LoginContext = createContext<LoginProviderProps>(
 
 interface LoginChildren {
   children: ReactNode;
-}
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
 }
 
 interface AuthState {
@@ -74,7 +74,13 @@ const LoginProvider = ({ children }: LoginChildren) => {
   };
 
   return (
-    <LoginContext.Provider value={{ handleLogin, data, handleSignOut }}>
+    <LoginContext.Provider
+      value={{
+        data,
+        handleLogin,
+        handleSignOut,
+      }}
+    >
       {children}
     </LoginContext.Provider>
   );

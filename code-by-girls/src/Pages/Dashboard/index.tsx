@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     loadGroups(data.user.id).catch((err) => console.log(err));
-  });
+  }, []);
 
   return (
     <Grid>

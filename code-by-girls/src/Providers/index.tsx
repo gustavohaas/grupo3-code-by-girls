@@ -12,12 +12,12 @@ interface AppProviderProps {
 
 export const AppProvider = ({ children }: AppProviderProps) => (
   <ProfileProvider>
-    <GroupsProvider>
-      <RegisterProvider>
-        <LoginProvider>
+    <RegisterProvider>
+      <LoginProvider>
+        <GroupsProvider>
           <ChakraProvider theme={theme}>{children}</ChakraProvider>
-        </LoginProvider>
-      </RegisterProvider>
-    </GroupsProvider>
+        </GroupsProvider>
+      </LoginProvider>
+    </RegisterProvider>
   </ProfileProvider>
 );

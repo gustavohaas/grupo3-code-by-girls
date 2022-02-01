@@ -1,9 +1,11 @@
 import { Flex, Image, Heading, Input, Box } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
-import { useEffect, useState } from "react";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 import { api } from "../../Services/api";
 import { useLogin } from "../../Providers/Login/index";
+import { useState } from "react";
+
+import { useGroup } from "../../Providers/Groups";
 
 interface CommentData {
   userId: number;
@@ -20,6 +22,7 @@ export const Feed = () => {
   const { id, userName } = data.user;
 
   const handleComment = ({ userId, name, comment, groupId }: CommentData) => {
+    groupId = 2;
     api
       .post("/comments", { id, userName, newComment, groupId })
       .then((response) => console.log(response))
@@ -57,10 +60,13 @@ export const Feed = () => {
             h="36.81px"
             margin={"10px"}
           ></Image>
-          <Heading fontSize={"1rem"}>User</Heading>
+          {/* username */}
+          <Heading fontSize={"1rem"}>USER</Heading>
         </Flex>
+
         <Box padding={"10px"}>
-          <p></p>
+          {/* comment */}
+          <p>{newComment}</p>
         </Box>
       </Flex>
       <Flex

@@ -31,17 +31,22 @@ export const Feed = () => {
   console.log(newData);
   console.log(data.accessToken);
 
-  const handleComment = ({ userId, name, comment, groupId }: CommentData) => {
+  const handleComment = ({ userId, name, comment, groupId }: any) => {
     api
-      .post("/comments", {
-        userId,
-        name,
-        comment,
-        groupId,
-        headers: {
-          Authorization: `Bearer ${data.accessToken}`,
+      .post(
+        "/comments",
+        {
+          userId,
+          name,
+          comment,
+          groupId,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${data.accessToken}`,
+          },
+        }
+      )
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };

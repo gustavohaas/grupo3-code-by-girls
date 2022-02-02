@@ -1,5 +1,3 @@
-import { cookieStorageManager, useStyleConfig } from "@chakra-ui/react";
-import { group } from "console";
 import {
   createContext,
   ReactNode,
@@ -8,7 +6,6 @@ import {
   useState,
   useEffect,
 } from "react";
-import { AiOutlineConsoleSql } from "react-icons/ai";
 
 import { api } from "../../Services/api";
 import { useLogin } from "../Login/index";

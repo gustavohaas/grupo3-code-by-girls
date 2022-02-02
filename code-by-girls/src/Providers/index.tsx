@@ -1,11 +1,11 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import { theme } from "../Styles/theme";
 import { DashboardProvider } from "./Dashboard";
-import { GroupsProvider } from "./Groups";
-import { LoginProvider } from "./Login";
-import { ProfileProvider } from "./Profile";
 import { RegisterProvider } from "./Register";
+import { ProfileProvider } from "./Profile";
+import { LoginProvider } from "./Login";
+import { GroupsProvider } from "./Groups";
+import { theme } from "../Styles/theme";
 
 interface AppProviderProps {
   children: ReactNode;

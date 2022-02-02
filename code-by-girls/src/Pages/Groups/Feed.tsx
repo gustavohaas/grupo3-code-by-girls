@@ -4,7 +4,7 @@ import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 import { api } from "../../Services/api";
 import { useLogin } from "../../Providers/Login/index";
 import { useGroup } from "../../Providers/Groups/index";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface CommentData {
   userId: number;
@@ -59,35 +59,36 @@ export const Feed = () => {
       minHeight="296px"
       maxHeight={["200px", "600px"]}
       padding={"10px"}
-      overflowY={"scroll"}
       m="20px"
     >
-      {comments?.map((post) => (
-        <Flex
-          key={id}
-          backgroundColor="#D4C1E6"
-          padding={"5px"}
-          w="100%"
-          h="161px"
-          mb="50px"
-          borderRadius={"5px"}
-          direction={["column"]}
-          wrap={["nowrap"]}
-        >
-          <Flex direction={["row"]} alignItems={["center"]}>
-            <Image
-              src={group}
-              alt="groups"
-              w="40px"
-              h="36.81px"
-              margin={"10px"}
-            ></Image>
-            <Heading fontSize={"1rem"}>{name}</Heading>
-          </Flex>
+      <Box overflowY={"scroll"} w="100%">
+        {comments?.map((post) => (
+          <Flex
+            key={post.id}
+            backgroundColor="#D4C1E6"
+            padding={"5px"}
+            w="100%"
+            h="161px"
+            mb="50px"
+            borderRadius={"5px"}
+            direction={["column"]}
+            wrap={["nowrap"]}
+          >
+            <Flex direction={["row"]} alignItems={["center"]}>
+              <Image
+                src={group}
+                alt="groups"
+                w="40px"
+                h="36.81px"
+                margin={"10px"}
+              ></Image>
+              <Heading fontSize={"1rem"}>{name}</Heading>
+            </Flex>
 
-          <Box padding={"10px"}>{post.comment}</Box>
-        </Flex>
-      ))}
+            <Box padding={"10px"}>{post.comment}</Box>
+          </Flex>
+        ))}
+      </Box>
 
       <Flex
         justifyContent={["space-between"]}

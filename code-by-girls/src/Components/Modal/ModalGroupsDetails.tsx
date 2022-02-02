@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   Flex,
   Heading,
   Image,
@@ -15,7 +14,7 @@ import {
 import { FaWindowClose } from "react-icons/fa";
 
 interface Groups {
-  url: string;
+  url?: string;
   groupName: string;
   description: string;
   id: number;

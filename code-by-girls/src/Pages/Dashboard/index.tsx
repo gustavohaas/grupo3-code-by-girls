@@ -7,7 +7,7 @@ import { useDashboard } from "../../Providers/Dashboard";
 import { useLogin } from "../../Providers/Login";
 
 interface Groups {
-  url: string;
+  url?: string;
   groupName: string;
   description: string;
   id: number;
@@ -34,9 +34,9 @@ const Dashboard = () => {
     <Grid>
       <Header input profile />
       <ModalGroupsDetails
+        group={selectedGroup}
         isOpen={isOpen}
         onClose={onClose}
-        group={selectedGroup}
       />
       <Flex justifyContent="center" mt="8">
         <Flex w="80%" flexDir="row" flexWrap="wrap" justifyContent={"center"}>

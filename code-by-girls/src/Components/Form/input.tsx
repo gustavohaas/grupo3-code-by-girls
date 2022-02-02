@@ -64,11 +64,19 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
 
   return (
     <FormControl isInvalid={!!error}>
-      {!!label && <FormLabel color="gray.400">{label}</FormLabel>}
+      {!!label && (
+        <FormLabel mb="1px" color="gray.400" paddingLeft="10px">
+          {label}
+        </FormLabel>
+      )}
 
       <InputGroup flexDirection="column">
         {Icon && (
-          <InputLeftElement color={inputVariation[variation]} mt="2.5">
+          <InputLeftElement
+            color={inputVariation[variation]}
+            mt="2.5"
+            paddingLeft="10px"
+          >
             <Icon />
           </InputLeftElement>
         )}
@@ -84,14 +92,28 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           borderColor={inputVariation[variation]}
           bg="gray.50"
           variant="outline"
-          _hover={{ bgColor: "gray.100" }}
-          _placeholder={{ color: "gray.300" }}
+          _hover={{ bgColor: "gray.100", borderColor: "purple.300" }}
+          _placeholder={{
+            color: "gray.300",
+            fontSize: "0.9rem",
+            paddingLeft: "1rem",
+          }}
           size="lg"
-          h="60px"
+          h="57px"
           ref={ref}
         />
 
-        {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+        {!!error && (
+          <FormErrorMessage
+            w="95%"
+            fontSize="0.8rem"
+            justifyContent="flex-end"
+            textAlign="right"
+            mt="1px"
+          >
+            {error.message}
+          </FormErrorMessage>
+        )}
       </InputGroup>
     </FormControl>
   );

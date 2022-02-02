@@ -15,18 +15,18 @@ import {
 
 import React, { useState } from "react";
 
-interface GroupModalProps {
+interface WorkModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
+export const WorkModal = ({ isOpen, onClose }: WorkModalProps) => {
   const initialRef = React.useRef<any>();
   const finalRef = React.useRef<any>();
 
-  const [group, setGroup] = useState("");
-  const [groupDescription, setGroupDescription] = useState("");
-  const [groupImg, setGroupImg] = useState("");
+  const [works, setWorks] = useState("");
+  const [workDescription, setWorkDescription] = useState("");
+  const [workImg, setWorkImg] = useState("");
 
   return (
     <Modal
@@ -43,18 +43,18 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
           bgColor="purple.300"
           color="gray.50"
         >
-          Criar Grupo
+          Criar Trabalho
         </ModalHeader>
         <ModalCloseButton color="gray.50" />
-        <ModalBody pb={6}>
+        <ModalBody>
           <FormControl>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Grupo
+              Trabalho
             </FormLabel>
             <Input
-              onChangeCapture={(e) => setGroup(e.currentTarget.value)}
+              onChangeCapture={(e) => setWorks(e.currentTarget.value)}
               ref={initialRef}
-              placeholder="Nome do grupo"
+              placeholder="Nome do trabalho"
               _hover={{ borderColor: "purple.500" }}
             />
           </FormControl>
@@ -64,11 +64,9 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
               Descrição
             </FormLabel>
             <Textarea
-              onChangeCapture={(e) =>
-                setGroupDescription(e.currentTarget.value)
-              }
+              onChangeCapture={(e) => setWorkDescription(e.currentTarget.value)}
               h="120px"
-              placeholder="Descrição do grupo..."
+              placeholder="Descrição do trabalho..."
               maxLength={132}
               _hover={{ borderColor: "purple.500" }}
             />
@@ -76,10 +74,10 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
           <FormControl mt={4}>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Imagem do grupo z
+              Imagem do Trabalho{" "}
             </FormLabel>
             <Input
-              onChangeCapture={(e) => setGroupImg(e.currentTarget.value)}
+              onChangeCapture={(e) => setWorkImg(e.currentTarget.value)}
               ref={initialRef}
               placeholder="Inserir uma url"
               _hover={{ borderColor: "purple.500" }}
@@ -89,15 +87,16 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
         <ModalFooter>
           <Button
-            disabled={!group}
+            disabled={!works}
             w="75%"
             _hover={{ bgColor: "purple.400" }}
             bgColor="purple.300"
             color="gray.50"
             mr={3}
           >
-            Criar Grupo
+            Criar Trabalho
           </Button>
+
           <Button
             onClick={onClose}
             _hover={{ bgColor: "gray.600", color: "gray.50" }}

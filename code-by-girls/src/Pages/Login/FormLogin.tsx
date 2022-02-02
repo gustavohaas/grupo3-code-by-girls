@@ -3,23 +3,23 @@ import {
   Button,
   Grid,
   Heading,
+  HStack,
   Image,
   Text,
   useToast,
   VStack,
 } from "@chakra-ui/react";
 
-import { FaEnvelope, FaLock } from "react-icons/fa";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
+import { FaEnvelope, FaLock, FaRegSmileBeam } from "react-icons/fa";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-
 import { useHistory } from "react-router-dom";
-import { Input } from "../../Components/Form/input";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import * as yup from "yup";
 
-import logo from "../../Assets/logo.svg";
+import { Input } from "../../Components/Form/input";
 import { useLogin } from "../../Providers/Login";
+import logo from "../../Assets/logo.svg";
 
 interface SignInData {
   email: string;
@@ -79,13 +79,14 @@ export const LoginForm = () => {
       <Grid
         onSubmit={handleSubmit(handleSignIn)}
         as="form"
-        mt="4"
-        w={["100%", "100%", "40%", "40%"]}
-        padding="30px 15px"
-        border="3px solid"
-        borderColor="gray.200"
+        w={["306px", "390px", "400px", "64%"]}
+        alignContent="center"
+        padding="15px 15px"
+        border="1px solid"
+        borderRadius="8px"
+        borderColor="gray.100"
         bg="white"
-        color="gray.900"
+        color="gray.600"
       >
         <Heading
           display={["flex"]}
@@ -125,7 +126,7 @@ export const LoginForm = () => {
           />
         </VStack>
 
-        <VStack mt="5" spacing="5">
+        <VStack mt="5" spacing="3">
           <Button
             isLoading={isLoading}
             w="100%"
@@ -135,20 +136,29 @@ export const LoginForm = () => {
             type="submit"
             borderRadius="8px"
             _hover={{ background: "purple.400" }}
+            fontSize="1.3rem"
           >
-            Enviar
+            Logar
           </Button>
 
-          <Text color="gray.400">Ainda não possui uma conta?</Text>
+          <HStack>
+            <Text w="94%" fontSize="0.9rem" color="gray.400">
+              Ainda não possui uma conta?
+            </Text>
+            <Box color="purple.500">
+              <FaRegSmileBeam />
+            </Box>
+          </HStack>
 
           <Button
-            w="100%"
-            h="60px"
-            color="gray.300"
-            bgColor="gray.100"
-            borderRadius="8px"
-            _hover={{ background: "gray.200" }}
             onClick={redirectRegister}
+            w="98%"
+            h="57px"
+            color="gray.50"
+            bgColor="gray.600"
+            borderRadius="8px"
+            _hover={{ bgColor: "gray.600", borderColor: "gray.600" }}
+            fontSize="1.2rem"
           >
             Cadastrar
           </Button>

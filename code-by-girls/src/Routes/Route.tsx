@@ -8,7 +8,7 @@ interface Props extends RouteProps {
 }
 
 export const Route = ({
-  isPrivate = true, //MUDAR PARA FALSE ANTES DE DAR PUSH
+  isPrivate = false, //MUDAR PARA FALSE ANTES DE DAR PUSH
   component: Conponent,
   ...rest
 }: Props) => {

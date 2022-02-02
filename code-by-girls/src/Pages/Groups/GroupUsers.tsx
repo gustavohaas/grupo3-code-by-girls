@@ -3,12 +3,6 @@ import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 import { useGroup } from "../../Providers/Groups";
 import { useLogin } from "../../Providers/Login";
 
-interface Subscribe {
-  userId: number;
-  name: string;
-  groupId: number;
-}
-
 export const GroupUsers = () => {
   const { data } = useLogin();
   const { dataGroup } = useGroup();

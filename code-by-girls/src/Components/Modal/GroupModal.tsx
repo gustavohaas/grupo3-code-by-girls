@@ -14,6 +14,8 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
+import { useGroup } from "../../Providers/Groups";
+import { useLogin } from "../../Providers/Login";
 
 interface GroupModalProps {
   isOpen: boolean;
@@ -23,10 +25,20 @@ interface GroupModalProps {
 export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
   const initialRef = React.useRef<any>();
   const finalRef = React.useRef<any>();
-  
-  const [groupName, setGroupName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
 
+  const [group, setGroup] = useState("");
+  const [groupDescription, setGroupDescription] = useState("");
+  const [groupImg, setGroupImg] = useState("");
+  const { createGroup, dataGroup } = useGroup();
+  const { id } = dataGroup;
+  const { data } = useLogin();
+
+  const newGroupData = {
+    userId: data.user.id,
+    groupName: setGroup,
+    description: groupDescription,
+    url: setGroupImg,
+  };
   return (
     <Modal
       initialFocusRef={initialRef}
@@ -48,14 +60,12 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
         <ModalBody pb={6}>
           <FormControl>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Nome do grupo
+              Grupo
             </FormLabel>
             <Input
-              onChangeCapture={(e) =>
-                setGroupName(e.currentTarget.value)
-              }
+              onChangeCapture={(e) => setGroup(e.currentTarget.value)}
               ref={initialRef}
-              placeholder="Inserir nome do grupo"
+              placeholder="Nome do grupo"
               _hover={{ borderColor: "purple.500" }}
             />
           </FormControl>
@@ -66,7 +76,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
             </FormLabel>
             <Textarea
               onChangeCapture={(e) =>
-                setDescription(e.currentTarget.value)
+                setGroupDescription(e.currentTarget.value)
               }
               h="120px"
               placeholder="Descrição do grupo..."
@@ -77,9 +87,10 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
           <FormControl mt={4}>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Imagem do grupo{" "}
+              Imagem do grupo z
             </FormLabel>
             <Input
+              onChangeCapture={(e) => setGroupImg(e.currentTarget.value)}
               ref={initialRef}
               placeholder="Inserir uma url"
               _hover={{ borderColor: "purple.500" }}
@@ -89,7 +100,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
         <ModalFooter>
           <Button
-            disabled={!groupName}
+            disabled={!group}
             w="75%"
             _hover={{ bgColor: "purple.400" }}
             bgColor="purple.300"
@@ -99,7 +110,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
             Criar Grupo
           </Button>
           <Button
-            onClick={onClose}
+            onClick={() => createGroup(newGroupData)}
             _hover={{ bgColor: "gray.600", color: "gray.50" }}
           >
             Cancel

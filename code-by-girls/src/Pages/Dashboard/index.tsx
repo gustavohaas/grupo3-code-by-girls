@@ -4,13 +4,15 @@ import { CardGroup } from "../../Components/CardGroups";
 import Header from "../../Components/Header/header";
 import { useDashboard } from "../../Providers/Dashboard";
 import { useLogin } from "../../Providers/Login";
+import { useProfile } from "../../Providers/Profile";
 
 const Dashboard = () => {
-  const { groups, loadGroups } = useDashboard();
+  const { groups } = useDashboard();
   const { data } = useLogin();
+  const { getUserData } = useProfile();
 
   useEffect(() => {
-    // loadGroups(data.user.id).catch((err) => console.log(err));
+    getUserData(data.user.id, data.accessToken);
   }, []);
 
   return (
@@ -18,7 +20,7 @@ const Dashboard = () => {
       <Header input profile />
       <Flex justifyContent="center" mt="8">
         <Flex w="75%" flexDir="row" flexWrap="wrap">
-          {groups.map((item) => (
+          {groups?.map((item) => (
             <Box key={item.id}>
               <CardGroup group={item} />
             </Box>

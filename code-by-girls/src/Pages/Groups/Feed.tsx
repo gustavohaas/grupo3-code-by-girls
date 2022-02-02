@@ -44,7 +44,7 @@ export const Feed = () => {
           },
         }
       )
-      .then((response) => createGroupData())
+      .then(() => createGroupData())
       .catch((err) => console.log(err));
   };
 

@@ -45,7 +45,6 @@ export const CardGroup = ({ group }: PropsGroup) => {
       <Flex flexDir={["column"]}>
         <Heading wordBreak={"break-word"} fontSize={["20px"]}>
           {group.groupName}
-          {console.log(typeof group.groupName)}
         </Heading>
         <Text fontSize={["14px"]} wordBreak={"break-word"}>
           {group.description}

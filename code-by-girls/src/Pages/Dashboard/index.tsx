@@ -7,18 +7,13 @@ import { useLogin } from "../../Providers/Login";
 import { useProfile } from "../../Providers/Profile";
 
 const Dashboard = () => {
-  const { groups, loadGroups } = useDashboard();
+  const { groups } = useDashboard();
   const { data } = useLogin();
   const { getUserData } = useProfile();
 
   useEffect(() => {
-    getUserData( data.user.id, data.accessToken )
-  },[])
-
-
-  useEffect(() => {
-    loadGroups(data.user.id, data.accessToken).catch((err) => console.log(err));
-  });
+    getUserData(data.user.id, data.accessToken);
+  }, []);
 
   return (
     <Grid>

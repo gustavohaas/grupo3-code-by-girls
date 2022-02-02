@@ -8,17 +8,16 @@ import { CardWorks } from "../../Components/CardWorks";
 import Header from "../../Components/Header/header";
 
 export const Profile = () => {
-
-  const { getUserData, skills, works, createSkill, createWork } = useProfile()
-  const { data } = useLogin()
+  const { getUserData, skills, works, createSkill, createWork } = useProfile();
+  const { data } = useLogin();
 
   useEffect(() => {
-    getUserData( data.user.id, data.accessToken )
-  },[])
+    getUserData(data.user.id, data.accessToken);
+  }, []);
 
   return (
     <>
-      <Header input profile />
+      <Header input={false} profile={false} />
       <Flex
         w="100vw"
         bg="gray.50"
@@ -49,24 +48,26 @@ export const Profile = () => {
               >
                 Minhas Habilidades
               </Heading>
-                <Box
-                  as="button"
-                  bg="none"
-                  _hover={{ color: "gray.200" }}
-                  m="10"
-                  fontSize="2xl"
-                  color="white"
-                >
-                  <BsFillPlusSquareFill />
-                </Box>
+              <Box
+                as="button"
+                bg="none"
+                _hover={{ color: "gray.200" }}
+                m="10"
+                fontSize="2xl"
+                color="white"
+              >
+                <BsFillPlusSquareFill />
               </Box>
+            </Box>
             <Flex
               bg="white"
               border="2px solid"
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
             >
-              {skills?.map((skill) => <CardSkills skill={skill} />)}
+              {skills?.map((skill) => (
+                <CardSkills skill={skill} />
+              ))}
             </Flex>
           </Box>
 
@@ -87,24 +88,26 @@ export const Profile = () => {
               >
                 Meus trabalhos
               </Heading>
-                <Box
-                  as="button"
-                  w="15"
-                  _hover={{ color: "gray.200" }}
-                  m="10"
-                  fontSize="2xl"
-                  color="white"
-                >
-                  <BsFillPlusSquareFill />
-                </Box>
+              <Box
+                as="button"
+                w="15"
+                _hover={{ color: "gray.200" }}
+                m="10"
+                fontSize="2xl"
+                color="white"
+              >
+                <BsFillPlusSquareFill />
               </Box>
+            </Box>
             <Flex
               bg="white"
               border="2px solid"
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
             >
-              {works?.map((work) => <CardWorks work={work} />)}
+              {works?.map((work) => (
+                <CardWorks work={work} />
+              ))}
             </Flex>
           </Box>
         </Flex>

@@ -14,7 +14,6 @@ import {
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout, GrGroup } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
-import { HiUserCircle } from "react-icons/hi";
 import { useHistory } from "react-router-dom";
 import { useLogin } from "../../Providers/Login";
 import { GroupModal } from "../Modal/GroupModal";
@@ -48,7 +47,9 @@ const Header = ({ input, profile }: HeaderProps) => {
   }
   return (
     <>
-      <GroupModal isOpen={isGroupModalOpen} onClose={onGroupModalClose} />
+      <GroupModal 
+        isOpen={isGroupModalOpen} 
+        onClose={onGroupModalClose} />
       <ModalSearchGroups
         isOpen={isModalSearchGroupsOpen}
         onClose={onModalSearchGroupsClose}
@@ -143,7 +144,7 @@ const Header = ({ input, profile }: HeaderProps) => {
             <MenuButton
               fontSize={["20px", "30px"]}
               as={Button}
-              bgColor={"purple.500"}
+              bgColor="purple.500"
               border="1px solid"
               color="white"
               _hover={{ bgColor: "gray.50", color: "purple.500" }}
@@ -153,18 +154,18 @@ const Header = ({ input, profile }: HeaderProps) => {
             </MenuButton>
 
             <MenuList
-              marginTop={"25px"}
-              w={"300px"}
-              display={"flex"}
-              alignItems={"center"}
-              flexDirection={"column"}
+              marginTop="25px"
+              w="300px"
+              display="flex"
+              alignItems="center"
+              flexDirection="column"
             >
               {profile ? (
                 <HStack
-                  borderBottom={"1px solid"}
-                  w={"250px"}
-                  justifyContent={"space-between"}
-                  marginTop={"10px"}
+                  borderBottom="1px solid"
+                  w="250px"
+                  justifyContent="space-between"
+                  marginTop="10px"
                 >
                   <Button
                     onClick={() => handleClick("/profile")}
@@ -180,9 +181,9 @@ const Header = ({ input, profile }: HeaderProps) => {
                 </HStack>
               ) : (
                 <HStack
-                  borderBottom={"1px solid"}
-                  w={"250px"}
-                  justifyContent={"space-between"}
+                  borderBottom="1px solid"
+                  w="250px"
+                  justifyContent="space-between"
                 >
                   <Button
                     onClick={() => handleClick("/dashboard")}

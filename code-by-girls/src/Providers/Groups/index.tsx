@@ -1,7 +1,6 @@
 import {
   createContext,
   ReactNode,
-  useCallback,
   useContext,
   useState,
   useEffect,
@@ -10,16 +9,26 @@ import {
 import { api } from "../../Services/api";
 import { useLogin } from "../Login/index";
 
+interface Comment {
+  userId: number;
+  name: string;
+  comment: string;
+  groupId: number;
+  id: number;
+}
+
 interface Group {
   userId: number;
   groupName: string;
   description: string;
-  comments: string;
+  comments: Comment[];
   id: number;
+  url?: string;
 }
 
 interface GroupsProviderProps {
   createGroup: ({ userId, groupName, description }: Group) => void;
+  createGroupData: () => void;
   dataGroup: Group;
 }
 
@@ -44,9 +53,8 @@ const useGroup = () => {
 const GroupsProvider = ({ children }: GroupChildren) => {
   const { data } = useLogin();
   const { id } = data.user;
-  const [dataGroup, setDataGroup] = useState({} as Group);
 
-  console.log(dataGroup);
+  const [dataGroup, setDataGroup] = useState({} as Group);
 
   useEffect(() => {
     api
@@ -58,22 +66,38 @@ const GroupsProvider = ({ children }: GroupChildren) => {
       .then((response) => setDataGroup(response.data));
   }, []);
 
-  const createGroup = ({ userId, groupName, description }: Group) => {
+  const createGroupData = () => {
     api
-      .post("/works", {
-        userId,
-        groupName,
-        description,
+      .get("/groups/2?_embed=subscribe&_embed=comments", {
         headers: {
           Authorization: `Bearer ${data.accessToken}`,
         },
       })
+      .then((response) => setDataGroup(response.data));
+  };
+
+  const createGroup = ({ userId, groupName, description, url }: Group) => {
+    api
+      .post(
+        "/works",
+        {
+          userId,
+          groupName,
+          description,
+          url,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${data.accessToken}`,
+          },
+        }
+      )
       .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
   };
 
   return (
-    <GroupsContext.Provider value={{ createGroup, dataGroup }}>
+    <GroupsContext.Provider value={{ createGroup, dataGroup, createGroupData }}>
       {children}
     </GroupsContext.Provider>
   );

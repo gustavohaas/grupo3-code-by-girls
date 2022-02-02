@@ -4,7 +4,7 @@ import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 import { api } from "../../Services/api";
 import { useLogin } from "../../Providers/Login/index";
 import { useGroup } from "../../Providers/Groups/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CommentData {
   userId: number;
@@ -17,8 +17,8 @@ export const Feed = () => {
   const [newComment, setNewComment] = useState("");
   const { data } = useLogin();
   const { name } = data.user;
-  const { dataGroup, createGroup } = useGroup();
-  const { id } = dataGroup;
+  const { dataGroup, createGroup, createGroupData } = useGroup();
+  const { id, comments } = dataGroup;
   const userId = Number(data.user.id);
 
   const newData = {
@@ -27,9 +27,6 @@ export const Feed = () => {
     comment: newComment,
     groupId: id,
   };
-
-  console.log(newData);
-  console.log(data.accessToken);
 
   const handleComment = ({ userId, name, comment, groupId }: any) => {
     api
@@ -47,7 +44,7 @@ export const Feed = () => {
           },
         }
       )
-      .then((response) => console.log(response))
+      .then((response) => createGroupData())
       .catch((err) => console.log(err));
   };
 
@@ -60,35 +57,37 @@ export const Feed = () => {
       borderColor="gray.100"
       w="80vw"
       minHeight="296px"
+      maxHeight={["200px", "600px"]}
       padding={"10px"}
+      overflowY={"scroll"}
       m="20px"
     >
-      {/* FEED */}
+      {comments?.map((post) => (
+        <Flex
+          key={id}
+          backgroundColor="#D4C1E6"
+          padding={"5px"}
+          w="100%"
+          h="161px"
+          mb="50px"
+          borderRadius={"5px"}
+          direction={["column"]}
+          wrap={["nowrap"]}
+        >
+          <Flex direction={["row"]} alignItems={["center"]}>
+            <Image
+              src={group}
+              alt="groups"
+              w="40px"
+              h="36.81px"
+              margin={"10px"}
+            ></Image>
+            <Heading fontSize={"1rem"}>{name}</Heading>
+          </Flex>
 
-      <Flex
-        backgroundColor="#D4C1E6"
-        padding={"5px"}
-        w="100%"
-        h="161px"
-        mb="50px"
-        borderRadius={"5px"}
-        direction={["column"]}
-        wrap={["nowrap"]}
-      >
-        <Flex direction={["row"]} alignItems={["center"]}>
-          <Image
-            src={group}
-            alt="groups"
-            w="40px"
-            h="36.81px"
-            margin={"10px"}
-          ></Image>
-          {name}
-          <Heading fontSize={"1rem"}>USER</Heading>
+          <Box padding={"10px"}>{post.comment}</Box>
         </Flex>
-
-        <Box padding={"10px"}>{/* comments */}</Box>
-      </Flex>
+      ))}
 
       <Flex
         justifyContent={["space-between"]}

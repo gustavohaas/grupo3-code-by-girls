@@ -300,4 +300,5 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
   );
 };
 
+//
 export default Header;

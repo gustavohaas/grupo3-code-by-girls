@@ -9,10 +9,7 @@ const Dashboard = () => {
   const { groups, loadGroups } = useDashboard();
   const { data } = useLogin();
 
-  useEffect(() => {
-    loadGroups(data.user.id).catch((err) => console.log(err));
-  }, []);
-
+  //
   return (
     <Grid>
       <Header input profile />

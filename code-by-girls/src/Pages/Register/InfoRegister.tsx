@@ -5,11 +5,19 @@ import { FaLayerGroup } from "react-icons/fa";
 export const RegisterInfo = () => {
   return (
     <Grid
-      w={["100%", "100%", "50%", "50%"]}
-      paddingRight={["0px", "0px", "50px", "100px"]}
+      w={["0%", "0%", "50%", "70%"]}
+      paddingRight={["0px", "0px", "0px", "30px"]}
     >
       <Flex mt="4" mb="10px">
-        <Image src={secondary} />
+        <Image
+          // w={["280px", "280px", "300px", "300px"]}
+          w={["100%"]}
+          boxSize={["100%"]}
+          padding="0px"
+          display={["none", "none", "flex", "flex"]}
+          src={secondary}
+          alt="working girl"
+        />
       </Flex>
     </Grid>
   );

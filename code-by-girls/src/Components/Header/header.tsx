@@ -14,7 +14,6 @@ import {
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout, GrGroup } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
-import { HiUserCircle } from "react-icons/hi";
 import { useHistory } from "react-router-dom";
 import { useLogin } from "../../Providers/Login";
 import { GroupModal } from "../Modal/GroupModal";

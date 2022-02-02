@@ -4,9 +4,8 @@ import {
   VStack,
   Box,
   Button,
-  Text,
-  useDisclosure,
   useToast,
+  theme,
 } from "@chakra-ui/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -48,18 +47,6 @@ export const RegisterForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const {
-    isOpen: isModalSuccessOpen,
-    onOpen: onModalSuccessOpen,
-    onClose: onModalSuccessClose,
-  } = useDisclosure();
-
-  const {
-    isOpen: isModalErrorOpen,
-    onOpen: onModalErrorOpen,
-    onClose: onModalErrorClose,
-  } = useDisclosure();
-
   const handleRegisterSubmit = ({ email, password, userName }: any) => {
     const newData = { email, password, userName };
     setIsRegister(true);
@@ -84,21 +71,31 @@ export const RegisterForm = () => {
   };
 
   return (
-    <>
       <Grid
         onSubmit={handleSubmit(handleRegisterSubmit)}
         as="form"
-        w={["100%", "100%", "50%", "50%", "40%"]}
-        mt="4"
-        padding="30px 15px"
-        border="3px solid"
+        // w={["100%", "100%", "50%", "50%", "45%"]}
+        w={["306px", "390px", "400px", "74%"]}
+        maxW="420px"
+        h={["95%", "97%"]}
+        alignContent="center"
+        padding="15px 15px"
+        border="1px solid"
+        borderRadius="8px"
         borderColor="gray.100"
         bg="white"
-        color="gray.900"
+        color="purple.500"
       >
-        <Heading size="lg">Crie sua conta</Heading>
+        <Heading
+          size="xl"
+          fontFamily={theme.fonts.body}
+          fontWeight="500"
+          textAlign="center"
+        >
+          Crie sua conta
+        </Heading>
 
-        <VStack mt="5" spacing="5">
+        <VStack  spacing="3">
           <Box w="100%">
             <Input
               placeholder="Digite seu nome"
@@ -136,43 +133,42 @@ export const RegisterForm = () => {
             <Input
               placeholder="Confirme sua senha"
               icon={FaLock}
-              label="Senha"
+              label="Confirmação de senha"
               type="password"
               {...register("password_confirm")}
               error={errors.password_confirm}
             />
           </Box>
 
-          <VStack w="100%" spacing="5">
+          <VStack w="100%" spacing="2">
             <Button
-              w="100%"
-              h="60px"
+              w="98%"
+              h="57px"
               color="white"
               bgColor="purple.500"
               borderRadius="8px"
               _hover={{ background: "purple.400" }}
               type="submit"
               isLoading={isRegister}
+              fontSize="1.2rem"
             >
               Cadastrar
             </Button>
 
-            <Text>Já possui cadastro?</Text>
-
             <Button
-              w="100%"
-              h="60px"
-              color="gray.300"
-              bgColor="gray.100"
+              w="98%"
+              h="57px"
+              color="gray.50"
+              bgColor="gray.600"
               borderRadius="8px"
-              _hover={{ background: "gray.200" }}
+              _hover={{ bgColor: "gray.600", borderColor: "gray.600" }}
               onClick={() => history.push("/login")}
+              fontSize="1.2rem"
             >
               Logar
             </Button>
           </VStack>
         </VStack>
       </Grid>
-    </>
   );
 };

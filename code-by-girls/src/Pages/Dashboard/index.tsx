@@ -9,9 +9,9 @@ const Dashboard = () => {
   const { groups, loadGroups } = useDashboard();
   const { data } = useLogin();
 
-  useEffect(() => {
-    loadGroups(data.user.id, data.accessToken).catch((err) => console.log(err));
-  });
+  // useEffect(() => {
+  //   loadGroups(data.user.id, data.accessToken).catch((err) => console.log(err));
+  // }, []);
 
   return (
     <Grid>

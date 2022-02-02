@@ -7,6 +7,7 @@ import {
 } from "react";
 
 import { api } from "../../Services/api";
+import { useDashboard } from "../Dashboard";
 
 interface User {
   id: string;
@@ -44,6 +45,7 @@ const useLogin = () => {
 };
 
 const LoginProvider = ({ children }: LoginChildren) => {
+  const { loadGroups } = useDashboard();
   const [data, setData] = useState<AuthState>(() => {
     const accessToken = localStorage.getItem("@token-code-like-girls");
     const user = localStorage.getItem("@token-code-like-girls-user");
@@ -64,6 +66,7 @@ const LoginProvider = ({ children }: LoginChildren) => {
     localStorage.setItem("@token-code-like-girls-user", JSON.stringify(user));
 
     setData({ accessToken, user });
+    loadGroups(data.user.id, data.accessToken).catch((err) => console.log(err));
   }, []);
 
   const handleSignOut = () => {

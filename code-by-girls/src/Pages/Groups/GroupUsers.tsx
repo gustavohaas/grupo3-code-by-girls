@@ -1,9 +1,18 @@
 import { Flex, Grid, Heading, Image } from "@chakra-ui/react";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
+import { useGroup } from "../../Providers/Groups";
 import { useLogin } from "../../Providers/Login";
+
+interface Subscribe {
+  userId: number;
+  name: string;
+  groupId: number;
+}
 
 export const GroupUsers = () => {
   const { data } = useLogin();
+  const { dataGroup } = useGroup();
+  const { subscribe } = dataGroup;
 
   return (
     <Flex
@@ -14,7 +23,6 @@ export const GroupUsers = () => {
       borderColor="gray.100"
       w="296px"
       maxH={["300px", "896px"]}
-      //   padding={"10px"}
       m="20px"
     >
       <Heading
@@ -30,31 +38,33 @@ export const GroupUsers = () => {
         <h1>Usuários Cadastrados</h1>
       </Heading>
 
-      <Flex
-        w="300px"
-        alignItems={["center"]}
-        justifyContent={["center"]}
-        direction={["row", "column"]}
-        wrap={["nowrap", "wrap"]}
-      >
+      {subscribe?.map((user) => (
         <Flex
-          w="250px"
-          h="80px"
-          backgroundColor={"#DCDCDC"}
-          m="20px"
+          w="300px"
           alignItems={["center"]}
           justifyContent={["center"]}
+          direction={["row", "column"]}
+          wrap={["nowrap", "wrap"]}
         >
-          <Image
-            src={group}
-            alt="groups"
-            w="40px"
-            h="36.81px"
-            margin={"10px"}
-          ></Image>
-          <p>UserName</p>
+          <Flex
+            w="250px"
+            h="80px"
+            backgroundColor={"#DCDCDC"}
+            m="20px"
+            alignItems={["center"]}
+            justifyContent={["center"]}
+          >
+            <Image
+              src={group}
+              alt="groups"
+              w="40px"
+              h="36.81px"
+              margin={"10px"}
+            ></Image>
+            <p>{user.name}</p>
+          </Flex>
         </Flex>
-      </Flex>
+      ))}
     </Flex>
   );
 };

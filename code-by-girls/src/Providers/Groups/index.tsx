@@ -17,11 +17,18 @@ interface Comment {
   id: number;
 }
 
+interface Subscribe {
+  userId: number;
+  name: string;
+  groupId: number;
+}
+
 interface Group {
   userId: number;
   groupName: string;
   description: string;
   comments: Comment[];
+  subscribe: Subscribe[];
   id: number;
   url?: string;
 }

@@ -7,6 +7,7 @@ import { Route } from "./Route";
 import Dashboard from "../Pages/Dashboard";
 
 import { Profile } from "../Pages/Profile";
+import { PageError } from "../Components/PageError";
 
 export const Routes = () => {
   return (
@@ -18,6 +19,8 @@ export const Routes = () => {
       <Route path="/dashboard/" component={Dashboard} isPrivate />
 
       <Route path="/profile" component={Profile} isPrivate />
+
+      <Route component={PageError} />
     </Switch>
   );
 };

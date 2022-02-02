@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import {
   createContext,
   ReactNode,
@@ -38,7 +37,7 @@ export const DashboardProvider = ({ children }: DashboardChildren) => {
   const loadGroups = useCallback(
     async (userId: string, accessToken: string) => {
       try {
-        const response = await api.get(`/groups?userId=${userId}`, {
+        const response = await api.get(`/groups`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

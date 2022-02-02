@@ -23,7 +23,7 @@ interface GroupModalProps {
 export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
   const initialRef = React.useRef<any>();
   const finalRef = React.useRef<any>();
-  
+
   const [groupName, setGroupName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
@@ -51,9 +51,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
               Nome do grupo
             </FormLabel>
             <Input
-              onChangeCapture={(e) =>
-                setGroupName(e.currentTarget.value)
-              }
+              onChangeCapture={(e) => setGroupName(e.currentTarget.value)}
               ref={initialRef}
               placeholder="Inserir nome do grupo"
               _hover={{ borderColor: "purple.500" }}
@@ -65,9 +63,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
               Descrição
             </FormLabel>
             <Textarea
-              onChangeCapture={(e) =>
-                setDescription(e.currentTarget.value)
-              }
+              onChangeCapture={(e) => setDescription(e.currentTarget.value)}
               h="120px"
               placeholder="Descrição do grupo..."
               maxLength={132}
@@ -77,7 +73,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
           <FormControl mt={4}>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Imagem do grupo{" "}
+              Imagem do grupo z
             </FormLabel>
             <Input
               ref={initialRef}

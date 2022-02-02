@@ -1,5 +1,4 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { FaRegEdit, FaTrash } from "react-icons/fa";
 
 interface Groups {
   url: string;
@@ -27,21 +26,6 @@ export const CardGroup = ({ group }: PropsGroup) => {
       transition={["0.51s"]}
       position={"relative"}
     >
-      <Flex
-        fontSize={["20px"]}
-        position={"absolute"}
-        right={["0"]}
-        top={["-15px"]}
-      >
-        <Box cursor={"pointer"} marginRight={["10px"]}>
-          <FaRegEdit />
-        </Box>
-
-        <Box cursor={"pointer"}>
-          <FaTrash />
-        </Box>
-      </Flex>
-
       <Box
         objectFit={["cover"]}
         w={["80px"]}
@@ -60,7 +44,8 @@ export const CardGroup = ({ group }: PropsGroup) => {
 
       <Flex flexDir={["column"]}>
         <Heading wordBreak={"break-word"} fontSize={["20px"]}>
-          {group.groupName.toLocaleUpperCase()}
+          {group.groupName}
+          {console.log(typeof group.groupName)}
         </Heading>
         <Text fontSize={["14px"]} wordBreak={"break-word"}>
           {group.description}

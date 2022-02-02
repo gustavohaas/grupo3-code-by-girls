@@ -1,5 +1,4 @@
 import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { FaRegEdit, FaTrash } from "react-icons/fa";
 
 interface Groups {
   url: string;
@@ -9,16 +8,19 @@ interface Groups {
 }
 interface PropsGroup {
   group: Groups;
+  onClick: (group: Groups) => void;
 }
 
-export const CardGroup = ({ group }: PropsGroup) => {
+export const CardGroup = ({ group, onClick }: PropsGroup) => {
   return (
     <Flex
-      w={["446px"]}
-      h="121px"
+      onClick={() => onClick(group)}
+      w={["250px", "400px"]}
+      h={["80px", "121px"]}
       shadow={["xl"]}
-      padding={["5px"]}
+      padding={["6px", "5px"]}
       margin={"10px"}
+      borderRadius="10px"
       _hover={{
         bg: "purple.50",
         transform: "translatey(-5px)",
@@ -27,42 +29,28 @@ export const CardGroup = ({ group }: PropsGroup) => {
       transition={["0.51s"]}
       position={"relative"}
     >
-      <Flex
-        fontSize={["20px"]}
-        position={"absolute"}
-        right={["0"]}
-        top={["-15px"]}
-      >
-        <Box cursor={"pointer"} marginRight={["10px"]}>
-          <FaRegEdit />
-        </Box>
-
-        <Box cursor={"pointer"}>
-          <FaTrash />
-        </Box>
-      </Flex>
-
-      <Box
-        objectFit={["cover"]}
-        w={["80px"]}
-        h={["80px"]}
-        marginRight={["10px"]}
-      >
+      <Box w={["50px", "80px"]} h={["50px", "80px"]} marginRight={["10px"]}>
         <Image
           w={["100%"]}
           h="100%"
-          objectFit={["cover"]}
           borderRadius={["100%"]}
           src={group.url}
           alt="Imagem da Tecnologia"
         />
       </Box>
 
-      <Flex flexDir={["column"]}>
+      <Flex flexDir={["column"]} ml="5">
         <Heading wordBreak={"break-word"} fontSize={["20px"]}>
-          {group.groupName.toLocaleUpperCase()}
+          {group.groupName}
         </Heading>
-        <Text fontSize={["14px"]} wordBreak={"break-word"}>
+        <Text
+          fontSize={["16px"]}
+          fontWeight="600"
+          wordBreak={"break-word"}
+          overflow="auto"
+          w="280px"
+          p="2"
+        >
           {group.description}
         </Text>
       </Flex>

@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import {
   createContext,
   ReactNode,
@@ -20,10 +19,10 @@ interface Groups {
 }
 
 interface DashboardProviderProps {
-  SearchBoxDashboard: (group: string, accessToken: string) => Promise<void>;
+  SearchBoxDashboard: (groups: string, accessToken: string) => Promise<void>;
   notFound: boolean;
   searchNotFound: string;
-  loadGroups: (userId: string, accessToken: string) => Promise<void>;
+  loadGroups: (accessToken: string) => Promise<void>;
   groups: Groups[];
 }
 
@@ -31,26 +30,23 @@ const DashboardContext = createContext<DashboardProviderProps>(
   {} as DashboardProviderProps
 );
 export const DashboardProvider = ({ children }: DashboardChildren) => {
-  const [groups, setGroup] = useState<Groups[]>([]);
+  const [groups, setGroups] = useState<Groups[]>([]);
   const [searchNotFound, setSearchNotFound] = useState("");
   const [notFound, setNotFound] = useState(false);
 
-  const loadGroups = useCallback(
-    async (userId: string, accessToken: string) => {
-      try {
-        const response = await api.get(`/groups?userId=${userId}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+  const loadGroups = useCallback(async (accessToken: string) => {
+    try {
+      const response = await api.get(`groups`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
-        setGroup(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    []
-  );
+      setGroups(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   const SearchBoxDashboard = useCallback(
     async (group: string, accessToken: string) => {
@@ -64,7 +60,7 @@ export const DashboardProvider = ({ children }: DashboardChildren) => {
         return setNotFound(true);
       }
       setNotFound(false);
-      setGroup(response.data);
+      setGroups(response.data);
     },
     []
   );

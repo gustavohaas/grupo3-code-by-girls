@@ -4,10 +4,17 @@ import { CardGroup } from "../../Components/CardGroups";
 import Header from "../../Components/Header/header";
 import { useDashboard } from "../../Providers/Dashboard";
 import { useLogin } from "../../Providers/Login";
+import { useProfile } from "../../Providers/Profile";
 
 const Dashboard = () => {
   const { groups, loadGroups } = useDashboard();
   const { data } = useLogin();
+  const { getUserData } = useProfile();
+
+  useEffect(() => {
+    getUserData( data.user.id, data.accessToken )
+  },[])
+
 
   // useEffect(() => {
   //   loadGroups(data.user.id, data.accessToken).catch((err) => console.log(err));

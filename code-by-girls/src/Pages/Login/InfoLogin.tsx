@@ -1,5 +1,5 @@
-import { Grid, Image } from "@chakra-ui/react";
 import secondary from "../../Assets/undraw_Dev_focus_re_6iwt 1.svg";
+import { Grid, Image } from "@chakra-ui/react";
 
 export const LoginInfo = () => {
   return (

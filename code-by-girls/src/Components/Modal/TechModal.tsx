@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Button,
   FormControl,
@@ -14,6 +13,8 @@ import {
   Textarea,
   Flex,
 } from "@chakra-ui/react";
+
+import React, { useState } from "react";
 
 interface TechModalProps {
   isOpen: boolean;

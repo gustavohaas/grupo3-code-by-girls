@@ -1,6 +1,5 @@
-import { Flex, Grid, Heading, Image, Text } from "@chakra-ui/react";
+import { Flex, Grid, Image } from "@chakra-ui/react";
 import secondary from "../../Assets/undraw_Dev_focus_re_6iwt 1.svg";
-import { FaLayerGroup } from "react-icons/fa";
 
 export const RegisterInfo = () => {
   return (
@@ -10,7 +9,6 @@ export const RegisterInfo = () => {
     >
       <Flex mt="4" mb="10px">
         <Image
-          // w={["280px", "280px", "300px", "300px"]}
           w={["100%"]}
           boxSize={["100%"]}
           padding="0px"

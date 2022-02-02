@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Button,
   FormControl,
@@ -13,6 +12,8 @@ import {
   ModalCloseButton,
   Textarea,
 } from "@chakra-ui/react";
+
+import React, { useState } from "react";
 
 interface WorkModalProps {
   isOpen: boolean;

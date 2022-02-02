@@ -1,4 +1,5 @@
 import { Center, Flex } from "@chakra-ui/react";
+
 import { RegisterForm } from "./Formregister";
 import { RegisterInfo } from "./InfoRegister";
 

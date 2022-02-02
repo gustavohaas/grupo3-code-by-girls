@@ -11,16 +11,15 @@ import {
 } from "@chakra-ui/react";
 
 import { FaEnvelope, FaLock, FaRegSmileBeam } from "react-icons/fa";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-
 import { useHistory } from "react-router-dom";
-import { Input } from "../../Components/Form/input";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import * as yup from "yup";
 
-import logo from "../../Assets/logo.svg";
+import { Input } from "../../Components/Form/input";
 import { useLogin } from "../../Providers/Login";
+import logo from "../../Assets/logo.svg";
 
 interface SignInData {
   email: string;
@@ -79,15 +78,7 @@ export const LoginForm = () => {
       <Grid
         onSubmit={handleSubmit(handleSignIn)}
         as="form"
-        // mt="4"
         w={["306px", "390px", "400px", "64%"]}
-        // w={["306px", "390px", "400px", "500px"]}
-        // padding="30px 15px"
-        // border="3px solid"
-        // borderColor="gray.200"
-        // bg="white"
-        // color="gray.900"
-        // h={["95%", "97%"]}
         alignContent="center"
         padding="15px 15px"
         border="1px solid"
@@ -150,7 +141,8 @@ export const LoginForm = () => {
           </Button>
 
           <HStack>
-            <Text w="94%" fontSize="0.9rem" color="gray.400">Ainda não possui uma conta?
+            <Text w="94%" fontSize="0.9rem" color="gray.400">
+              Ainda não possui uma conta?
             </Text>
             <Box color="purple.500">
               <FaRegSmileBeam />
@@ -158,21 +150,14 @@ export const LoginForm = () => {
           </HStack>
 
           <Button
-            // w="100%"
-            // h="60px"
-            // color="gray.300"
-            // bgColor="gray.100"
-            // borderRadius="8px"
-            // _hover={{ background: "gray.200" }}
             onClick={redirectRegister}
             w="98%"
-              h="57px"
-              color="gray.50"
-              bgColor="gray.600"
-              borderRadius="8px"
-              _hover={{ bgColor: "gray.600", borderColor: "gray.600" }}
-              // onClick={() => history.push("/login")}
-              fontSize="1.2rem"
+            h="57px"
+            color="gray.50"
+            bgColor="gray.600"
+            borderRadius="8px"
+            _hover={{ bgColor: "gray.600", borderColor: "gray.600" }}
+            fontSize="1.2rem"
           >
             Cadastrar
           </Button>

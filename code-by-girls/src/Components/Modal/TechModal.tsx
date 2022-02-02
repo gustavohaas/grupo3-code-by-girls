@@ -46,13 +46,13 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
             bgColor="purple.300"
             color="gray.50"
           >
-            Criar Tecnologia
+            Criar Habilidade
           </ModalHeader>
           <ModalCloseButton color="gray.50" />
           <ModalBody>
             <FormControl>
               <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-                Nome da tech
+                Nome da habilidade
               </FormLabel>
               <Input
                 onChangeCapture={(e) => setTech(e.currentTarget.value)}
@@ -79,7 +79,7 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
 
             <FormControl mt={4}>
               <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-                Imagem da tecnologia{" "}
+                Imagem da habilidade{" "}
               </FormLabel>
               <Input
                 ref={initialRef}
@@ -103,7 +103,7 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
                 bgColor="purple.300"
                 color="gray.50"
               >
-                Criar Tech
+                Criar habilidade
               </Button>
               <Button
                 w="95%"
@@ -111,7 +111,7 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
                 bgColor="purple.300"
                 color="gray.50"
               >
-                Editar Tech
+                Editar habilidade
               </Button>
             </Flex>
             <Button

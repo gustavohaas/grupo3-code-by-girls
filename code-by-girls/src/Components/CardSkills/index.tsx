@@ -1,20 +1,26 @@
-import { Box, Center, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { useLogin } from "../../Providers/Login";
+import { useProfile } from "../../Providers/Profile";
 
-interface Skils {
-  url: string;
-  title: string;
+interface Skills {
+  url?: string;
+  userId: string;
+  skill: string;
   level: string;
-  id: number;
+  id: string;
 }
 
-interface PropsSkils {
-  skils: Skils;
+interface PropsSkill {
+  skill: Skills;
 }
 
-export const CardSkils = ({ skils }: PropsSkils) => {
+export const CardSkills = ({ skill }: PropsSkill) => {
   const [isTrue, setIsTrue] = useState(false);
+
+  const { deleteSkill } = useProfile();
+  const { data } = useLogin()
 
   return (
     <Flex
@@ -39,7 +45,7 @@ export const CardSkils = ({ skils }: PropsSkils) => {
           <FaRegEdit />
         </Box>
 
-        <Box cursor={"pointer"}>
+        <Box cursor={"pointer"} as="button" onClick={() => deleteSkill(skill.id, data.accessToken)} >
           <FaTrash />
         </Box>
       </Flex>
@@ -55,17 +61,17 @@ export const CardSkils = ({ skils }: PropsSkils) => {
           h="100%"
           objectFit={["cover"]}
           borderRadius={["100%"]}
-          src={skils.url}
+          src={skill.url}
           alt="Imagem da Tecnologia"
         />
       </Box>
 
       <Flex flexDir={["column"]}>
         <Heading wordBreak={"break-word"} fontSize={["18px"]}>
-          {skils.title}
+          {skill.skill}
         </Heading>
         <Text fontSize={["14px"]} wordBreak={"break-word"}>
-          {skils.level}
+          {skill.level}
         </Text>
       </Flex>
     </Flex>

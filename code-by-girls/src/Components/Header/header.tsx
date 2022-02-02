@@ -8,7 +8,9 @@ import {
   MenuButton,
   MenuList,
   Grid,
-  useDisclosure,
+  useDisclosure, 
+  Text, 
+  Flex,
 } from "@chakra-ui/react";
 
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
@@ -20,14 +22,19 @@ import { GroupModal } from "../Modal/GroupModal";
 import { ModalSearchGroups } from "../Modal/ModalSearchGroups";
 import { theme } from "../../Styles/theme";
 import DevGirls from "../../Assets/devgirls.png";
+import { ProfileImageModal } from "../Modal/ProfileImageModal";
+import { useProfile } from "../../Providers/Profile";
+import { useEffect } from "react";
 
 interface HeaderProps {
   input: boolean;
   profile: boolean;
+  linkedin?: string;
 }
 
-const Header = ({ input, profile }: HeaderProps) => {
-  const { handleSignOut } = useLogin();
+const Header = ({ input, profile, linkedin }: HeaderProps) => {
+  const { handleSignOut, data } = useLogin();
+  const { profileImageUrl, getProfile } = useProfile();
   let history = useHistory();
 
   const {
@@ -42,9 +49,20 @@ const Header = ({ input, profile }: HeaderProps) => {
     onClose: onModalSearchGroupsClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isProfileImageModalOpen,
+    onOpen: onProfileImageModalOpen,
+    onClose: onProfileImageModalClose
+  } = useDisclosure();
+
   function handleClick(destiny: string) {
     history.push(destiny);
   }
+
+  useEffect(() => {
+    getProfile(data.user.id, data.accessToken)
+  }, [])
+
   return (
     <>
       <GroupModal 
@@ -54,6 +72,7 @@ const Header = ({ input, profile }: HeaderProps) => {
         isOpen={isModalSearchGroupsOpen}
         onClose={onModalSearchGroupsClose}
       />
+      <ProfileImageModal isOpen={isProfileImageModalOpen} onClose={onProfileImageModalClose} />
       <Heading
         h={"120px"}
         m="3px 2px"
@@ -66,14 +85,49 @@ const Header = ({ input, profile }: HeaderProps) => {
         padding={["0px 30px", "0px 30px", "0px 50px"]}
       >
         <Grid mr="10px">
-          <Image
-            src={DevGirls}
-            w={["80px", "90px", "90px"]}
-            color="gray.200"
-            bgColor="white"
-            borderRadius="14%"
-          />
+          <Menu>
+            <MenuButton >
+              {profileImageUrl ? (
+                <Image
+                  src={profileImageUrl}
+                  w={["80px", "90px", "90px"]}
+                  h={["80px", "90px", "90px"]}
+                  color="gray.200"
+                  bgColor="white"
+                  borderRadius="14%"
+                />
+                ) : (
+                <Image
+                  src={DevGirls}
+                  w={["80px", "90px", "90px"]}
+                  h={["80px", "90px", "90px"]}
+                  color="gray.200"
+                  bgColor="white"
+                  borderRadius="14%"
+                />
+              )}
+              
+            </MenuButton>
+            <MenuList>
+              <Flex flexDir="column" >
+                <HStack
+                  borderBottom={"1px solid"}
+                  w={"250px"}
+                  justifyContent={"space-between"}
+                  marginTop={"10px"}
+                  marginX="5px"
+                >
+                  <Button 
+                    onClick={onProfileImageModalOpen} 
+                    hover={{ bgColor: "gray.50", color: "gray.900", textDecoration: "underline"}}
+                  >Alterar imagem</Button>
+                  <CgProfile fontSize="25px"/>
+                </HStack>
+              </Flex>
+            </MenuList>
+          </Menu>
         </Grid>
+        {linkedin ? (<Text color="white" >Linkedin: {linkedin}</Text>) : (<></>)}
         <HStack
           spacing={["0px", "30px", "50px", "50px"]}
           w={["130px", "max-content"]}

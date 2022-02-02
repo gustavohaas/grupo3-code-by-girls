@@ -58,6 +58,7 @@ export const LoginForm = () => {
           status: "success",
           isClosable: true,
         });
+        //history.push("/dashboard")
       })
       .catch((_) => {
         setIsLoading(false);

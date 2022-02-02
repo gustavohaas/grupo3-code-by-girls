@@ -12,6 +12,7 @@ import {
   Modal,
   ModalOverlay,
   useDisclosure,
+  Flex,
 } from "@chakra-ui/react";
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout, GrGroup } from "react-icons/gr";
@@ -24,21 +25,31 @@ import { useState } from "react";
 import { useDashboard } from "../../Providers/Dashboard";
 import { theme } from "../../Styles/theme";
 import { GroupModal } from "../Modal/GroupModal";
+import { ProfileImageModal } from "../Modal/ProfileImageModal";
+import { useProfile } from "../../Providers/Profile";
 interface HeaderProps {
   input: boolean;
   profile: boolean;
+  linkedin?: string;
 }
 
-const Header = ({ input, profile }: HeaderProps) => {
+const Header = ({ input, profile, linkedin }: HeaderProps) => {
   const { handleSignOut, data } = useLogin();
   const { SearchBoxDashboard } = useDashboard();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { profileImageUrl } = useProfile();
   let history = useHistory();
 
   const {
     isOpen: isGroupModalOpen,
     onOpen: onGroupModalOpen,
     onClose: onGroupModalClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isProfileImageModalOpen,
+    onOpen: onProfileImageModalOpen,
+    onClose: onProfileImageModalClose,
   } = useDisclosure();
 
   function handleClick(destiny: string) {
@@ -57,8 +68,51 @@ const Header = ({ input, profile }: HeaderProps) => {
       padding={"0px 30px"}
     >
       <HStack spacing={"0px"}>
-        <Grid color={"gray.200"} mr="10px">
-          <FaUserCircle fontSize={"5rem"} />
+        <Grid mr="10px">
+          <Grid mr="10px">
+            <Menu>
+              <MenuButton>
+                {profileImageUrl ? (
+                  <Image
+                    src={profileImageUrl}
+                    w={["80px", "90px", "90px"]}
+                    h={["80px", "90px", "90px"]}
+                    color="gray.200"
+                    bgColor="white"
+                    borderRadius="80%"
+                  />
+                ) : (
+                  <Grid color={"gray.200"}>
+                    <FaUserCircle fontSize={"5rem"} color="gray.200" />
+                  </Grid>
+                )}
+              </MenuButton>
+              <MenuList>
+                <Flex flexDir="column">
+                  <HStack
+                    borderBottom={"1px solid"}
+                    w={"250px"}
+                    justifyContent={"space-between"}
+                    marginTop={"10px"}
+                    marginX="5px"
+                  >
+                    <Button
+                      onClick={onProfileImageModalOpen}
+                      hover={{
+                        bgColor: "gray.50",
+                        color: "gray.900",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Alterar imagem
+                    </Button>
+                    <CgProfile fontSize="25px" />
+                  </HStack>
+                </Flex>
+              </MenuList>
+            </Menu>
+          </Grid>
+          {linkedin ? <Text color="white">Linkedin: {linkedin}</Text> : <></>}
         </Grid>
         <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
           {data.user?.name}
@@ -225,6 +279,10 @@ const Header = ({ input, profile }: HeaderProps) => {
         />
       </Modal>
       <GroupModal isOpen={isGroupModalOpen} onClose={onGroupModalClose} />
+      <ProfileImageModal
+        isOpen={isProfileImageModalOpen}
+        onClose={onProfileImageModalClose}
+      />
     </Heading>
   );
 };

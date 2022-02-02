@@ -66,7 +66,7 @@ const LoginProvider = ({ children }: LoginChildren) => {
     localStorage.setItem("@token-code-like-girls-user", JSON.stringify(user));
 
     setData({ accessToken, user });
-    loadGroups(data.user.id, data.accessToken).catch((err) => console.log(err));
+    loadGroups(user.id, accessToken);
   }, []);
 
   const handleSignOut = () => {

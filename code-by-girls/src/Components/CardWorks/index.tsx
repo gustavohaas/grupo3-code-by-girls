@@ -1,12 +1,15 @@
 import { Box, Center, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { useLogin } from "../../Providers/Login";
+import { useProfile } from "../../Providers/Profile";
 
 interface Work {
-  url: string;
+  url?: string;
+  userId: string;
   title: string;
   description: string;
-  id: number;
+  id: string;
 }
 
 interface PropsWorks {
@@ -15,6 +18,9 @@ interface PropsWorks {
 
 export const CardWorks = ({ work }: PropsWorks) => {
   const [isTrue, setIsTrue] = useState(false);
+
+  const { deleteWork } = useProfile();
+  const { data } = useLogin()
 
   return (
     <Flex
@@ -39,7 +45,7 @@ export const CardWorks = ({ work }: PropsWorks) => {
           <FaRegEdit />
         </Box>
 
-        <Box cursor={"pointer"}>
+        <Box cursor={"pointer"} as="button" onClick={() => deleteWork(work.id, data.accessToken)} >
           <FaTrash />
         </Box>
       </Flex>

@@ -85,12 +85,6 @@ export const RegisterForm = () => {
 
   return (
     <>
-      {/* <ModalLoginSuccess
-        isOpen={isModalSuccessOpen}
-        onClose={onModalSuccessClose}
-      />
-      <ModalLoginError isOpen={isModalErrorOpen} onClose={onModalErrorClose} /> */}
-
       <Grid
         onSubmit={handleSubmit(handleRegisterSubmit)}
         as="form"

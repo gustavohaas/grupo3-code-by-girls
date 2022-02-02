@@ -46,6 +46,8 @@ export const LoginForm = () => {
     resolver: yupResolver(schema),
   });
 
+  const history = useHistory();
+
   const handleSignIn = (data: any) => {
     setIsLoading(true);
     handleLogin(data)
@@ -67,8 +69,6 @@ export const LoginForm = () => {
         });
       });
   };
-
-  const history = useHistory();
 
   const redirectRegister = () => {
     history.push("/register");

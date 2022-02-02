@@ -39,7 +39,7 @@ const Dashboard = () => {
         group={selectedGroup}
       />
       <Flex justifyContent="center" mt="8">
-        <Flex w="80%" flexDir="row" flexWrap="wrap">
+        <Flex w="80%" flexDir="row" flexWrap="wrap" justifyContent={"center"}>
           {groups.map((item) => (
             <Box key={item.id}>
               <CardGroup group={item} onClick={handleClick} />

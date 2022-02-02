@@ -34,7 +34,12 @@ export const ModalGroupsDetails = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent padding="2" bg="white" color="gray" alignItems="center">
+      <ModalContent
+        padding={["0", "2"]}
+        bg="white"
+        color="gray"
+        alignItems="center"
+      >
         <ModalHeader
           display="flex"
           justifyContent="space-between"
@@ -43,7 +48,7 @@ export const ModalGroupsDetails = ({
         >
           <Flex alignContent="center" alignItems={"center"}>
             <Button
-              m="3"
+              m={["1", "3"]}
               bg="purple.500"
               color="white"
               _hover={{ bg: "purple.100" }}
@@ -55,29 +60,44 @@ export const ModalGroupsDetails = ({
             </Button>
 
             <Box
-              ml="3"
+              ml={["1", "3"]}
               onClick={onClose}
               color="purple.400"
-              fontSize="35px"
+              fontSize={["35px"]}
               _hover={{ color: "purple.100" }}
             >
               <FaWindowClose />
             </Box>
           </Flex>
-          <ModalBody display={"flex"}>
-            <Flex w={"100px"} h="100px" flexDir={"row"} m="3">
+          <ModalBody
+            display={"flex"}
+            flexDir={["column", "row"]}
+            alignItems={["center", ""]}
+          >
+            <Flex
+              w={["70px", "100px"]}
+              h={["70px", "100px"]}
+              flexDir={["row"]}
+              m={["1", "3"]}
+            >
               <Image
-                borderRadius={["100%"]}
+                borderRadius={["50%", "100%"]}
                 src={group.url}
                 alt="Imagem da Tecnologia"
               />
             </Flex>
 
             <Flex flexDir="column">
-              <Heading as="h1" fontSize="2xl" p="3">
+              <Heading as="h1" fontSize={["xl", "2xl"]} p={["1", "3"]}>
                 {group.groupName}
               </Heading>
-              <Text color="gray.400" w="280px" p="2">
+              <Text
+                as="p"
+                color="gray.400"
+                w={["200px", "280px"]}
+                p={["1", "2"]}
+                fontSize={["md", "xl"]}
+              >
                 {group.description}
               </Text>
             </Flex>

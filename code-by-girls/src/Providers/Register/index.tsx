@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useCallback, useContext } from "react";
 
 import { api } from "../../Services/api";
+import { useProfile } from "../Profile";
 
 interface RegisterChildren {
   children: ReactNode;
@@ -25,8 +26,14 @@ export const useRegister = () => {
 };
 
 export const RegisterProvider = ({ children }: RegisterChildren) => {
+
+  const { createProfile } = useProfile()
+
   const handleRegister = useCallback(async (data: any) => {
     const response = await api.post("/register", data);
+
+    createProfile(response.data.user.id, response.data.user.name, "", "", response.data.accessToken)
+
   }, []);
 
   return (

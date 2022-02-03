@@ -48,8 +48,7 @@ export const Profile = () => {
 
   return (
     <>
-      <Header input={false} profile={false} />
-
+      <Header input={false} profile={false} linkedin={true} />
       <Flex
         w="100vw"
         bg="gray.50"

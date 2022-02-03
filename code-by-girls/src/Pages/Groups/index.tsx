@@ -9,7 +9,7 @@ export const Groups = () => {
   const { dataGroup } = useGroup();
   return (
     <>
-      <Header input={false} profile={false} />
+      <Header input={false} profile={false} linkedin={false} />
       <Heading as="h1" m="20px">
         {dataGroup.groupName}
       </Heading>

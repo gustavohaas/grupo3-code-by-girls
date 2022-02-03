@@ -15,14 +15,14 @@ import { useProfile } from '../../Providers/Profile';
 import { useState } from "react";
 import { useLogin } from '../../Providers/Login';
 
-interface ProfileImageModalProps {
+interface ProfileLinkedinModalProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-export const ProfileImageModal = ({ isOpen, onClose }: ProfileImageModalProps) => {
+export const ProfileLinkedinModal = ({ isOpen, onClose }: ProfileLinkedinModalProps) => {
 
-    const { editImage, profileId } = useProfile();
+    const { editLinkedin, profileId } = useProfile();
     const { data } = useLogin();
 
     const [value, setValue] = useState("");
@@ -36,12 +36,12 @@ export const ProfileImageModal = ({ isOpen, onClose }: ProfileImageModalProps) =
                 fontWeight="700"
                 bgColor="purple.300"
                 color="gray.50"
-            >Alterar imagem</ModalHeader>
+            >Alterar Linkedin</ModalHeader>
             <ModalCloseButton color="gray.50" />
             <ModalBody>
                 <FormControl>
                     <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-                    URL da imagem
+                    URL do linkedin
                     </FormLabel>
                     <Input
                     onChangeCapture={(e) =>
@@ -60,9 +60,9 @@ export const ProfileImageModal = ({ isOpen, onClose }: ProfileImageModalProps) =
                     bgColor="purple.300"
                     color="gray.50"
                     mr={3}
-                    onClick={() => editImage( profileId, value, data.accessToken, data.user.id )}
+                    onClick={() => editLinkedin(profileId, value, data.accessToken, data.user.id)}
                 >
-                    Atualizar imagem
+                    Atualizar Linkedin
                 </Button>
                 <Button
                     onClick={onClose}

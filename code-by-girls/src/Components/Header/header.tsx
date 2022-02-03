@@ -32,15 +32,17 @@ import { ProfileLinkedinModal } from "../Modal/ProfileLinkedinModal";
 interface HeaderProps {
   input: boolean;
   profile: boolean;
-  linkedin?: string;
+  linkedin: boolean;
 }
 
 const Header = ({ input, profile, linkedin }: HeaderProps) => {
   const { handleSignOut, data } = useLogin();
   const { SearchBoxDashboard } = useDashboard();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { profileImageUrl } = useProfile();
+  const { profileImageUrl, profileLinkedin } = useProfile();
   let history = useHistory();
+
+  const name = data.user.name
 
   const {
     isOpen: isGroupModalOpen,
@@ -142,11 +144,10 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
           
         </Grid>
         <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
-          {data.user?.name}
-          {linkedin ? <Text color="white">Linkedin: {linkedin}</Text> : <></>}
+          {name}
         </Text>
       </HStack>
-
+      {profileLinkedin ? <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>Linkedin: {profileLinkedin}</Text> : <></>}
       <HStack spacing={["0px", "50px", "50px", "50px"]}>
         {input && (
           <HStack

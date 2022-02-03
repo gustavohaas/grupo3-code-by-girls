@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   return (
     <Grid>
-      <Header input profile />
+      <Header input profile linkedin={false} />
       <ModalGroupsDetails
         group={selectedGroup}
         isOpen={isOpen}

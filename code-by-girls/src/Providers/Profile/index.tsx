@@ -53,6 +53,7 @@ interface ProfileProviderProps {
   createProfile: (userId: string, name: string, imagem: string, linkedin: string, accessToken: string) => void;
   profileImageUrl: string;
   profileId: string;
+  profileLinkedin: string;
 }
 
 const ProfileContext = createContext<ProfileProviderProps>(
@@ -64,6 +65,7 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
 
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
   const [profileId, setProfileId] = useState<string>("");
+  const [profileLinkedin, setProfileLinkedin] = useState<string>("");
 
   const [perfil, setPerfil] = useState<PerfilProps[]>([]);
   const [skills, setSkills] = useState<SkillsProps[]>([]);
@@ -166,7 +168,7 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
           if (userId === user.userId) {
             setProfileId(user.id);
             setProfileImageUrl(user.imagem);
-            console.log("id usuario");
+            setProfileLinkedin(user.linkedin);
           }
         });
       } else(console.log(response))
@@ -230,7 +232,8 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
         getProfile,
         profileId,
         editLinkedin,
-        createProfile
+        createProfile,
+        profileLinkedin,
       }}
     >
       {children}

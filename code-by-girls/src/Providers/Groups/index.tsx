@@ -35,7 +35,7 @@ interface Group {
 
 interface GroupsProviderProps {
   createGroup: ({ userId, groupName, description }: any) => void;
-  createGroupData: () => void;
+  createGroupData: (id: number) => void;
   dataGroup: Group;
   subscribeGroup: (userId: any, name: any, groupId: any) => void;
 }
@@ -64,19 +64,19 @@ const GroupsProvider = ({ children }: GroupChildren) => {
 
   const [dataGroup, setDataGroup] = useState({} as Group);
 
-  useEffect(() => {
-    api
-      .get("/groups/2?_embed=subscribe&_embed=comments", {
-        headers: {
-          Authorization: `Bearer ${data.accessToken}`,
-        },
-      })
-      .then((response) => setDataGroup(response.data));
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .get(`/groups/${}?_embed=subscribe&_embed=comments`, {
+  //       headers: {
+  //         Authorization: `Bearer ${data.accessToken}`,
+  //       },
+  //     })
+  //     .then((response) => setDataGroup(response.data));
+  // }, []);
 
-  const createGroupData = () => {
+  const createGroupData = (id: number) => {
     api
-      .get("/groups/2?_embed=subscribe&_embed=comments", {
+      .get(`/groups/${id}?_embed=subscribe&_embed=comments`, {
         headers: {
           Authorization: `Bearer ${data.accessToken}`,
         },

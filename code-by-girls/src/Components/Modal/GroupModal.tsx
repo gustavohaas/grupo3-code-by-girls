@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
+import { useDashboard } from "../../Providers/Dashboard";
 import { useGroup } from "../../Providers/Groups";
 import { useLogin } from "../../Providers/Login";
 
@@ -30,7 +31,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
   const [groupDescription, setGroupDescription] = useState("");
   const [groupImg, setGroupImg] = useState("");
   const { createGroup, dataGroup } = useGroup();
-
+  const { loadGroups } = useDashboard();
   const { data } = useLogin();
   const { id } = data.user;
 
@@ -103,7 +104,10 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
         <ModalFooter>
           <Button
-            onClick={() => createGroup(newGroupData)}
+            onClick={() => {
+              onClose();
+              createGroup(newGroupData);
+            }}
             disabled={!group}
             w="75%"
             _hover={{ bgColor: "purple.400" }}

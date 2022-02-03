@@ -17,6 +17,7 @@ import {
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout, GrGroup } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
+import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useLogin } from "../../Providers/Login";
@@ -224,12 +225,7 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
                 >
                   Voltar ao Menu
                 </Button>
-                <Image
-                  bgColor={"black"}
-                  w="25px"
-                  height={"25px"}
-                  borderRadius={"100px"}
-                />
+                <MdOutlineDashboard fontSize="25px" />
               </HStack>
             )}
             <HStack

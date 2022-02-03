@@ -36,7 +36,7 @@ export const DashboardProvider = ({ children }: DashboardChildren) => {
 
   const loadGroups = useCallback(async (accessToken: string) => {
     try {
-      const response = await api.get(`groups`, {
+      const response = await api.get(`/groups`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

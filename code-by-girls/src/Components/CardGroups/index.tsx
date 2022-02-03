@@ -15,12 +15,14 @@ export const CardGroup = ({ group, onClick }: PropsGroup) => {
   return (
     <Flex
       onClick={() => onClick(group)}
-      w={["250px", "400px"]}
-      h={["80px", "121px"]}
+      w={["290px", "400px"]}
+      h={["121px"]}
       shadow={["xl"]}
       padding={["6px", "5px"]}
       margin={"10px"}
       borderRadius="10px"
+      borderColor={"purple.100"}
+      border={["1px solid", "none"]}
       _hover={{
         bg: "purple.50",
         transform: "translatey(-5px)",
@@ -40,7 +42,11 @@ export const CardGroup = ({ group, onClick }: PropsGroup) => {
       </Box>
 
       <Flex flexDir={["column"]} ml="5">
-        <Heading wordBreak={"break-word"} fontSize={["20px"]}>
+        <Heading
+          wordBreak={"break-word"}
+          fontSize={["20px"]}
+          mt={["5", "none"]}
+        >
           {group.groupName}
         </Heading>
         <Text

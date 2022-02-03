@@ -1,5 +1,6 @@
 import {
   Button,
+  Text,
   Heading,
   HStack,
   Image,
@@ -8,24 +9,24 @@ import {
   MenuButton,
   MenuList,
   Grid,
-  useDisclosure, 
-  Text, 
+  Modal,
+  ModalOverlay,
+  useDisclosure,
   Flex,
 } from "@chakra-ui/react";
-
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout, GrGroup } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
+import { FaUserCircle } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useLogin } from "../../Providers/Login";
-import { GroupModal } from "../Modal/GroupModal";
-import { ModalSearchGroups } from "../Modal/ModalSearchGroups";
+import InputModal from "../Header/input";
+import { useState } from "react";
+import { useDashboard } from "../../Providers/Dashboard";
 import { theme } from "../../Styles/theme";
-import DevGirls from "../../Assets/devgirls.png";
+import { GroupModal } from "../Modal/GroupModal";
 import { ProfileImageModal } from "../Modal/ProfileImageModal";
 import { useProfile } from "../../Providers/Profile";
-import { useEffect } from "react";
-
 interface HeaderProps {
   input: boolean;
   profile: boolean;
@@ -34,7 +35,9 @@ interface HeaderProps {
 
 const Header = ({ input, profile, linkedin }: HeaderProps) => {
   const { handleSignOut, data } = useLogin();
-  const { profileImageUrl, getProfile } = useProfile();
+  const { SearchBoxDashboard } = useDashboard();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { profileImageUrl } = useProfile();
   let history = useHistory();
 
   const {
@@ -44,260 +47,245 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
   } = useDisclosure();
 
   const {
-    isOpen: isModalSearchGroupsOpen,
-    onOpen: onModalSearchGroupsOpen,
-    onClose: onModalSearchGroupsClose,
-  } = useDisclosure();
-
-  const {
     isOpen: isProfileImageModalOpen,
     onOpen: onProfileImageModalOpen,
-    onClose: onProfileImageModalClose
+    onClose: onProfileImageModalClose,
   } = useDisclosure();
 
   function handleClick(destiny: string) {
     history.push(destiny);
   }
-
-  useEffect(() => {
-    getProfile(data.user.id, data.accessToken)
-  }, [])
+  const [text, setText] = useState("");
 
   return (
-    <>
-      <GroupModal 
-        isOpen={isGroupModalOpen} 
-        onClose={onGroupModalClose} />
-      <ModalSearchGroups
-        isOpen={isModalSearchGroupsOpen}
-        onClose={onModalSearchGroupsClose}
-      />
-      <ProfileImageModal isOpen={isProfileImageModalOpen} onClose={onProfileImageModalClose} />
-      <Heading
-        h={"120px"}
-        m="3px 2px"
-        borderRadius="12px"
-        bgColor={"gray.600"}
-        borderColor="purple.500"
-        display={"flex"}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        padding={["0px 30px", "0px 30px", "0px 50px"]}
-      >
+    <Heading
+      w={"100vw"}
+      h={"100px"}
+      bgColor={"purple.500"}
+      display={"flex"}
+      justifyContent={"space-between"}
+      alignItems={"center"}
+      padding={"0px 30px"}
+    >
+      <HStack spacing={"0px"}>
         <Grid mr="10px">
-          <Menu>
-            <MenuButton >
-              {profileImageUrl ? (
-                <Image
-                  src={profileImageUrl}
-                  w={["80px", "90px", "90px"]}
-                  h={["80px", "90px", "90px"]}
-                  color="gray.200"
-                  bgColor="white"
-                  borderRadius="14%"
-                />
-                ) : (
-                <Image
-                  src={DevGirls}
-                  w={["80px", "90px", "90px"]}
-                  h={["80px", "90px", "90px"]}
-                  color="gray.200"
-                  bgColor="white"
-                  borderRadius="14%"
-                />
-              )}
-              
-            </MenuButton>
-            <MenuList>
-              <Flex flexDir="column" >
-                <HStack
-                  borderBottom={"1px solid"}
-                  w={"250px"}
-                  justifyContent={"space-between"}
-                  marginTop={"10px"}
-                  marginX="5px"
-                >
-                  <Button 
-                    onClick={onProfileImageModalOpen} 
-                    hover={{ bgColor: "gray.50", color: "gray.900", textDecoration: "underline"}}
-                  >Alterar imagem</Button>
-                  <CgProfile fontSize="25px"/>
-                </HStack>
-              </Flex>
-            </MenuList>
-          </Menu>
-        </Grid>
-        {linkedin ? (<Text color="white" >Linkedin: {linkedin}</Text>) : (<></>)}
-        <HStack
-          spacing={["0px", "30px", "50px", "50px"]}
-          w={["130px", "max-content"]}
-          justifyContent="space-around"
-        >
-          {input && (
-            <HStack
-              spacing={"0px"}
-              padding={"0px"}
-              border={[
-                "none",
-                "2px white solid",
-                "2px white solid",
-                "2px white solid",
-              ]}
-              borderRadius={"8px"}
-              bgColor={"gray.50"}
-              h={"40px"}
-            >
-              <Input
-                display={["none", "flex", "flex", "flex"]}
-                border="none"
-                w={["140px", "161px", "170px", "200px", "200px"]}
-                h="100%"
-                fontSize={["0.9rem", "1rem"]}
-                placeholder="Pesquise por grupos"
-                _placeholder={{ color: "gray.600", fontFamily: "Roboto" }}
-              />
-              <Button
-                display={["flex", "flex", "flex", "flex"]}
-                w={["54px", "40px", "64px"]}
-                h="40px"
-                margin="2px"
-                padding="0px"
-                color="gray.50"
-                border="1px solid"
-                borderColor="gray.50"
-                bgColor="purple.500"
-                _hover={{
-                  bgColor: "transparent",
-                  color: "purple.500",
-                  borderColor: "purple.500",
-                  border: "1px solid",
-                  fontWeight: "900",
-                }}
-                fontSize={"30px"}
-              >
-                <AiOutlineSearch
-                  onClick={onModalSearchGroupsOpen}
-                  fontSize="1.8rem"
-                />
-              </Button>
-
-              <Button
-                display={["none", "none", "none", "none"]}
-                h={"100%"}
-                margin="2px"
-                bgColor={"gray.600"}
-                color={"gray.900"}
-                _hover={{ bgColor: "gray.600", color: "gray.50" }}
-                fontSize={"28px"}
-              >
-                <AiOutlineSearch />
-              </Button>
-            </HStack>
-          )}
-          <Menu>
-            <MenuButton
-              fontSize={["20px", "30px"]}
-              as={Button}
-              bgColor="purple.500"
-              border="1px solid"
-              color="white"
-              _hover={{ bgColor: "gray.50", color: "purple.500" }}
-              fontFamily={theme.fonts.body}
-            >
-              <AiOutlineMenu />
-            </MenuButton>
-
-            <MenuList
-              marginTop="25px"
-              w="300px"
-              display="flex"
-              alignItems="center"
-              flexDirection="column"
-            >
-              {profile ? (
-                <HStack
-                  borderBottom="1px solid"
-                  w="250px"
-                  justifyContent="space-between"
-                  marginTop="10px"
-                >
-                  <Button
-                    onClick={() => handleClick("/profile")}
-                    _hover={{
-                      bgColor: "gray.50",
-                      color: "gray.900",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    Vizualizar Perfil
-                  </Button>
-                  <CgProfile fontSize="25px" />
-                </HStack>
-              ) : (
-                <HStack
-                  borderBottom="1px solid"
-                  w="250px"
-                  justifyContent="space-between"
-                >
-                  <Button
-                    onClick={() => handleClick("/dashboard")}
-                    _hover={{
-                      bgColor: "gray.50",
-                      color: "gray.900",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    Voltar ao Menu
-                  </Button>
+          <Grid mr="10px">
+            <Menu>
+              <MenuButton>
+                {profileImageUrl ? (
                   <Image
-                    bgColor={"black"}
-                    w="25px"
-                    height={"25px"}
-                    borderRadius={"100px"}
+                    src={profileImageUrl}
+                    w={["80px", "90px", "90px"]}
+                    h={["80px", "90px", "90px"]}
+                    color="gray.200"
+                    bgColor="white"
+                    borderRadius="80%"
                   />
-                </HStack>
-              )}
+                ) : (
+                  <Grid color={"gray.200"}>
+                    <FaUserCircle fontSize={"5rem"} color="gray.200" />
+                  </Grid>
+                )}
+              </MenuButton>
+              <MenuList>
+                <Flex flexDir="column">
+                  <HStack
+                    borderBottom={"1px solid"}
+                    w={"250px"}
+                    justifyContent={"space-between"}
+                    marginTop={"10px"}
+                    marginX="5px"
+                  >
+                    <Button
+                      onClick={onProfileImageModalOpen}
+                      hover={{
+                        bgColor: "gray.50",
+                        color: "gray.900",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Alterar imagem
+                    </Button>
+                    <CgProfile fontSize="25px" />
+                  </HStack>
+                </Flex>
+              </MenuList>
+            </Menu>
+          </Grid>
+          {linkedin ? <Text color="white">Linkedin: {linkedin}</Text> : <></>}
+        </Grid>
+        <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
+          {data.user?.name}
+        </Text>
+      </HStack>
+
+      <HStack spacing={["0px", "50px", "50px", "50px"]}>
+        {input && (
+          <HStack
+            spacing={"0px"}
+            padding={"0px"}
+            border={[
+              "none",
+              "2px white solid",
+              "2px white solid",
+              "2px white solid",
+            ]}
+            borderRadius={"8px"}
+            bgColor={"gray.50"}
+            h={"40px"}
+          >
+            <Input
+              display={["none", "flex", "flex", "flex"]}
+              border="none"
+              bgColor={"gray.50"}
+              h={"100%"}
+              placeholder="Pesquise por grupos"
+              onChangeCapture={(e) => setText(e.currentTarget.value)}
+            />
+            <Button
+              display={["none", "flex", "flex", "flex"]}
+              h={"100%"}
+              margin={"2px"}
+              bgColor={"purple.500"}
+              color={"gray.900"}
+              _hover={{ bgColor: "purple.500", color: "gray.50" }}
+              fontSize={"30px"}
+              onClick={() => SearchBoxDashboard(text, data.accessToken)}
+            >
+              <AiOutlineSearch />
+            </Button>
+
+            <Button
+              display={["flex", "none", "none", "none"]}
+              h={"100%"}
+              margin="2px"
+              bgColor={"purple.500"}
+              color={"gray.900"}
+              _hover={{ bgColor: "purple.500", color: "gray.50" }}
+              fontSize={"28px"}
+              onClick={onOpen}
+            >
+              <AiOutlineSearch />
+            </Button>
+          </HStack>
+        )}
+        <Menu>
+          <MenuButton
+            fontSize={["20px", "30px"]}
+            as={Button}
+            bgColor={"purple.500"}
+            border="1px solid"
+            color="white"
+            _hover={{ bgColor: "gray.50", color: "purple.500" }}
+            fontFamily={theme.fonts.body}
+          >
+            <AiOutlineMenu />
+          </MenuButton>
+
+          <MenuList
+            marginTop={"25px"}
+            w={"300px"}
+            display={"flex"}
+            alignItems={"center"}
+            flexDirection={"column"}
+          >
+            {profile ? (
               <HStack
                 borderBottom={"1px solid"}
                 w={"250px"}
                 justifyContent={"space-between"}
+                marginTop={"10px"}
               >
                 <Button
-                  onClick={onGroupModalOpen}
+                  onClick={() => handleClick("/profile")}
                   _hover={{
                     bgColor: "gray.50",
                     color: "gray.900",
                     textDecoration: "underline",
                   }}
                 >
-                  Criar Grupo
+                  Vizualizar Perfil
                 </Button>
-                <GrGroup fontSize="25px" />
+                <CgProfile fontSize="25px" />
               </HStack>
+            ) : (
               <HStack
                 borderBottom={"1px solid"}
                 w={"250px"}
                 justifyContent={"space-between"}
-                marginBottom={"15px"}
               >
                 <Button
-                  onClick={() => handleSignOut()}
+                  onClick={() => handleClick("/dashboard")}
                   _hover={{
                     bgColor: "gray.50",
                     color: "gray.900",
                     textDecoration: "underline",
                   }}
                 >
-                  Sair
+                  Voltar ao Menu
                 </Button>
-                <GrLogout fontSize="25px" height={"25px"} />
+                <Image
+                  bgColor={"black"}
+                  w="25px"
+                  height={"25px"}
+                  borderRadius={"100px"}
+                />
               </HStack>
-            </MenuList>
-          </Menu>
-        </HStack>
-      </Heading>
-    </>
+            )}
+            <HStack
+              borderBottom={"1px solid"}
+              w={"250px"}
+              justifyContent={"space-between"}
+            >
+              <Button
+                onClick={onGroupModalOpen}
+                _hover={{
+                  bgColor: "gray.50",
+                  color: "gray.900",
+                  textDecoration: "underline",
+                }}
+              >
+                Criar Grupo
+              </Button>
+              <GrGroup fontSize="25px" />
+            </HStack>
+            <HStack
+              borderBottom={"1px solid"}
+              w={"250px"}
+              justifyContent={"space-between"}
+              marginBottom={"15px"}
+            >
+              <Button
+                onClick={() => handleSignOut()}
+                _hover={{
+                  bgColor: "gray.50",
+                  color: "gray.900",
+                  textDecoration: "underline",
+                }}
+              >
+                Sair
+              </Button>
+              <GrLogout fontSize="25px" height={"25px"} />
+            </HStack>
+          </MenuList>
+        </Menu>
+      </HStack>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <InputModal
+          close={onClose}
+          Icon={AiOutlineSearch}
+          active={SearchBoxDashboard}
+        />
+      </Modal>
+      <GroupModal isOpen={isGroupModalOpen} onClose={onGroupModalClose} />
+      <ProfileImageModal
+        isOpen={isProfileImageModalOpen}
+        onClose={onProfileImageModalClose}
+      />
+    </Heading>
   );
 };
 
+//
 export default Header;

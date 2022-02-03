@@ -5,6 +5,7 @@ import Header from "../../Components/Header/header";
 import { ModalGroupsDetails } from "../../Components/Modal/ModalGroupsDetails";
 import { useDashboard } from "../../Providers/Dashboard";
 import { useLogin } from "../../Providers/Login";
+import { useProfile } from "../../Providers/Profile";
 
 interface Groups {
   url?: string;
@@ -14,13 +15,14 @@ interface Groups {
 }
 
 const Dashboard = () => {
-  const { groups, loadGroups } = useDashboard();
+  const { groups } = useDashboard();
   const { data } = useLogin();
+  const { getUserData } = useProfile();
 
   const [selectedGroup, setSelectedGroup] = useState<Groups>({} as Groups);
 
   useEffect(() => {
-    loadGroups(data.accessToken).catch((err) => console.log(err));
+    getUserData(data.user.id, data.accessToken);
   }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();

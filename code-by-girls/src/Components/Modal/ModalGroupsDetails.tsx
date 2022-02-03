@@ -11,7 +11,10 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
+import { BsFillPersonPlusFill } from "react-icons/bs";
 import { FaWindowClose } from "react-icons/fa";
+import { ImEnter } from "react-icons/im";
+import { useHistory } from "react-router-dom";
 
 interface Groups {
   url?: string;
@@ -30,6 +33,8 @@ export const ModalGroupsDetails = ({
   onClose,
   group,
 }: ModalGroupsDetailsProps) => {
+  const history = useHistory();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -38,6 +43,7 @@ export const ModalGroupsDetails = ({
         bg="white"
         color="gray"
         alignItems="center"
+        w={"80%"}
       >
         <ModalHeader
           display="flex"
@@ -45,21 +51,44 @@ export const ModalGroupsDetails = ({
           flexDir="column"
           alignItems={"center"}
         >
-          <Flex alignContent="center" alignItems={"center"}>
-            <Button
-              m={["1", "3"]}
-              bg="purple.500"
-              color="white"
-              _hover={{ bg: "purple.100" }}
-            >
-              Participar
-            </Button>
-            <Button bg="purple.500" color="white" _hover={{ bg: "purple.100" }}>
-              Página do Grupo
-            </Button>
+          <Flex w={["350px", ""]} justifyContent={["space-around", ""]}>
+            <Flex alignContent="center" alignItems={"center"}>
+              <Button
+                m={["1", "3"]}
+                bg="purple.500"
+                color="white"
+                _hover={{ bg: "purple.100" }}
+              >
+                <Box display={["none", "block", "block", "block"]}>
+                  Participar
+                </Box>
+                <Box
+                  fontSize="25px"
+                  display={["block", "none", "none", "none"]}
+                >
+                  <BsFillPersonPlusFill />
+                </Box>
+              </Button>
 
+              <Button
+                onClick={() => history.push(`/groups/${group.id}`)}
+                bg="purple.500"
+                color="white"
+                _hover={{ bg: "purple.100" }}
+              >
+                <Box display={["none", "block", "block", "block"]}>
+                  Página do Grupo
+                </Box>
+                <Box
+                  display={["block", "none", "none", "none"]}
+                  fontSize="25px"
+                >
+                  <ImEnter />
+                </Box>
+              </Button>
+            </Flex>
             <Box
-              ml={["1", "3"]}
+              ml={["3", "3"]}
               onClick={onClose}
               color="purple.400"
               fontSize={["35px"]}
@@ -68,6 +97,7 @@ export const ModalGroupsDetails = ({
               <FaWindowClose />
             </Box>
           </Flex>
+
           <ModalBody
             display={"flex"}
             flexDir={["column", "row"]}

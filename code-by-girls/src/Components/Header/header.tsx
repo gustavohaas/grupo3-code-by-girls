@@ -43,7 +43,7 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
   const { profileImageUrl, profileLinkedin } = useProfile();
   let history = useHistory();
 
-  const name = data.user.name
+  const name = data.user.name;
 
   const {
     isOpen: isGroupModalOpen,
@@ -76,9 +76,9 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
       display={"flex"}
       justifyContent={"space-between"}
       alignItems={"center"}
-      padding={"0px 30px"}
+      padding={"0px 20px"}
     >
-      <HStack spacing={"0px"}>
+      <HStack spacing={"0px"} mr={"10px"}>
         <Grid mr="10px">
           <Grid mr="10px">
             <Menu>
@@ -142,13 +142,18 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
               </MenuList>
             </Menu>
           </Grid>
-          
         </Grid>
         <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
           {name}
         </Text>
       </HStack>
-      {profileLinkedin ? <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>Linkedin: {profileLinkedin}</Text> : <></>}
+      {profileLinkedin ? (
+        <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
+          Linkedin: {profileLinkedin}
+        </Text>
+      ) : (
+        <></>
+      )}
       <HStack spacing={["0px", "50px", "50px", "50px"]}>
         {input && (
           <HStack
@@ -308,7 +313,10 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
         isOpen={isProfileImageModalOpen}
         onClose={onProfileImageModalClose}
       />
-      <ProfileLinkedinModal isOpen={isProfileLinkedinModalOpen} onClose={onProfileLinkedinModalClose} />
+      <ProfileLinkedinModal
+        isOpen={isProfileLinkedinModalOpen}
+        onClose={onProfileLinkedinModalClose}
+      />
     </Heading>
   );
 };

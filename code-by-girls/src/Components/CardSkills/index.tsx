@@ -1,4 +1,11 @@
-import { Box, Flex, Heading, Image, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { useLogin } from "../../Providers/Login";
@@ -21,7 +28,7 @@ export const CardSkills = ({ skill }: PropsSkill) => {
   const [isTrue, setIsTrue] = useState(false);
 
   const { deleteSkill, editSkill } = useProfile();
-  const { data } = useLogin()
+  const { data } = useLogin();
 
   const {
     isOpen: isSkillModalOpen,
@@ -32,12 +39,12 @@ export const CardSkills = ({ skill }: PropsSkill) => {
   return (
     <Flex
       w={["250px"]}
+      h="150px"
       shadow={["lg"]}
       padding={["5px"]}
       margin={"10px"}
       _hover={{
-        transform: "translatey(-10px)",
-        transition: "0.51s",
+        background: "gray.100",
       }}
       transition={["0.51s"]}
       position={"relative"}
@@ -48,11 +55,21 @@ export const CardSkills = ({ skill }: PropsSkill) => {
         right={["0"]}
         top={["-15px"]}
       >
-        <Box cursor={"pointer"} marginRight={["10px"]} mt="10px" onClick={onSkillModalOpen} >
+        <Box
+          cursor={"pointer"}
+          marginRight={["10px"]}
+          mt="10px"
+          onClick={onSkillModalOpen}
+        >
           <FaRegEdit />
         </Box>
 
-        <Box cursor={"pointer"} as="button" mt="10px" onClick={() => deleteSkill(skill.id, data.accessToken, data.user.id)} >
+        <Box
+          cursor={"pointer"}
+          as="button"
+          mt="10px"
+          onClick={() => deleteSkill(skill.id, data.accessToken, data.user.id)}
+        >
           <FaTrash />
         </Box>
       </Flex>
@@ -68,7 +85,11 @@ export const CardSkills = ({ skill }: PropsSkill) => {
           h="100%"
           objectFit={["cover"]}
           borderRadius={["100%"]}
-          src={skill.url ? (skill.url) : ("https://programacaopratica.com.br/wp-content/uploads/2019/01/cropped-LogoSite-1.png")}
+          src={
+            skill.url
+              ? skill.url
+              : "https://programacaopratica.com.br/wp-content/uploads/2019/01/cropped-LogoSite-1.png"
+          }
           alt="Imagem da Tecnologia"
         />
       </Box>
@@ -81,8 +102,13 @@ export const CardSkills = ({ skill }: PropsSkill) => {
           {skill.level}
         </Text>
       </Flex>
-      <TechModal isOpen={isSkillModalOpen} onClose={onSkillModalClose} skillId={skill.id} skillTitle={skill.skill} skillLevel={skill.level} />
+      <TechModal
+        isOpen={isSkillModalOpen}
+        onClose={onSkillModalClose}
+        skillId={skill.id}
+        skillTitle={skill.skill}
+        skillLevel={skill.level}
+      />
     </Flex>
-    
   );
 };

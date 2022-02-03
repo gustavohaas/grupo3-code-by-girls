@@ -19,12 +19,13 @@ interface Groups {
 const Dashboard = () => {
   const { groups, loadGroups, searchNotFound, notFound } = useDashboard();
   const { data } = useLogin();
-  const { getUserData } = useProfile();
+  const { getUserData, getProfile } = useProfile();
   const [loadingGroups, setLoadingGroups] = useState(true);
 
   const [selectedGroup, setSelectedGroup] = useState<Groups>({} as Groups);
 
   useEffect(() => {
+    getProfile(data.user.id, data.accessToken)
     getUserData(data.user.id, data.accessToken);
     loadGroups(data.accessToken).then((_) => setLoadingGroups(false));
   }, []);
@@ -38,7 +39,7 @@ const Dashboard = () => {
 
   return (
     <Grid>
-      <Header input profile />
+      <Header input profile linkedin={false} />
       <ModalGroupsDetails
         group={selectedGroup}
         isOpen={isOpen}

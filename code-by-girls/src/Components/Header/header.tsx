@@ -17,6 +17,7 @@ import {
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout, GrGroup } from "react-icons/gr";
 import { CgProfile } from "react-icons/cg";
+import { BsLinkedin } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useLogin } from "../../Providers/Login";
@@ -27,19 +28,22 @@ import { theme } from "../../Styles/theme";
 import { GroupModal } from "../Modal/GroupModal";
 import { ProfileImageModal } from "../Modal/ProfileImageModal";
 import { useProfile } from "../../Providers/Profile";
+import { ProfileLinkedinModal } from "../Modal/ProfileLinkedinModal";
 import { MdOutlineDashboard } from "react-icons/md";
 interface HeaderProps {
   input: boolean;
   profile: boolean;
-  linkedin?: string;
+  linkedin: boolean;
 }
 
 const Header = ({ input, profile, linkedin }: HeaderProps) => {
   const { handleSignOut, data } = useLogin();
   const { SearchBoxDashboard } = useDashboard();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { profileImageUrl } = useProfile();
+  const { profileImageUrl, profileLinkedin } = useProfile();
   let history = useHistory();
+
+  const name = data.user.name
 
   const {
     isOpen: isGroupModalOpen,
@@ -51,6 +55,12 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
     isOpen: isProfileImageModalOpen,
     onOpen: onProfileImageModalOpen,
     onClose: onProfileImageModalClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isProfileLinkedinModalOpen,
+    onOpen: onProfileLinkedinModalOpen,
+    onClose: onProfileLinkedinModalClose,
   } = useDisclosure();
 
   function handleClick(destiny: string) {
@@ -109,17 +119,36 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
                     </Button>
                     <CgProfile fontSize="25px" />
                   </HStack>
+                  <HStack
+                    borderBottom={"1px solid"}
+                    w={"250px"}
+                    justifyContent={"space-between"}
+                    marginTop={"10px"}
+                    marginX="5px"
+                  >
+                    <Button
+                      onClick={onProfileLinkedinModalOpen}
+                      hover={{
+                        bgColor: "gray.50",
+                        color: "gray.900",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      Alterar Linkedin
+                    </Button>
+                    <BsLinkedin fontSize="25px" />
+                  </HStack>
                 </Flex>
               </MenuList>
             </Menu>
           </Grid>
-          {linkedin ? <Text color="white">Linkedin: {linkedin}</Text> : <></>}
+          
         </Grid>
         <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
-          {data.user?.name}
+          {name}
         </Text>
       </HStack>
-
+      {profileLinkedin ? <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>Linkedin: {profileLinkedin}</Text> : <></>}
       <HStack spacing={["0px", "50px", "50px", "50px"]}>
         {input && (
           <HStack
@@ -279,6 +308,7 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
         isOpen={isProfileImageModalOpen}
         onClose={onProfileImageModalClose}
       />
+      <ProfileLinkedinModal isOpen={isProfileLinkedinModalOpen} onClose={onProfileLinkedinModalClose} />
     </Heading>
   );
 };

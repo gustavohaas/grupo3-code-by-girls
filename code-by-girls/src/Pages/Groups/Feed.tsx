@@ -17,7 +17,7 @@ export const Feed = () => {
   const [newComment, setNewComment] = useState("");
   const { data } = useLogin();
   const { userName } = data.user;
-  const { dataGroup, createGroup, createGroupData } = useGroup();
+  const { dataGroup, subscribeGroup, createGroupData } = useGroup();
   const { id, comments } = dataGroup;
   const userId = Number(data.user.id);
 
@@ -44,13 +44,13 @@ export const Feed = () => {
           },
         }
       )
-      .then(() => createGroupData())
+      .then(() => createGroupData(id))
       .catch((err) => console.log(err));
   };
 
   return (
     <Flex
-      justifyContent={["center"]}
+      justifyContent={["space-between"]}
       alignItems={["center"]}
       flexDirection={["column"]}
       border="3px solid"

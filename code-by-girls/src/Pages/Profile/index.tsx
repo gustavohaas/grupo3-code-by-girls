@@ -81,6 +81,8 @@ export const Profile = () => {
               border="2px solid"
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
+              flexWrap={"wrap"}
+              overflowY={"scroll"}
             >
               {skills.length > 0 ? (
                 skills?.map((skill) => <CardSkills skill={skill} />)
@@ -124,6 +126,8 @@ export const Profile = () => {
               border="2px solid"
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
+              flexWrap={"wrap"}
+              overflowY={"scroll"}
             >
               {works.length > 0 ? (
                 works?.map((work) => <CardWorks work={work} />)

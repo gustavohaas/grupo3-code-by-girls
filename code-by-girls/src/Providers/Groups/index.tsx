@@ -35,8 +35,9 @@ interface Group {
 
 interface GroupsProviderProps {
   createGroup: ({ userId, groupName, description }: any) => void;
-  createGroupData: () => void;
+  createGroupData: (id: number) => void;
   dataGroup: Group;
+  subscribeGroup: (userId: any, name: any, groupId: any) => void;
 }
 
 interface GroupChildren {
@@ -63,19 +64,19 @@ const GroupsProvider = ({ children }: GroupChildren) => {
 
   const [dataGroup, setDataGroup] = useState({} as Group);
 
-  useEffect(() => {
-    api
-      .get("/groups/2?_embed=subscribe&_embed=comments", {
-        headers: {
-          Authorization: `Bearer ${data.accessToken}`,
-        },
-      })
-      .then((response) => setDataGroup(response.data));
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .get(`/groups/${}?_embed=subscribe&_embed=comments`, {
+  //       headers: {
+  //         Authorization: `Bearer ${data.accessToken}`,
+  //       },
+  //     })
+  //     .then((response) => setDataGroup(response.data));
+  // }, []);
 
-  const createGroupData = () => {
+  const createGroupData = (id: number) => {
     api
-      .get("/groups/2?_embed=subscribe&_embed=comments", {
+      .get(`/groups/${id}?_embed=subscribe&_embed=comments`, {
         headers: {
           Authorization: `Bearer ${data.accessToken}`,
         },
@@ -103,8 +104,29 @@ const GroupsProvider = ({ children }: GroupChildren) => {
       .catch((err) => console.log(err));
   };
 
+  const subscribeGroup = ({ userId, name, groupId }: any) => {
+    api
+      .post(
+        "/subscribe",
+        {
+          userId,
+          name,
+          groupId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${data.accessToken}`,
+          },
+        }
+      )
+      .then((response) => console.log(response.data))
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <GroupsContext.Provider value={{ createGroup, dataGroup, createGroupData }}>
+    <GroupsContext.Provider
+      value={{ createGroup, dataGroup, createGroupData, subscribeGroup }}
+    >
       {children}
     </GroupsContext.Provider>
   );

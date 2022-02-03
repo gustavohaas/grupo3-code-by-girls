@@ -47,8 +47,10 @@ interface ProfileProviderProps {
   createWork: (userId: string, title: string, description: string, accessToken: string) => void;
   editSkill: (skillId: string, skill: string, level: string,accessToken: string, userId: string) => void;
   editWork: (workId: string, title: string, description: string,accessToken: string, userId: string) => void;
-  editImage: (userId: string, url: string, accessToken: string) => void;
+  editImage: (profileId: string, url: string, accessToken: string, userId: string) => void;
   getProfile: (userId: string, accessToken: string) => Promise<void>;
+  editLinkedin: (perfilId: string, urlLinkedin: string, accessToken: string, userId: string) => void;
+  createProfile: (userId: string, name: string, imagem: string, linkedin: string, accessToken: string) => void;
   profileImageUrl: string;
   profileId: string;
 }
@@ -164,16 +166,16 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
           if (userId === user.userId) {
             setProfileId(user.id);
             setProfileImageUrl(user.imagem);
-            console.log(profileImageUrl);
+            console.log("id usuario");
           }
         });
-      }
+      } else(console.log(response))
     },
     []
   );
 
   const editImage = useCallback(
-    (perfilId: string, url: string, accessToken: string) => {
+    (perfilId: string, url: string, accessToken: string, userId: string) => {
       api
         .patch(
           `/perfil/${perfilId}`,
@@ -184,11 +186,31 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
             },
           }
         )
-        .then((res) => getProfile(data.user.id, data.accessToken))
+        .then((res) => getProfile(userId, accessToken))
         .catch((err) => console.log(err));
     },
     []
   );
+
+  const editLinkedin = useCallback((perfilId: string, urlLinkedin: string, accessToken: string, userId: string) => {
+    api
+      .patch(`/perfil/${perfilId}`, {linkedin: urlLinkedin},
+      { headers: { Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => getProfile(userId, accessToken))
+      .catch((err) => console.log(err))
+  },[])
+
+  const createProfile = useCallback((userId: string, name: string, imagem: string, linkedin: string, accessToken: string) => {
+    api
+      .post("/perfil", {userId, name, imagem, linkedin},
+      { headers: { Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+  },[])
 
   return (
     <ProfileContext.Provider
@@ -207,6 +229,8 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
         profileImageUrl,
         getProfile,
         profileId,
+        editLinkedin,
+        createProfile
       }}
     >
       {children}

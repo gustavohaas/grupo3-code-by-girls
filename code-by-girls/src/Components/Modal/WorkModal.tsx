@@ -43,6 +43,7 @@ export const WorkModal = ({ isOpen, onClose, workId, workTitle, workDescriptionP
 
   const handleCreate = () => {
     createWork(data.user.id, works, workDescription, data.accessToken)
+    onClose()
   }
 
   return (

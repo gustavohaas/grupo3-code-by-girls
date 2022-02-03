@@ -14,6 +14,8 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
+import { useGroup } from "../../Providers/Groups";
+import { useLogin } from "../../Providers/Login";
 
 interface GroupModalProps {
   isOpen: boolean;
@@ -27,6 +29,17 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
   const [group, setGroup] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [groupImg, setGroupImg] = useState("");
+  const { createGroup, dataGroup } = useGroup();
+
+  const { data } = useLogin();
+  const { id } = data.user;
+
+  const newGroupData = {
+    userId: id,
+    groupName: group,
+    description: groupDescription,
+    url: groupImg,
+  };
 
   return (
     <Modal
@@ -52,6 +65,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
               Grupo
             </FormLabel>
             <Input
+              maxLength={25}
               onChangeCapture={(e) => setGroup(e.currentTarget.value)}
               ref={initialRef}
               placeholder="Nome do grupo"
@@ -89,6 +103,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
         <ModalFooter>
           <Button
+            onClick={() => createGroup(newGroupData)}
             disabled={!group}
             w="75%"
             _hover={{ bgColor: "purple.400" }}

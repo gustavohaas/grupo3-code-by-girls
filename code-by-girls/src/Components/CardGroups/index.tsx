@@ -8,16 +8,21 @@ interface Groups {
 }
 interface PropsGroup {
   group: Groups;
+  onClick: (group: Groups) => void;
 }
 
-export const CardGroup = ({ group }: PropsGroup) => {
+export const CardGroup = ({ group, onClick }: PropsGroup) => {
   return (
     <Flex
-      w={["446px"]}
-      h="121px"
+      onClick={() => onClick(group)}
+      w={["290px", "400px"]}
+      h={["121px", "150px"]}
       shadow={["xl"]}
-      padding={["5px"]}
+      padding={["6px", "5px"]}
       margin={"10px"}
+      borderRadius="10px"
+      borderColor={"purple.100"}
+      border={["1px solid", "none"]}
       _hover={{
         bg: "purple.50",
         transform: "translatey(-5px)",
@@ -26,27 +31,32 @@ export const CardGroup = ({ group }: PropsGroup) => {
       transition={["0.51s"]}
       position={"relative"}
     >
-      <Box
-        objectFit={["cover"]}
-        w={["80px"]}
-        h={["80px"]}
-        marginRight={["10px"]}
-      >
+      <Box w={["50px", "80px"]} h={["50px", "80px"]} marginRight={["10px"]}>
         <Image
           w={["100%"]}
           h="100%"
-          objectFit={["cover"]}
           borderRadius={["100%"]}
           src={group.url}
           alt="Imagem da Tecnologia"
         />
       </Box>
 
-      <Flex flexDir={["column"]}>
-        <Heading wordBreak={"break-word"} fontSize={["20px"]}>
+      <Flex flexDir={["column"]} ml="5">
+        <Heading
+          wordBreak={"break-word"}
+          fontSize={["20px"]}
+          mt={["5", "none"]}
+        >
           {group.groupName}
         </Heading>
-        <Text fontSize={["14px"]} wordBreak={"break-word"}>
+        <Text
+          fontSize={["16px"]}
+          fontWeight="600"
+          wordBreak={"break-word"}
+          overflow="auto"
+          w="280px"
+          p="2"
+        >
           {group.description}
         </Text>
       </Flex>

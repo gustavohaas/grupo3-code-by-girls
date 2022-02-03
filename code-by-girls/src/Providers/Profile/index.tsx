@@ -1,5 +1,11 @@
 import { AxiosResponse } from "axios";
-import { createContext, ReactNode, useContext, useCallback, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useCallback,
+  useState,
+} from "react";
 import { useEffect } from "toasted-notes/node_modules/@types/react";
 import { api } from "../../Services/api";
 import { useLogin } from "../Login";
@@ -52,28 +58,32 @@ const ProfileContext = createContext<ProfileProviderProps>(
 );
 
 export const ProfileProvider = ({ children }: ProfileChildren) => {
-
   const { data } = useLogin();
 
-  const [profileImageUrl, setProfileImageUrl] = useState<string>("")
-  const [profileId, setProfileId] = useState<string>("")
+  const [profileImageUrl, setProfileImageUrl] = useState<string>("");
+  const [profileId, setProfileId] = useState<string>("");
 
   const [perfil, setPerfil] = useState<PerfilProps[]>([]);
   const [skills, setSkills] = useState<SkillsProps[]>([]);
   const [works, setWorks] = useState<WorksProps[]>([]);
 
-  const getUserData = useCallback (async (userId: string, accessToken: string) => {
-    const response = await api.get(`/users/${userId}?_embed=perfil&_embed=skills&_embed=works` , {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
+  const getUserData = useCallback(
+    async (userId: string, accessToken: string) => {
+      const response = await api.get(
+        `/users/${userId}?_embed=perfil&_embed=skills&_embed=works`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
-    setPerfil(response.data.perfil);
-    setSkills(response.data.skills);
-    setWorks(response.data.works);
-
-  },[])
+      setPerfil(response.data.perfil);
+      setSkills(response.data.skills);
+      setWorks(response.data.works);
+    },
+    []
+  );
 
   const deleteSkill = useCallback((skillId: string, accessToken: string, userId: string) => {
     api
@@ -128,8 +138,7 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
       })
       .then((res) => getUserData(userId, accessToken))
       .catch((err) => console.log(err))
-
-  }, [])
+  },[])
 
   const editWork = useCallback((workId: string, title: string, description: string, accessToken: string, userId: string) => {
     api
@@ -140,42 +149,68 @@ export const ProfileProvider = ({ children }: ProfileChildren) => {
       })
       .then((res) => getUserData(userId, accessToken))
       .catch((err) => console.log(err))
+  },[])
 
-  }, [])
-
-  const getProfile = useCallback(async (userId: string, accessToken: string) => {
-    const response = await api.get("/perfil", {
+  const getProfile = useCallback(
+    async (userId: string, accessToken: string) => {
+      const response = await api.get("/perfil", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-    })
-
-    if (response) {
-      response.data.forEach((user: any) => {
-        if (userId === user.userId) {
-          setProfileId(user.id)
-          setProfileImageUrl(user.imagem)
-          console.log(profileImageUrl)
-        }
       });
-    }
-  }, [])
 
-  const editImage = useCallback((perfilId: string, url: string, accessToken: string) => {
-    api
-      .patch(`/perfil/${perfilId}`, {"imagem": url} ,{
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => getProfile(data.user.id, data.accessToken))
-      .catch((err) => console.log(err))
-  }, [])
+      if (response) {
+        response.data.forEach((user: any) => {
+          if (userId === user.userId) {
+            setProfileId(user.id);
+            setProfileImageUrl(user.imagem);
+            console.log(profileImageUrl);
+          }
+        });
+      }
+    },
+    []
+  );
+
+  const editImage = useCallback(
+    (perfilId: string, url: string, accessToken: string) => {
+      api
+        .patch(
+          `/perfil/${perfilId}`,
+          { imagem: url },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then((res) => getProfile(data.user.id, data.accessToken))
+        .catch((err) => console.log(err));
+    },
+    []
+  );
 
   return (
-    <ProfileContext.Provider value={{ getUserData, perfil, skills, works, deleteSkill, deleteWork, 
-                                      createSkill, createWork, editSkill, editWork, editImage, profileImageUrl,
-                                      getProfile, profileId }}>{children}</ProfileContext.Provider>
+    <ProfileContext.Provider
+      value={{
+        getUserData,
+        perfil,
+        skills,
+        works,
+        deleteSkill,
+        deleteWork,
+        createSkill,
+        createWork,
+        editSkill,
+        editWork,
+        editImage,
+        profileImageUrl,
+        getProfile,
+        profileId,
+      }}
+    >
+      {children}
+    </ProfileContext.Provider>
   );
 };
 

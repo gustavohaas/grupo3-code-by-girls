@@ -19,7 +19,7 @@ export const PageError = () => {
   return (
     <>
       {!!data.accessToken ? (
-        <Header input={false} profile />
+        <Header input={false} profile  linkedin={false} />
       ) : (
         <Button
           mt={"60px"}

@@ -15,6 +15,7 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import { FaWindowClose } from "react-icons/fa";
 import { ImEnter } from "react-icons/im";
 import { useHistory } from "react-router-dom";
+import { useGroup } from "../../Providers/Groups";
 
 interface Groups {
   url?: string;
@@ -35,9 +36,11 @@ export const ModalGroupsDetails = ({
 }: ModalGroupsDetailsProps) => {
   const history = useHistory();
 
+  const { createGroupData } = useGroup();
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
+      {console.log(group.id)}
       <ModalContent
         padding={["0", "2"]}
         bg="white"
@@ -71,7 +74,10 @@ export const ModalGroupsDetails = ({
               </Button>
 
               <Button
-                onClick={() => history.push(`/groups/${group.id}`)}
+                onClick={() => {
+                  createGroupData(group.id);
+                  history.push(`/groups`);
+                }}
                 bg="purple.500"
                 color="white"
                 _hover={{ bg: "purple.100" }}

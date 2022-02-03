@@ -44,13 +44,13 @@ export const Feed = () => {
           },
         }
       )
-      .then(() => createGroupData())
+      .then(() => createGroupData(id))
       .catch((err) => console.log(err));
   };
 
   return (
     <Flex
-      justifyContent={["center"]}
+      justifyContent={["space-between"]}
       alignItems={["center"]}
       flexDirection={["column"]}
       border="3px solid"

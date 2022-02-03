@@ -27,6 +27,7 @@ import { theme } from "../../Styles/theme";
 import { GroupModal } from "../Modal/GroupModal";
 import { ProfileImageModal } from "../Modal/ProfileImageModal";
 import { useProfile } from "../../Providers/Profile";
+import { MdOutlineDashboard } from "react-icons/md";
 interface HeaderProps {
   input: boolean;
   profile: boolean;
@@ -224,12 +225,7 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
                 >
                   Voltar ao Menu
                 </Button>
-                <Image
-                  bgColor={"black"}
-                  w="25px"
-                  height={"25px"}
-                  borderRadius={"100px"}
-                />
+                <MdOutlineDashboard fontSize="25px" />
               </HStack>
             )}
             <HStack

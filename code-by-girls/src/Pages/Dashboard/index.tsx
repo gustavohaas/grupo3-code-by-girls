@@ -53,7 +53,7 @@ const Dashboard = () => {
           ) : (
             groups?.map((item) => (
               <Box key={item.id}>
-                <CardGroup onClick={onOpen} group={item} />
+                <CardGroup onClick={handleClick} group={item} />
               </Box>
             ))
           )}

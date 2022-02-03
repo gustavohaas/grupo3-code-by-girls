@@ -8,6 +8,8 @@ import { CardWorks } from "../../Components/CardWorks";
 import Header from "../../Components/Header/header";
 import { TechModal } from "../../Components/Modal/TechModal";
 import { WorkModal } from "../../Components/Modal/WorkModal";
+import { DialogWorks } from "../../Components/Dialogs/DialogWorks";
+import { DialogSkills } from "../../Components/Dialogs/DialogSkills";
 
 export const Profile = () => {
   const { getUserData, skills, works, createWork } = useProfile();
@@ -71,7 +73,7 @@ export const Profile = () => {
                 color="white"
                 onClick={onSkillModalOpen}
               >
-                <BsFillPlusSquareFill />
+                {skills.length > 0 && <BsFillPlusSquareFill />}
               </Box>
             </Box>
             <Flex
@@ -80,9 +82,11 @@ export const Profile = () => {
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
             >
-              {skills?.map((skill) => (
-                <CardSkills skill={skill} />
-              ))}
+              {skills.length > 0 ? (
+                skills?.map((skill) => <CardSkills skill={skill} />)
+              ) : (
+                <DialogSkills onSkillModalOpen={onSkillModalOpen} />
+              )}
             </Flex>
           </Box>
 
@@ -112,7 +116,7 @@ export const Profile = () => {
                 color="white"
                 onClick={onWorkModalOpen}
               >
-                <BsFillPlusSquareFill />
+                {works.length > 0 && <BsFillPlusSquareFill />}
               </Box>
             </Box>
             <Flex
@@ -121,9 +125,11 @@ export const Profile = () => {
               borderColor="purple.400"
               h={["130", "130", "260", "260", "298px"]}
             >
-              {works?.map((work) => (
-                <CardWorks work={work} />
-              ))}
+              {works.length > 0 ? (
+                works?.map((work) => <CardWorks work={work} />)
+              ) : (
+                <DialogWorks onWorkModalOpen={onWorkModalOpen} />
+              )}
             </Flex>
           </Box>
         </Flex>
@@ -165,8 +171,16 @@ export const Profile = () => {
           </Box>
         </Flex>
       </Flex>
-      <TechModal isOpen={isSkillModalOpen} onClose={onSkillModalClose} skillId="" />
-      <WorkModal isOpen={isWorkModalOpen} onClose={onWorkModalClose} workId="" />
+      <TechModal
+        isOpen={isSkillModalOpen}
+        onClose={onSkillModalClose}
+        skillId=""
+      />
+      <WorkModal
+        isOpen={isWorkModalOpen}
+        onClose={onWorkModalClose}
+        workId=""
+      />
     </>
   );
 };

@@ -1,4 +1,11 @@
-import { Box, Flex, Heading, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { useEffect } from "react";
 import { useProfile } from "../../Providers/Profile";
@@ -10,13 +17,21 @@ import { TechModal } from "../../Components/Modal/TechModal";
 import { WorkModal } from "../../Components/Modal/WorkModal";
 import { DialogWorks } from "../../Components/Dialogs/DialogWorks";
 import { DialogSkills } from "../../Components/Dialogs/DialogSkills";
+import { useGroup } from "../../Providers/Groups";
+import { ImEnter } from "react-icons/im";
+import { useHistory } from "react-router-dom";
 
 export const Profile = () => {
-  const { getUserData, skills, works, createWork } = useProfile();
+  const { getUserData, skills, works } = useProfile();
   const { data } = useLogin();
+  const { groupList, createGroupData, getSubscribeGroups } = useGroup();
+
+  const history = useHistory();
 
   useEffect(() => {
     getUserData(data.user.id, data.accessToken);
+    createGroupData(data.user.id);
+    getSubscribeGroups(data.user.id);
   }, []);
 
   const {
@@ -107,7 +122,7 @@ export const Profile = () => {
                 color="gray.50"
                 p="10"
               >
-                Meus trabalhos
+                Meus Trabalhos
               </Heading>
               <Box
                 as="button"
@@ -171,7 +186,71 @@ export const Profile = () => {
               bg="white"
               border="2px solid"
               borderColor="purple.400"
-            ></Flex>
+              overflowY={"scroll"}
+            >
+              <Flex justifyContent="center" mt="8">
+                <Flex w="75%" flexDir="row" flexWrap="wrap">
+                  {groupList?.map((item) => (
+                    <Flex
+                      w={["290px", "400px"]}
+                      h={["121px", "150px"]}
+                      shadow={["xl"]}
+                      padding={["6px", "5px"]}
+                      margin={"10px"}
+                      borderRadius="10px"
+                      borderColor={"purple.100"}
+                      border={["1px solid", "none"]}
+                      _hover={{
+                        bg: "purple.50",
+                      }}
+                    >
+                      <Box
+                        w={["50px", "100px"]}
+                        h={["50px", "80px"]}
+                        marginRight={["10px"]}
+                      >
+                        <Image
+                          w={["100%"]}
+                          h="100%"
+                          borderRadius={["100%"]}
+                          src={item.url}
+                          alt="Imagem da Tecnologia"
+                        />
+                      </Box>
+
+                      <Flex flexDir={["column"]} ml="5">
+                        <Heading
+                          wordBreak={"break-word"}
+                          fontSize={["20px"]}
+                          mt={["5", "none"]}
+                        >
+                          {item.groupName}
+                        </Heading>
+                        <Button
+                          onClick={() => {
+                            createGroupData(item.groupId);
+                            history.push(`/groups`);
+                          }}
+                          bg="purple.500"
+                          color="white"
+                          _hover={{ bg: "purple.100" }}
+                        >
+                          <Box display={["none", "block", "block", "block"]}>
+                            Página do Grupo
+                          </Box>
+                          <Box
+                            display={["block", "none", "none", "none"]}
+                            fontSize="25px"
+                          >
+                            <ImEnter />
+                          </Box>
+                        </Button>
+                      </Flex>
+                    </Flex>
+                  ))}
+                </Flex>
+              </Flex>
+            </Flex>
           </Box>
         </Flex>
       </Flex>

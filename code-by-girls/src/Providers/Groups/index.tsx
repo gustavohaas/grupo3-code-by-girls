@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 import { api } from "../../Services/api";
 import { useLogin } from "../Login/index";
@@ -15,6 +9,11 @@ interface Comment {
   comment: string;
   groupId: number;
   id: number;
+}
+interface SubGroups {
+  groupId: number;
+  groupName: string;
+  url?: string;
 }
 
 interface Subscribe {
@@ -35,9 +34,11 @@ interface Group {
 
 interface GroupsProviderProps {
   createGroup: ({ userId, groupName, description }: any) => void;
-  createGroupData: (id: number) => void;
+
   dataGroup: Group;
-  subscribeGroup: (userId: any, name: any, groupId: any) => void;
+  createGroupData: (id: number) => void;
+  groupList: SubGroups[] | undefined;
+  getSubscribeGroups: (id: number) => void;
 }
 
 interface GroupChildren {
@@ -60,19 +61,9 @@ const useGroup = () => {
 
 const GroupsProvider = ({ children }: GroupChildren) => {
   const { data } = useLogin();
-  // const { id } = data.user;
 
   const [dataGroup, setDataGroup] = useState({} as Group);
-
-  // useEffect(() => {
-  //   api
-  //     .get(`/groups/${}?_embed=subscribe&_embed=comments`, {
-  //       headers: {
-  //         Authorization: `Bearer ${data.accessToken}`,
-  //       },
-  //     })
-  //     .then((response) => setDataGroup(response.data));
-  // }, []);
+  const [groupList, setGroupList] = useState<SubGroups[]>([]);
 
   const createGroupData = (id: number) => {
     api
@@ -84,10 +75,20 @@ const GroupsProvider = ({ children }: GroupChildren) => {
       .then((response) => setDataGroup(response.data));
   };
 
+  const getSubscribeGroups = (id: number) => {
+    api
+      .get(`/users/${id}?_embed=subscribe`, {
+        headers: {
+          Authorization: `Bearer ${data.accessToken}`,
+        },
+      })
+      .then((response) => setGroupList(response.data.subscribe));
+  };
+
   const createGroup = ({ userId, groupName, description, url }: any) => {
     api
       .post(
-        "/works",
+        "/groups",
         {
           userId,
           groupName,
@@ -104,28 +105,16 @@ const GroupsProvider = ({ children }: GroupChildren) => {
       .catch((err) => console.log(err));
   };
 
-  const subscribeGroup = ({ userId, name, groupId }: any) => {
-    api
-      .post(
-        "/subscribe",
-        {
-          userId,
-          name,
-          groupId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${data.accessToken}`,
-          },
-        }
-      )
-      .then((response) => console.log(response.data))
-      .catch((err) => console.log(err));
-  };
-
   return (
     <GroupsContext.Provider
-      value={{ createGroup, dataGroup, createGroupData, subscribeGroup }}
+      value={{
+        createGroup,
+        dataGroup,
+        createGroupData,
+        getSubscribeGroups,
+
+        groupList,
+      }}
     >
       {children}
     </GroupsContext.Provider>

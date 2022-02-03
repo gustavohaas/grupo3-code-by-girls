@@ -16,6 +16,8 @@ import { FaWindowClose } from "react-icons/fa";
 import { ImEnter } from "react-icons/im";
 import { useHistory } from "react-router-dom";
 import { useGroup } from "../../Providers/Groups";
+import { useLogin } from "../../Providers/Login";
+import { api } from "../../Services/api";
 
 interface Groups {
   url?: string;
@@ -23,6 +25,7 @@ interface Groups {
   description: string;
   id: number;
 }
+
 interface ModalGroupsDetailsProps {
   isOpen: boolean;
   onClose: () => void;
@@ -35,12 +38,39 @@ export const ModalGroupsDetails = ({
   group,
 }: ModalGroupsDetailsProps) => {
   const history = useHistory();
-
+  const { data } = useLogin();
   const { createGroupData } = useGroup();
+
+  const subscribeGroup = ({ userId, groupName, groupId, url }: any) => {
+    api
+      .post(
+        "/subscribe",
+        {
+          userId,
+          groupName,
+          groupId,
+          url,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${data.accessToken}`,
+          },
+        }
+      )
+      .then((response) => console.log(response.data))
+      .catch((err) => console.log(err));
+  };
+
+  const newSubData = {
+    userId: data.user.id,
+    groupName: group.groupName,
+    groupId: group.id,
+    url: group.url,
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      {console.log(group.id)}
       <ModalContent
         padding={["0", "2"]}
         bg="white"
@@ -57,6 +87,7 @@ export const ModalGroupsDetails = ({
           <Flex w={["350px", ""]} justifyContent={["space-around", ""]}>
             <Flex alignContent="center" alignItems={"center"}>
               <Button
+                onClick={() => subscribeGroup(newSubData)}
                 m={["1", "3"]}
                 bg="purple.500"
                 color="white"

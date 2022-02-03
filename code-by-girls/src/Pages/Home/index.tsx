@@ -20,56 +20,56 @@ export const Home = () => {
       <Heading display={["none", "none", "block"]}>
         <Image src={logo} alt="code-by-girls" />
       </Heading>
-
       <Heading mb="20px" display={["block", "block", "none"]}>
         <Image src={logoMobile} alt="code-by-girls" />
       </Heading>
-
-      <Center>
-        <Button
-          w={["190px", "200px", "170px", "200px"]}
-          h={["50px", "54px"]}
-          marginBottom="16px"
-          fontSize="1.3rem"
-          color="gray.50"
-          mr={["", "", "50px"]}
-          bg="purple.500"
-          _hover={{
-            background: "purple.400",
-          }}
-          onClick={() => history.push("/login")}
-          position="relative"
-          left="65px"
-          top="10px"
-        >
-          Logar
-        </Button>
-        <Image
-          display={["none", "none", "block"]}
-          src={imgHome}
-          alt="Imagem Principal home"
-          w={["300px", "400px", "400px"]}
-        />
-        <Button
-          w={["190px", "200px", "170px", "200px"]}
-          h={["50px", "54px"]}
-          marginTop="16px"
-          fontSize="1.3rem"
-          color="gray.50"
-          ml={["", "", "50px"]}
-          bg="purple.500"
-          _hover={{
-            background: "purple.400",
-            transition: "",
-          }}
-          onClick={() => history.push("/register")}
-          position="relative"
-          right="65px"
-          top="60px"
-        >
-          Registrar
-        </Button>
-      </Center>
+      <Flex justifyContent={["center"]} alignItems={["center"]}>
+        <Center>
+          <Button
+            w={["190px", "200px", "170px", "200px"]}
+            h={["50px", "54px"]}
+            marginBottom="16px"
+            fontSize="1.3rem"
+            color="gray.50"
+            mr={["", "", "50px"]}
+            bg="purple.500"
+            _hover={{
+              background: "purple.400",
+            }}
+            onClick={() => history.push("/login")}
+            position="relative"
+            left="65px"
+            top="10px"
+          >
+            Logar
+          </Button>
+          <Image
+            display={["none", "none", "block"]}
+            src={imgHome}
+            alt="Imagem Principal home"
+            w={["300px", "400px", "400px"]}
+          />
+          <Button
+            w={["190px", "200px", "170px", "200px"]}
+            h={["50px", "54px"]}
+            marginTop="16px"
+            fontSize="1.3rem"
+            color="gray.50"
+            ml={["", "", "50px"]}
+            bg="purple.500"
+            _hover={{
+              background: "purple.400",
+              transition: "",
+            }}
+            onClick={() => history.push("/register")}
+            position="relative"
+            right="65px"
+            top="60px"
+          >
+            Registrar
+          </Button>
+        </Center>
+      </Flex>
     </Flex>
   );
 };

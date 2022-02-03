@@ -15,19 +15,37 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
+import { useLogin } from "../../Providers/Login";
+import { useProfile } from "../../Providers/Profile"
+
 
 interface TechModalProps {
   isOpen: boolean;
   onClose: () => void;
+  skillId: string;
+  skillTitle?: string;
+  skillLevel?: string;
 }
 
-export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
+export const TechModal = ({ isOpen, onClose, skillId, skillTitle, skillLevel }: TechModalProps) => {
   const initialRef = React.useRef<any>();
   const finalRef = React.useRef<any>();
 
+  const { createSkill, editSkill } = useProfile();
+  const { data } = useLogin();
+
   const [tech, setTech] = useState("");
   const [techsLevel, setTechsLevel] = useState("");
-  const [techsImg, setTechsImg] = useState("");
+
+  const handleEdit = () => {
+    editSkill(skillId, tech, techsLevel, data.accessToken, data.user.id)
+    onClose()
+  }
+
+  const handleCreate = () => {
+    createSkill(data.user.id, tech, techsLevel, data.accessToken)
+    onClose()
+  }
 
   return (
     <Modal
@@ -44,13 +62,13 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
           bgColor="purple.300"
           color="gray.50"
         >
-          Criar Tecnologia
+          Criar/Editar Habilidade
         </ModalHeader>
         <ModalCloseButton color="gray.50" />
         <ModalBody>
           <FormControl>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Tech
+              Habilidade
             </FormLabel>
             <Input
               onChangeCapture={(e) => setTech(e.currentTarget.value)}
@@ -62,25 +80,13 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
 
           <FormControl mt={4}>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Descrição
+              Nível da habilidade
             </FormLabel>
             <Textarea
               onChangeCapture={(e) => setTechsLevel(e.currentTarget.value)}
               h="120px"
-              placeholder="Descrição da tech..."
+              placeholder="Nível da habilidade..."
               maxLength={132}
-              _hover={{ borderColor: "purple.500" }}
-            />
-          </FormControl>
-
-          <FormControl mt={4}>
-            <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Imagem da tecnologia{" "}
-            </FormLabel>
-            <Input
-              onChangeCapture={(e) => setTechsImg(e.currentTarget.value)}
-              ref={initialRef}
-              placeholder="Inserir uma url"
               _hover={{ borderColor: "purple.500" }}
             />
           </FormControl>
@@ -99,16 +105,18 @@ export const TechModal = ({ isOpen, onClose }: TechModalProps) => {
               _hover={{ bgColor: "purple.400" }}
               bgColor="purple.300"
               color="gray.50"
+              onClick={handleCreate}
             >
-              Criar Tech
+              Criar Habilidade
             </Button>
             <Button
               w="95%"
               _hover={{ bgColor: "purple.400" }}
               bgColor="purple.300"
               color="gray.50"
+              onClick={handleEdit}
             >
-              Editar Tech
+              Editar Habilidade
             </Button>
           </Flex>
           <Button

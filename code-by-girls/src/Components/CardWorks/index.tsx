@@ -1,8 +1,9 @@
-import { Box, Center, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { useLogin } from "../../Providers/Login";
 import { useProfile } from "../../Providers/Profile";
+import { WorkModal } from "../Modal/WorkModal";
 
 interface Work {
   url?: string;
@@ -21,6 +22,12 @@ export const CardWorks = ({ work }: PropsWorks) => {
 
   const { deleteWork } = useProfile();
   const { data } = useLogin()
+
+  const {
+    isOpen: isWorkModalOpen,
+    onOpen: onWorkModalOpen,
+    onClose: onWorkModalClose,
+  } = useDisclosure();
 
   return (
     <Flex
@@ -41,11 +48,11 @@ export const CardWorks = ({ work }: PropsWorks) => {
         right={["0"]}
         top={["-15px"]}
       >
-        <Box cursor={"pointer"} marginRight={["10px"]}>
+        <Box cursor={"pointer"} marginRight={["10px"]} onClick={onWorkModalOpen} marginTop="10px" >
           <FaRegEdit />
         </Box>
 
-        <Box cursor={"pointer"} as="button" onClick={() => deleteWork(work.id, data.accessToken)} >
+        <Box cursor={"pointer"} as="button" onClick={() => deleteWork(work.id, data.accessToken, data.user.id)} marginTop="10px" >
           <FaTrash />
         </Box>
       </Flex>
@@ -54,9 +61,9 @@ export const CardWorks = ({ work }: PropsWorks) => {
         <Image
           w={["100%"]}
           h="100%"
-          objectFit={["cover"]}
+          objectFit="contain"
           borderRadius={["100%"]}
-          src={work.url}
+          src='https://png.pngtree.com/element_our/png_detail/20181015/graduation-hat-material-design-png_131387.jpg'
           alt="Imagem da Tecnologia"
         />
       </Box>
@@ -69,6 +76,7 @@ export const CardWorks = ({ work }: PropsWorks) => {
           {work.description}
         </Text>
       </Flex>
+      <WorkModal isOpen={isWorkModalOpen} onClose={onWorkModalClose} workId={work.id} workTitle={work.title} workDescriptionProp={work.description} />
     </Flex>
   );
 };

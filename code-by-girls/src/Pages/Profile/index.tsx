@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { useEffect } from "react";
 import { useProfile } from "../../Providers/Profile";
@@ -6,14 +6,28 @@ import { useLogin } from "../../Providers/Login";
 import { CardSkills } from "../../Components/CardSkills";
 import { CardWorks } from "../../Components/CardWorks";
 import Header from "../../Components/Header/header";
+import { TechModal } from "../../Components/Modal/TechModal";
+import { WorkModal } from "../../Components/Modal/WorkModal";
 
 export const Profile = () => {
-  const { getUserData, skills, works, createSkill, createWork } = useProfile();
+  const { getUserData, skills, works, createWork } = useProfile();
   const { data } = useLogin();
 
   useEffect(() => {
     getUserData(data.user.id, data.accessToken);
   }, []);
+
+  const {
+    isOpen: isSkillModalOpen,
+    onOpen: onSkillModalOpen,
+    onClose: onSkillModalClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isWorkModalOpen,
+    onOpen: onWorkModalOpen,
+    onClose: onWorkModalClose,
+  } = useDisclosure();
 
   return (
     <>
@@ -55,6 +69,7 @@ export const Profile = () => {
                 m="10"
                 fontSize="2xl"
                 color="white"
+                onClick={onSkillModalOpen}
               >
                 <BsFillPlusSquareFill />
               </Box>
@@ -95,6 +110,7 @@ export const Profile = () => {
                 m="10"
                 fontSize="2xl"
                 color="white"
+                onClick={onWorkModalOpen}
               >
                 <BsFillPlusSquareFill />
               </Box>
@@ -149,6 +165,8 @@ export const Profile = () => {
           </Box>
         </Flex>
       </Flex>
+      <TechModal isOpen={isSkillModalOpen} onClose={onSkillModalClose} skillId="" />
+      <WorkModal isOpen={isWorkModalOpen} onClose={onWorkModalClose} workId="" />
     </>
   );
 };

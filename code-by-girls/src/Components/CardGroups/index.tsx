@@ -16,7 +16,7 @@ export const CardGroup = ({ group, onClick }: PropsGroup) => {
     <Flex
       onClick={() => onClick(group)}
       w={["290px", "400px"]}
-      h={["121px"]}
+      h={["121px", "150px"]}
       shadow={["xl"]}
       padding={["6px", "5px"]}
       margin={"10px"}

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { CardGroup } from "../../Components/CardGroups";
 import Header from "../../Components/Header/header";
 import { ModalGroupsDetails } from "../../Components/Modal/ModalGroupsDetails";
+import { SkeletonGroups } from "../../Components/Skeletons/SkeletonGroups";
+import { SkeletonSearch } from "../../Components/Skeletons/SkeletonSearch";
 import { useDashboard } from "../../Providers/Dashboard";
 import { useLogin } from "../../Providers/Login";
 import { useProfile } from "../../Providers/Profile";
@@ -15,14 +17,16 @@ interface Groups {
 }
 
 const Dashboard = () => {
-  const { groups } = useDashboard();
+  const { groups, loadGroups, searchNotFound, notFound } = useDashboard();
   const { data } = useLogin();
   const { getUserData } = useProfile();
+  const [loadingGroups, setLoadingGroups] = useState(true);
 
   const [selectedGroup, setSelectedGroup] = useState<Groups>({} as Groups);
 
   useEffect(() => {
     getUserData(data.user.id, data.accessToken);
+    loadGroups(data.accessToken).then((_) => setLoadingGroups(false));
   }, []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,12 +45,18 @@ const Dashboard = () => {
         onClose={onClose}
       />
       <Flex justifyContent="center" mt="8">
-        <Flex w="80%" flexDir="row" flexWrap="wrap" justifyContent={"center"}>
-          {groups.map((item) => (
-            <Box key={item.id}>
-              <CardGroup group={item} onClick={handleClick} />
-            </Box>
-          ))}
+        <Flex w="75%" flexDir="row" flexWrap="wrap">
+          {notFound ? (
+            <SkeletonSearch />
+          ) : loadingGroups ? (
+            <SkeletonGroups repeatCount={6} m="10px" />
+          ) : (
+            groups?.map((item) => (
+              <Box key={item.id}>
+                <CardGroup onClick={onOpen} group={item} />
+              </Box>
+            ))
+          )}
         </Flex>
       </Flex>
     </Grid>

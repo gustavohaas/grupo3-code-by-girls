@@ -37,6 +37,7 @@ interface GroupsProviderProps {
   createGroup: ({ userId, groupName, description }: any) => void;
   createGroupData: (id: number) => void;
   dataGroup: Group;
+  subscribeGroup: (userId: any, name: any, groupId: any) => void;
 }
 
 interface GroupChildren {
@@ -103,8 +104,29 @@ const GroupsProvider = ({ children }: GroupChildren) => {
       .catch((err) => console.log(err));
   };
 
+  const subscribeGroup = ({ userId, name, groupId }: any) => {
+    api
+      .post(
+        "/subscribe",
+        {
+          userId,
+          name,
+          groupId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${data.accessToken}`,
+          },
+        }
+      )
+      .then((response) => console.log(response.data))
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <GroupsContext.Provider value={{ createGroup, dataGroup, createGroupData }}>
+    <GroupsContext.Provider
+      value={{ createGroup, dataGroup, createGroupData, subscribeGroup }}
+    >
       {children}
     </GroupsContext.Provider>
   );

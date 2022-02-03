@@ -34,7 +34,7 @@ interface Group {
 }
 
 interface GroupsProviderProps {
-  createGroup: ({ userId, groupName, description }: Group) => void;
+  createGroup: ({ userId, groupName, description }: any) => void;
   createGroupData: () => void;
   dataGroup: Group;
 }
@@ -59,7 +59,7 @@ const useGroup = () => {
 
 const GroupsProvider = ({ children }: GroupChildren) => {
   const { data } = useLogin();
-  const { id } = data.user;
+  // const { id } = data.user;
 
   const [dataGroup, setDataGroup] = useState({} as Group);
 
@@ -83,7 +83,7 @@ const GroupsProvider = ({ children }: GroupChildren) => {
       .then((response) => setDataGroup(response.data));
   };
 
-  const createGroup = ({ userId, groupName, description, url }: Group) => {
+  const createGroup = ({ userId, groupName, description, url }: any) => {
     api
       .post(
         "/works",

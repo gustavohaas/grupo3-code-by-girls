@@ -30,15 +30,17 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
   const [groupDescription, setGroupDescription] = useState("");
   const [groupImg, setGroupImg] = useState("");
   const { createGroup, dataGroup } = useGroup();
-  const { id } = dataGroup;
+
   const { data } = useLogin();
+  const { id } = data.user;
 
   const newGroupData = {
-    userId: data.user.id,
-    groupName: setGroup,
+    userId: id,
+    groupName: group,
     description: groupDescription,
-    url: setGroupImg,
+    url: groupImg,
   };
+
   return (
     <Modal
       initialFocusRef={initialRef}
@@ -63,6 +65,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
               Grupo
             </FormLabel>
             <Input
+              maxLength={25}
               onChangeCapture={(e) => setGroup(e.currentTarget.value)}
               ref={initialRef}
               placeholder="Nome do grupo"
@@ -100,6 +103,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
         <ModalFooter>
           <Button
+            onClick={() => createGroup(newGroupData)}
             disabled={!group}
             w="75%"
             _hover={{ bgColor: "purple.400" }}
@@ -110,7 +114,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
             Criar Grupo
           </Button>
           <Button
-            onClick={() => createGroup(newGroupData)}
+            onClick={onClose}
             _hover={{ bgColor: "gray.600", color: "gray.50" }}
           >
             Cancel

@@ -16,14 +16,14 @@ interface CommentData {
 export const Feed = () => {
   const [newComment, setNewComment] = useState("");
   const { data } = useLogin();
-  const { name } = data.user;
+  const { userName } = data.user;
   const { dataGroup, createGroup, createGroupData } = useGroup();
   const { id, comments } = dataGroup;
   const userId = Number(data.user.id);
 
   const newData = {
     userId: userId,
-    name: name,
+    name: userName,
     comment: newComment,
     groupId: id,
   };
@@ -82,7 +82,7 @@ export const Feed = () => {
                 h="36.81px"
                 margin={"10px"}
               ></Image>
-              <Heading fontSize={"1rem"}>{name}</Heading>
+              <Heading fontSize={"1rem"}>{userName}</Heading>
             </Flex>
 
             <Box padding={"10px"}>{post.comment}</Box>

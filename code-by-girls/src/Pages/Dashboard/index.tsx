@@ -49,7 +49,7 @@ const Dashboard = () => {
           {notFound ? (
             <SkeletonSearch />
           ) : loadingGroups ? (
-            <SkeletonGroups repeatCount={6} m="10px" />
+            <SkeletonGroups repeatCount={groups.length} m="10px" />
           ) : (
             groups?.map((item) => (
               <Box key={item.id}>

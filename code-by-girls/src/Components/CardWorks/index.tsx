@@ -83,7 +83,7 @@ export const CardWorks = ({ work }: PropsWorks) => {
         />
       </Box>
 
-      <Flex flexDir={["column"]}>
+      <Flex mt="12px" flexDir={["column"]}>
         <Heading wordBreak={"break-word"} fontSize={["18px"]}>
           {work.title}
         </Heading>

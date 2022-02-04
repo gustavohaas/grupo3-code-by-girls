@@ -20,6 +20,7 @@ import { DialogSkills } from "../../Components/Dialogs/DialogSkills";
 import { useGroup } from "../../Providers/Groups";
 import { ImEnter } from "react-icons/im";
 import { useHistory } from "react-router-dom";
+import { CardGroupsPerfil } from "../../Components/CardGroupsPerfil";
 
 export const Profile = () => {
   const { getUserData, skills, works } = useProfile();
@@ -52,9 +53,9 @@ export const Profile = () => {
       <Flex
         w="100vw"
         bg="gray.50"
-        justifyContent={["flex-start", "center", "center", "center"]}
+        justifyContent={["flex-start", "flex-start", "center", "center"]}
         flexDir={["column", "column", "row", "row"]}
-        alignItems="center"
+        alignItems={["center", "flex-start"]}
       >
         <Flex
           flexDir="column"
@@ -95,9 +96,10 @@ export const Profile = () => {
               bg="white"
               border="2px solid"
               borderColor="purple.400"
-              h={["130", "130", "260", "260", "298px"]}
+              h={["340", "340"]}
               flexWrap={"wrap"}
               overflowY={"scroll"}
+              justifyContent={["center", "center", "justify-between"]}
             >
               {skills.length > 0 ? (
                 skills?.map((skill) => <CardSkills skill={skill} />)
@@ -140,9 +142,10 @@ export const Profile = () => {
               bg="white"
               border="2px solid"
               borderColor="purple.400"
-              h={["130", "130", "260", "260", "298px"]}
+              h={["340", "340"]}
               flexWrap={"wrap"}
               overflowY={"scroll"}
+              justifyContent={["center", "center", "justify-between"]}
             >
               {works.length > 0 ? (
                 works?.map((work) => <CardWorks work={work} />)
@@ -157,11 +160,10 @@ export const Profile = () => {
           w={["100vw", "90vw", "50vw", "50vw", "30vw"]}
           flexDir="column"
           alignItems="center"
-          mt={["5", "5", "9", "0", "0"]}
-          pt={[0, 0, "10", "auto", "10"]}
+          mt={["5", "5", "9"]}
         >
           <Box
-            h="98vh"
+            h="100%"
             w={["90%", "80%", "90%", "90%", "90%"]}
             alignItems="center"
             marginX={["none", "5", "5", "5"]}
@@ -182,71 +184,22 @@ export const Profile = () => {
               </Heading>
             </Box>
             <Flex
-              h={["130", "130", "82%", "84%", "84%", "90%"]}
+              h={["320px"]}
               bg="white"
               border="2px solid"
               borderColor="purple.400"
               overflowY={"scroll"}
             >
-              <Flex justifyContent="center" mt="8">
-                <Flex w="75%" flexDir="row" flexWrap="wrap">
+              <Flex alignItems={"flex-start"} justifyContent="center">
+                <Flex
+                  padding={"10px 0"}
+                  w="100%"
+                  mb="20px"
+                  flexDir="row"
+                  flexWrap="wrap"
+                >
                   {groupList?.map((item) => (
-                    <Flex
-                      w={["290px", "400px"]}
-                      h={["121px", "150px"]}
-                      shadow={["xl"]}
-                      padding={["6px", "5px"]}
-                      margin={"10px"}
-                      borderRadius="10px"
-                      borderColor={"purple.100"}
-                      border={["1px solid", "none"]}
-                      _hover={{
-                        bg: "purple.50",
-                      }}
-                    >
-                      <Box
-                        w={["50px", "100px"]}
-                        h={["50px", "80px"]}
-                        marginRight={["10px"]}
-                      >
-                        <Image
-                          w={["100%"]}
-                          h="100%"
-                          borderRadius={["100%"]}
-                          src={item.url}
-                          alt="Imagem da Tecnologia"
-                        />
-                      </Box>
-
-                      <Flex flexDir={["column"]} ml="5">
-                        <Heading
-                          wordBreak={"break-word"}
-                          fontSize={["20px"]}
-                          mt={["5", "none"]}
-                        >
-                          {item.groupName}
-                        </Heading>
-                        <Button
-                          onClick={() => {
-                            createGroupData(item.groupId);
-                            history.push(`/groups`);
-                          }}
-                          bg="purple.500"
-                          color="white"
-                          _hover={{ bg: "purple.100" }}
-                        >
-                          <Box display={["none", "block", "block", "block"]}>
-                            Página do Grupo
-                          </Box>
-                          <Box
-                            display={["block", "none", "none", "none"]}
-                            fontSize="25px"
-                          >
-                            <ImEnter />
-                          </Box>
-                        </Button>
-                      </Flex>
-                    </Flex>
+                    <CardGroupsPerfil item={item} />
                   ))}
                 </Flex>
               </Flex>

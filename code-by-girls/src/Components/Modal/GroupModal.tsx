@@ -89,7 +89,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
 
           <FormControl mt={4}>
             <FormLabel fontWeight="700" margin="0px 0px 2px 5px">
-              Imagem do grupo z
+              Imagem do grupo
             </FormLabel>
             <Input
               onChangeCapture={(e) => setGroupImg(e.currentTarget.value)}

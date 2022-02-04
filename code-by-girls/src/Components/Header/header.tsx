@@ -43,8 +43,6 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
   const { profileImageUrl, profileLinkedin } = useProfile();
   let history = useHistory();
 
-  const name = data.user.name;
-
   const {
     isOpen: isGroupModalOpen,
     onOpen: onGroupModalOpen,
@@ -144,7 +142,7 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
           </Grid>
         </Grid>
         <Text fontWeight={"normal"} fontSize={"25px"} color={"gray.200"}>
-          {name}
+          {data.user.userName}
         </Text>
       </HStack>
       {profileLinkedin ? (

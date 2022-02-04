@@ -16,8 +16,7 @@ import {
 
 import React, { useState } from "react";
 import { useLogin } from "../../Providers/Login";
-import { useProfile } from "../../Providers/Profile"
-
+import { useProfile } from "../../Providers/Profile";
 
 interface TechModalProps {
   isOpen: boolean;
@@ -27,7 +26,13 @@ interface TechModalProps {
   skillLevel?: string;
 }
 
-export const TechModal = ({ isOpen, onClose, skillId, skillTitle, skillLevel }: TechModalProps) => {
+export const TechModal = ({
+  isOpen,
+  onClose,
+  skillId,
+  skillTitle,
+  skillLevel,
+}: TechModalProps) => {
   const initialRef = React.useRef<any>();
   const finalRef = React.useRef<any>();
 
@@ -38,14 +43,14 @@ export const TechModal = ({ isOpen, onClose, skillId, skillTitle, skillLevel }: 
   const [techsLevel, setTechsLevel] = useState("");
 
   const handleEdit = () => {
-    editSkill(skillId, tech, techsLevel, data.accessToken, data.user.id)
-    onClose()
-  }
+    editSkill(skillId, tech, techsLevel, data.accessToken, data.user.id);
+    onClose();
+  };
 
   const handleCreate = () => {
-    createSkill(data.user.id, tech, techsLevel, data.accessToken)
-    onClose()
-  }
+    createSkill(data.user.id, tech, techsLevel, data.accessToken);
+    onClose();
+  };
 
   return (
     <Modal
@@ -73,7 +78,7 @@ export const TechModal = ({ isOpen, onClose, skillId, skillTitle, skillLevel }: 
             <Input
               onChangeCapture={(e) => setTech(e.currentTarget.value)}
               ref={initialRef}
-              placeholder="Nome da tecnologia"
+              placeholder="Nome da habilidade"
               _hover={{ borderColor: "purple.500" }}
             />
           </FormControl>

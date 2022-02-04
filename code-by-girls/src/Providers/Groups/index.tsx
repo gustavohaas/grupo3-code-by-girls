@@ -59,7 +59,6 @@ const useGroup = () => {
 
 const GroupsProvider = ({ children }: GroupChildren) => {
   const { data } = useLogin();
-
   const [dataGroup, setDataGroup] = useState({} as Group);
   const [groupList, setGroupList] = useState<SubGroups[]>([]);
 

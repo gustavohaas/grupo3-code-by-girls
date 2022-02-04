@@ -4,9 +4,7 @@ import { Home } from "../Pages/Home";
 import { Register } from "../Pages/Register";
 import { Route } from "./Route";
 import { Groups } from "../Pages/Groups";
-
 import Dashboard from "../Pages/Dashboard";
-
 import { Profile } from "../Pages/Profile";
 import { PageError } from "../Components/PageError";
 

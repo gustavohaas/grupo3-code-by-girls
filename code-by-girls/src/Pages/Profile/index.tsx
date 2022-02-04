@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { useEffect } from "react";
 import { useProfile } from "../../Providers/Profile";
@@ -18,16 +11,12 @@ import { WorkModal } from "../../Components/Modal/WorkModal";
 import { DialogWorks } from "../../Components/Dialogs/DialogWorks";
 import { DialogSkills } from "../../Components/Dialogs/DialogSkills";
 import { useGroup } from "../../Providers/Groups";
-import { ImEnter } from "react-icons/im";
-import { useHistory } from "react-router-dom";
 import { CardGroupsPerfil } from "../../Components/CardGroupsPerfil";
 
 export const Profile = () => {
   const { getUserData, skills, works } = useProfile();
   const { data } = useLogin();
   const { groupList, createGroupData, getSubscribeGroups } = useGroup();
-
-  const history = useHistory();
 
   useEffect(() => {
     getUserData(data.user.id, data.accessToken);
@@ -146,6 +135,8 @@ export const Profile = () => {
               flexWrap={"wrap"}
               overflowY={"scroll"}
               justifyContent={["center", "center", "justify-between"]}
+              flexDir={"column"}
+              alignItems={"center"}
             >
               {works.length > 0 ? (
                 works?.map((work) => <CardWorks work={work} />)
@@ -158,7 +149,7 @@ export const Profile = () => {
 
         <Flex
           w={["100vw", "90vw", "50vw", "50vw", "30vw"]}
-          flexDir="column"
+          flexDir="row"
           alignItems="center"
           mt={["5", "5", "9"]}
         >

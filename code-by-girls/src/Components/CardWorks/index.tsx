@@ -1,13 +1,12 @@
 import {
   Box,
-  Center,
   Flex,
   Heading,
   Image,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
+
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { useLogin } from "../../Providers/Login";
 import { useProfile } from "../../Providers/Profile";
@@ -26,8 +25,6 @@ interface PropsWorks {
 }
 
 export const CardWorks = ({ work }: PropsWorks) => {
-  const [isTrue, setIsTrue] = useState(false);
-
   const { deleteWork } = useProfile();
   const { data } = useLogin();
 

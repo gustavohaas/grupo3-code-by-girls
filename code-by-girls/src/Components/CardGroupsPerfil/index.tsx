@@ -30,7 +30,7 @@ export const CardGroupsPerfil = ({ item }: CardsGroupProps) => {
         bg: "purple.50",
       }}
     >
-      <Box w={["50px", "100px"]} h={["50px", "80px"]} marginRight={["10px"]}>
+      <Box w={["80px", "100px"]} h={["80px", "80px"]} marginRight={["10px"]}>
         <Image
           w={["100%"]}
           h="100%"
@@ -40,7 +40,7 @@ export const CardGroupsPerfil = ({ item }: CardsGroupProps) => {
         />
       </Box>
 
-      <Flex flexDir={["row", "column"]} ml="5">
+      <Flex flexDir={["column"]} ml="5">
         <Heading
           wordBreak={"break-word"}
           fontSize={["20px"]}

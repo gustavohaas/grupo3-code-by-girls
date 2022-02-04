@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
-import { useDashboard } from "../../Providers/Dashboard";
 import { useGroup } from "../../Providers/Groups";
 import { useLogin } from "../../Providers/Login";
 
@@ -30,8 +29,7 @@ export const GroupModal = ({ isOpen, onClose }: GroupModalProps) => {
   const [group, setGroup] = useState("");
   const [groupDescription, setGroupDescription] = useState("");
   const [groupImg, setGroupImg] = useState("");
-  const { createGroup, dataGroup } = useGroup();
-  const { loadGroups } = useDashboard();
+  const { createGroup } = useGroup();
   const { data } = useLogin();
   const { id } = data.user;
 

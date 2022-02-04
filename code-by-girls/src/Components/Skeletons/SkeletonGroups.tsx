@@ -1,4 +1,4 @@
-import { Box, Flex, Skeleton, SkeletonProps } from "@chakra-ui/react";
+import { Box, Skeleton, SkeletonProps } from "@chakra-ui/react";
 
 interface CardSkeletonProps extends SkeletonProps {
   repeatCount: number;

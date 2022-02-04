@@ -60,7 +60,6 @@ export const ModalGroupsDetails = ({
           },
         }
       )
-      .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
   };
 

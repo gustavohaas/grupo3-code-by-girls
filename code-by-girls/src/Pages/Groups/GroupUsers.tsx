@@ -1,10 +1,8 @@
-import { Flex, Grid, Heading, Image } from "@chakra-ui/react";
+import { Flex, Heading, Image } from "@chakra-ui/react";
 import group from "../../Assets/dinamica-de-grupo-mini-750x387 6 (2).png";
 import { useGroup } from "../../Providers/Groups";
-import { useLogin } from "../../Providers/Login";
 
 export const GroupUsers = () => {
-  const { data } = useLogin();
   const { dataGroup } = useGroup();
   const { subscribe } = dataGroup;
 

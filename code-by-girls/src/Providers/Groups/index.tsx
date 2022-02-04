@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-
 import { api } from "../../Services/api";
 import { useLogin } from "../Login/index";
 
@@ -34,7 +33,6 @@ interface Group {
 
 interface GroupsProviderProps {
   createGroup: ({ userId, groupName, description }: any) => void;
-
   dataGroup: Group;
   createGroupData: (id: number) => void;
   groupList: SubGroups[] | undefined;
@@ -61,7 +59,6 @@ const useGroup = () => {
 
 const GroupsProvider = ({ children }: GroupChildren) => {
   const { data } = useLogin();
-
   const [dataGroup, setDataGroup] = useState({} as Group);
   const [groupList, setGroupList] = useState<SubGroups[]>([]);
 
@@ -101,7 +98,6 @@ const GroupsProvider = ({ children }: GroupChildren) => {
           },
         }
       )
-      .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
   };
 

@@ -1,5 +1,4 @@
 import { Center } from "@chakra-ui/react";
-
 import { LoginForm } from "./FormLogin";
 import { LoginInfo } from "./InfoLogin";
 

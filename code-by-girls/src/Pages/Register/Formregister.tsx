@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -17,11 +17,6 @@ import * as yup from "yup";
 
 import { useRegister } from "../../Providers/Register/index";
 import { Input } from "../../Components/Form/input";
-
-interface RegisterData extends FieldValues {
-  password: string;
-  email: string;
-}
 
 export const RegisterForm = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -44,7 +39,6 @@ export const RegisterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });

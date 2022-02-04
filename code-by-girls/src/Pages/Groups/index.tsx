@@ -1,6 +1,5 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import Header from "../../Components/Header/header";
-import { useLogin } from "../../Providers/Login";
 import { Feed } from "./Feed";
 import { GroupUsers } from "./GroupUsers";
 import { useGroup } from "../../Providers/Groups";

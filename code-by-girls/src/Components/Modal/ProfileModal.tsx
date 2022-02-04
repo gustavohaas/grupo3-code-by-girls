@@ -10,7 +10,6 @@ import { useHistory } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { GiExitDoor } from "react-icons/gi";
-
 import { useLogin } from "../../Providers/Login";
 import { GroupModal } from "./GroupModal";
 

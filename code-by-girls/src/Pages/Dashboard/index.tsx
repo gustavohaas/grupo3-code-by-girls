@@ -17,7 +17,7 @@ interface Groups {
 }
 
 const Dashboard = () => {
-  const { groups, loadGroups, searchNotFound, notFound } = useDashboard();
+  const { groups, loadGroups, notFound } = useDashboard();
   const { data } = useLogin();
   const { getUserData, getProfile } = useProfile();
   const [loadingGroups, setLoadingGroups] = useState(true);
@@ -25,7 +25,7 @@ const Dashboard = () => {
   const [selectedGroup, setSelectedGroup] = useState<Groups>({} as Groups);
 
   useEffect(() => {
-    getProfile(data.user.id, data.accessToken)
+    getProfile(data.user.id, data.accessToken);
     getUserData(data.user.id, data.accessToken);
     loadGroups(data.accessToken).then((_) => setLoadingGroups(false));
   }, []);

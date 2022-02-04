@@ -6,7 +6,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
+
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import { useLogin } from "../../Providers/Login";
 import { useProfile } from "../../Providers/Profile";
@@ -25,9 +25,7 @@ interface PropsSkill {
 }
 
 export const CardSkills = ({ skill }: PropsSkill) => {
-  const [isTrue, setIsTrue] = useState(false);
-
-  const { deleteSkill, editSkill } = useProfile();
+  const { deleteSkill } = useProfile();
   const { data } = useLogin();
 
   const {

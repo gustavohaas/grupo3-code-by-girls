@@ -108,9 +108,9 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
                     marginX="5px"
                   >
                     <Button
+                      bg="none"
                       onClick={onProfileImageModalOpen}
                       hover={{
-                        bgColor: "gray.50",
                         color: "gray.900",
                         textDecoration: "underline",
                       }}
@@ -127,9 +127,9 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
                     marginX="5px"
                   >
                     <Button
+                      bg="none"
                       onClick={onProfileLinkedinModalOpen}
                       hover={{
-                        bgColor: "gray.50",
                         color: "gray.900",
                         textDecoration: "underline",
                       }}
@@ -233,8 +233,8 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
               >
                 <Button
                   onClick={() => handleClick("/profile")}
+                  bg="none"
                   _hover={{
-                    bgColor: "gray.50",
                     color: "gray.900",
                     textDecoration: "underline",
                   }}
@@ -251,8 +251,8 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
               >
                 <Button
                   onClick={() => handleClick("/dashboard")}
+                  bg="none"
                   _hover={{
-                    bgColor: "gray.50",
                     color: "gray.900",
                     textDecoration: "underline",
                   }}
@@ -268,9 +268,9 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
               justifyContent={"space-between"}
             >
               <Button
+                bg="none"
                 onClick={onGroupModalOpen}
                 _hover={{
-                  bgColor: "gray.50",
                   color: "gray.900",
                   textDecoration: "underline",
                 }}
@@ -286,9 +286,9 @@ const Header = ({ input, profile, linkedin }: HeaderProps) => {
               marginBottom={"15px"}
             >
               <Button
+                bg="none"
                 onClick={() => handleSignOut()}
                 _hover={{
-                  bgColor: "gray.50",
                   color: "gray.900",
                   textDecoration: "underline",
                 }}

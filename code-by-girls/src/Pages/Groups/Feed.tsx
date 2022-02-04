@@ -6,13 +6,6 @@ import { useLogin } from "../../Providers/Login/index";
 import { useGroup } from "../../Providers/Groups/index";
 import { useState } from "react";
 
-interface CommentData {
-  userId: number;
-  name: string;
-  comment: string;
-  groupId: number;
-}
-
 export const Feed = () => {
   const [newComment, setNewComment] = useState("");
   const { data } = useLogin();

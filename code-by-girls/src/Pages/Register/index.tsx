@@ -1,5 +1,4 @@
 import { Center, Flex } from "@chakra-ui/react";
-
 import { RegisterForm } from "./Formregister";
 import { RegisterInfo } from "./InfoRegister";
 
@@ -34,7 +33,6 @@ export const Register = () => {
         top="4px"
         left="10px"
       >
-        {" "}
         <span style={{ fontSize: "1.3rem" }}>
           <sup>&copy;</sup>
         </span>

@@ -57,7 +57,7 @@ export const CardGroup = ({ group, onClick }: PropsGroup) => {
           w="280px"
           p="2"
         >
-          {group.description}
+          {group.description?.toUpperCase()}
         </Text>
       </Flex>
     </Flex>

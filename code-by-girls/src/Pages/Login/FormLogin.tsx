@@ -21,14 +21,8 @@ import { Input } from "../../Components/Form/input";
 import { useLogin } from "../../Providers/Login";
 import logo from "../../Assets/logo.svg";
 
-interface SignInData {
-  email: string;
-  password: string;
-}
-
 export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isModal, setIsModal] = useState("");
 
   const toast = useToast();
 
@@ -58,7 +52,6 @@ export const LoginForm = () => {
           status: "success",
           isClosable: true,
         });
-        //history.push("/dashboard")
       })
       .catch((_) => {
         setIsLoading(false);
@@ -101,7 +94,7 @@ export const LoginForm = () => {
         <VStack mt="5" spacing="5">
           <Box w="100%">
             <Input
-              placeholder="Digite seu login"
+              placeholder="Digite seu Email"
               icon={FaEnvelope}
               {...register("email")}
               label="Email"

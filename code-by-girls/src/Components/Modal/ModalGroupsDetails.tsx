@@ -10,6 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { FaWindowClose } from "react-icons/fa";
@@ -40,6 +41,8 @@ export const ModalGroupsDetails = ({
   const history = useHistory();
   const { data } = useLogin();
   const { createGroupData } = useGroup();
+
+  const toast = useToast();
 
   const subscribeGroup = ({ userId, groupName, groupId, url }: any) => {
     api
@@ -87,7 +90,15 @@ export const ModalGroupsDetails = ({
           <Flex w={["350px", ""]} justifyContent={["space-around", ""]}>
             <Flex alignContent="center" alignItems={"center"}>
               <Button
-                onClick={() => subscribeGroup(newSubData)}
+                onClick={() => {
+                  subscribeGroup(newSubData);
+                  onClose();
+                  toast({
+                    title: `Você agora está inscrito no grupo: ${group.groupName}!`,
+                    status: "success",
+                    isClosable: true,
+                  });
+                }}
                 m={["1", "3"]}
                 bg="purple.500"
                 color="white"
